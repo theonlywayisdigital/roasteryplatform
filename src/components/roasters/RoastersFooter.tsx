@@ -27,11 +27,7 @@ const footerLinks = {
   ],
 };
 
-interface RoastersFooterProps {
-  logoUrl?: string | null;
-}
-
-export function RoastersFooter({ logoUrl }: RoastersFooterProps) {
+export function RoastersFooter() {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -41,19 +37,13 @@ export function RoastersFooter({ logoUrl }: RoastersFooterProps) {
           {/* Brand */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block">
-              {logoUrl ? (
-                <Image
-                  src={logoUrl}
-                  alt="Ghost Roastery"
-                  width={400}
-                  height={100}
-                  className="h-[100px] w-auto invert"
-                />
-              ) : (
-                <span className="text-2xl font-black tracking-tight text-neutral-900">
-                  GHOST ROASTERY
-                </span>
-              )}
+              <Image
+                src="/ghost-roastery-platform-logo.png"
+                alt="Roastery Platform"
+                width={400}
+                height={100}
+                className="h-[60px] w-auto"
+              />
             </Link>
             <p className="mt-4 text-neutral-600 max-w-sm">
               The all-in-one platform for coffee roasters. Sell online, manage wholesale, and grow your business.

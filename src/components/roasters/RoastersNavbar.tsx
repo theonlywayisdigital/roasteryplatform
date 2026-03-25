@@ -348,11 +348,7 @@ function MenuItem({
 
 /* ── Main component ────────────────────────────────────── */
 
-interface RoastersNavbarProps {
-  logoUrl?: string | null;
-}
-
-export function RoastersNavbar({ logoUrl }: RoastersNavbarProps) {
+export function RoastersNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const [topBarVisible, setTopBarVisible] = useState(true);
@@ -411,7 +407,7 @@ export function RoastersNavbar({ logoUrl }: RoastersNavbarProps) {
           {/* Logo */}
           <Link href="/" onClick={handleNavClick} className="flex-shrink-0 flex items-center">
             <Image
-              src={logoUrl || "/ghost-roastery-platform-logo.png"}
+              src="/ghost-roastery-platform-logo.png"
               alt="Roastery Platform"
               width={400}
               height={100}
