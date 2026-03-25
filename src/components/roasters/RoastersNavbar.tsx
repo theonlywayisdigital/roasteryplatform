@@ -352,7 +352,7 @@ interface RoastersNavbarProps {
   logoUrl?: string | null;
 }
 
-export function RoastersNavbar({ }: RoastersNavbarProps) {
+export function RoastersNavbar({ logoUrl }: RoastersNavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileAccordion, setMobileAccordion] = useState<string | null>(null);
   const [topBarVisible, setTopBarVisible] = useState(true);
@@ -411,8 +411,8 @@ export function RoastersNavbar({ }: RoastersNavbarProps) {
           {/* Logo */}
           <Link href="/" onClick={handleNavClick} className="flex-shrink-0 flex items-center">
             <Image
-              src="/ghost-roastery-platform-logo.png"
-              alt="Ghost Roastery Platform"
+              src={logoUrl || "/ghost-roastery-platform-logo.png"}
+              alt="Roastery Platform"
               width={400}
               height={100}
               className="h-14 lg:h-[80px] w-auto"
