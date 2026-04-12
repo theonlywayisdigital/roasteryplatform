@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { ArrowRight, CheckCircle } from "@phosphor-icons/react/dist/ssr";
+import { FeatureIllustration, animatedSlugs } from "@/components/feature-animations";
 import { client, urlFor } from "@/sanity/lib/client";
 import { roasterFeatureDetailBySlugQuery, allRoasterFeatureDetailSlugsQuery } from "@/sanity/lib/queries";
 
@@ -146,8 +147,10 @@ export default async function FeatureDetailPage({
               </div>
             )}
 
-            {/* Screenshot */}
-            {detail.screenshot ? (
+            {/* Illustration / Screenshot */}
+            {animatedSlugs.has(slug) ? (
+              <FeatureIllustration slug={slug} />
+            ) : detail.screenshot ? (
               <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200 shadow-lg">
                 <Image
                   src={urlFor(detail.screenshot).width(800).height(600).url()}
