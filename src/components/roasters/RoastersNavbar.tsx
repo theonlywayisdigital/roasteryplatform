@@ -419,6 +419,15 @@ export function RoastersNavbar() {
           {/* ─── Desktop Navigation ─── */}
           <div className="hidden lg:flex items-center justify-center flex-1 px-8">
             <div className="flex items-center gap-1">
+              {/* How It Works — plain link */}
+              <Link
+                href="/how-it-works"
+                onClick={handleNavClick}
+                className="px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-100 transition-colors rounded-md"
+              >
+                How It Works
+              </Link>
+
               {/* Products mega menu */}
               <MegaMenuTrigger label="Products" hasTopBar={topBarVisible}>
                 <div className="flex gap-8">
@@ -556,6 +565,15 @@ export function RoastersNavbar() {
           )}
         >
           <div className="py-4 space-y-1 border-t border-neutral-200">
+            {/* How It Works link */}
+            <Link
+              href="/how-it-works"
+              onClick={() => { setMobileOpen(false); handleNavClick(); }}
+              className="block px-4 py-3 text-base font-medium text-neutral-900 hover:bg-neutral-100 rounded-md transition-colors"
+            >
+              How It Works
+            </Link>
+
             {/* Products accordion */}
             <button
               onClick={() => toggleAccordion("products")}
