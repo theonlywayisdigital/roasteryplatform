@@ -4,18 +4,16 @@ import {
   Calendar,
   Envelope,
   ShareNetwork,
-  Lightning,
   Code,
-  Sparkle,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
 
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Marketing Suite — Email, Social, Automations & AI",
+  title: "Marketing Suite — Email, Social & Content Tools",
   description:
-    "Grow your coffee brand on autopilot. Email campaigns, social scheduling, automations, and AI-powered content — from £19/mo.",
+    "Grow your coffee brand on autopilot. Email campaigns, social scheduling, content calendar, and embedded forms — from £19/mo.",
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
@@ -43,25 +41,11 @@ const features = [
     icon: ShareNetwork,
   },
   {
-    title: "Automations",
-    description:
-      "Build automated workflows — welcome sequences, abandoned cart recovery, and re-engagement campaigns.",
-    href: "/features/automations",
-    icon: Lightning,
-  },
-  {
     title: "Embedded Forms",
     description:
       "Capture leads and grow your audience with embeddable signup and contact forms.",
     href: "/features/embedded-forms",
     icon: Code,
-  },
-  {
-    title: "AI Studio",
-    description:
-      "Generate product descriptions, social captions, email copy, and marketing images with AI.",
-    href: "/features/ai-studio",
-    icon: Sparkle,
   },
 ];
 
@@ -75,8 +59,8 @@ export default function MarketingSuitePage() {
             Marketing <span className="text-accent">Suite</span>
           </h1>
           <p className="text-lg sm:text-xl text-neutral-600 max-w-2xl mx-auto mb-3">
-            Everything you need to grow your roastery brand — from email
-            campaigns and automations to AI-powered content and analytics.
+            Everything you need to grow your roastery brand — email
+            campaigns, social scheduling, content planning, and lead capture.
           </p>
           <p className="text-sm font-medium text-accent">
             From £19/mo — add-on to Sales Suite

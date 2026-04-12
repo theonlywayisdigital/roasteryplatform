@@ -12,8 +12,6 @@ import {
   Receipt,
   Envelope,
   ShareNetwork,
-  Lightning,
-  Sparkle,
   BookOpen,
   Users,
   Info,
@@ -88,12 +86,10 @@ const productsSections = [
     priceLabel: "From £19/mo",
     allHref: "/features/marketing",
     mobileIcon: Envelope,
-    mobileDesc: "Email campaigns, social, automations & AI",
+    mobileDesc: "Email campaigns, social scheduling & forms",
     items: [
       { icon: Envelope, label: "Email Campaigns", desc: "Beautiful emails that drive repeat orders", href: "/features/email-campaigns" },
       { icon: ShareNetwork, label: "Social Scheduling", desc: "Plan and publish across all channels", href: "/features/social-scheduling" },
-      { icon: Lightning, label: "Automations", desc: "Set it and forget it workflows", href: "/features/automations" },
-      { icon: Sparkle, label: "AI Studio", desc: "AI-powered copy, images and insights", href: "/features/ai-studio" },
     ],
   },
   {

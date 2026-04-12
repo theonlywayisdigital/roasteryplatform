@@ -9,9 +9,7 @@ import {
   Calendar,
   Envelope,
   ShareNetwork,
-  Lightning,
   Code,
-  Sparkle,
   ArrowRight,
   CaretRight,
   Leaf,
@@ -128,25 +126,11 @@ const marketingFeatures: DefaultFeature[] = [
     href: "/features/social-scheduling",
   },
   {
-    icon: <Lightning size={28} weight="duotone" />,
-    title: "Automations",
-    description:
-      "Build automated workflows — welcome sequences, abandoned carts, and re-engagement.",
-    href: "/features/automations",
-  },
-  {
     icon: <Code size={28} weight="duotone" />,
     title: "Embedded Forms",
     description:
       "Capture leads and grow your audience with embeddable signup and contact forms.",
     href: "/features/embedded-forms",
-  },
-  {
-    icon: <Sparkle size={28} weight="duotone" />,
-    title: "AI Studio",
-    description:
-      "Generate product descriptions, social captions, email copy, and marketing images with AI.",
-    href: "/features/ai-studio",
   },
 ];
 
@@ -206,9 +190,7 @@ const iconMap: Record<string, React.ReactNode> = {
   "calendar-days": <Calendar size={28} weight="duotone" />,
   mail: <Envelope size={28} weight="duotone" />,
   share2: <ShareNetwork size={28} weight="duotone" />,
-  zap: <Lightning size={28} weight="duotone" />,
   code2: <Code size={28} weight="duotone" />,
-  sparkles: <Sparkle size={28} weight="duotone" />,
   package: <Package size={28} weight="duotone" />,
 };
 

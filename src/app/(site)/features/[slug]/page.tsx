@@ -28,6 +28,8 @@ const hiddenSlugs = new Set([
   "marketing-analytics",
   "marketing-websites",
   "marketplace",
+  "ai-studio",
+  "automations",
 ]);
 
 interface FeatureDetail {

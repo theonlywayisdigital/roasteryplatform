@@ -93,7 +93,7 @@ const suites: Suite[] = [
   {
     key: "marketing",
     label: "Marketing Suite",
-    subtitle: "Email, social, automations, and AI — grow your brand on autopilot",
+    subtitle: "Email, social scheduling, content calendar & forms — grow your brand on autopilot",
     isAddOn: true,
     tiers: [
       {
@@ -128,7 +128,6 @@ const suites: Suite[] = [
       { label: "Content Calendar", values: [true, true, true] },
       { label: "Social Scheduling", values: [true, true, true] },
       { label: "Embedded Forms", values: ["3", "10", "25"] },
-      { label: "AI Credits / month", values: ["150", "500", "2,000"] },
     ],
   },
 ];
