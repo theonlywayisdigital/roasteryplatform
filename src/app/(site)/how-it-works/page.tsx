@@ -3,8 +3,8 @@ import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import {
   Scene1AddGreenStock,
   Scene2LogRoast,
-  Scene3BuildProducts,
   Scene4WholesalePortal,
+  SceneProductsAndIntegrations,
   Scene5BuyersOrder,
   Scene6Invoice,
   Act2Features,
@@ -57,8 +57,8 @@ export default function HowItWorksPage() {
       <div className="bg-white divide-y divide-neutral-100">
         <Scene1AddGreenStock />
         <Scene2LogRoast />
-        <Scene3BuildProducts />
         <Scene4WholesalePortal />
+        <SceneProductsAndIntegrations />
         <Scene5BuyersOrder />
         <Scene6Invoice />
       </div>

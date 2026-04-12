@@ -10,13 +10,11 @@ import {
   Package,
   Storefront,
   ShoppingCart,
-  Receipt,
   PlusCircle,
   TrendDown,
   TrendUp,
   Envelope,
   CalendarBlank,
-  Lightning,
   Plugs,
 } from "@phosphor-icons/react";
 
@@ -424,106 +422,180 @@ export function Scene2LogRoast() {
 }
 
 /* ═══════════════════════════════════════════════════════
-   SCENE 3 — Build Your Products
+   SCENE — Products & Integrations (combined)
    ═══════════════════════════════════════════════════════ */
 
-export function Scene3BuildProducts() {
+const integrations = [
+  { name: "Shopify", color: "#96BF48" },
+  { name: "WooCommerce", color: "#7F54B3" },
+  { name: "Wix", color: "#0C6EFC" },
+  { name: "Squarespace", color: "#000000" },
+];
+
+export function SceneProductsAndIntegrations() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const products = [
-    { name: "Ethiopia Single Origin", weight: "250g", price: "£9.50" },
-    { name: "House Blend", weight: "1kg", price: "£28.00" },
-    { name: "Espresso Dark", weight: "500g", price: "£14.00" },
-  ];
-
   return (
     <Scene
-      id="scene-3"
-      headline="Turn your roasts into products."
-      subheadline="Create bags, blends and variants. Set your prices, define your weights — your full product range in one place."
+      id="scene-products"
+      headline="Add your products. Sell everywhere."
+      subheadline="Build your product range and map it directly to your roasted stock. Publish to your wholesale portal or connect your existing online store — Shopify, WooCommerce, Wix or Squarespace."
     >
       <FadeIn direction="right" duration={DUR.card}>
-        <div ref={ref} className="space-y-4">
-          <MockupCard>
-            <div className="flex items-center gap-2 mb-5">
+        <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Left — Product card being built */}
+          <MockupCard className="space-y-3">
+            <div className="flex items-center gap-2 mb-2">
               <Package size={20} weight="duotone" className="text-[#2563EB]" />
               <span className="text-sm font-semibold text-neutral-900">
                 Add Product
               </span>
             </div>
-            <div className="space-y-3">
-              <MockupField
-                label="Product Name"
-                value="Ethiopia Single Origin"
-                delay={0.2}
-                isInView={isInView}
-              />
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: DUR.field, delay: 0.2 + STAGGER.field, ease: EASE }}
-              >
-                <MockupLabel>Variants</MockupLabel>
-                <div className="flex gap-2">
-                  {[
-                    { size: "250g", price: "£9.50" },
-                    { size: "500g", price: "£17.00" },
-                    { size: "1kg", price: "£30.00" },
-                  ].map((v, i) => (
+            <MockupField
+              label="Product Name"
+              value="Ethiopia Single Origin"
+              delay={0.2}
+              isInView={isInView}
+            />
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: DUR.field, delay: 0.2 + STAGGER.field, ease: EASE }}
+            >
+              <MockupLabel>Variants</MockupLabel>
+              <div className="flex gap-2">
+                {[
+                  { size: "250g", price: "£9.50" },
+                  { size: "500g", price: "£17.00" },
+                  { size: "1kg", price: "£30.00" },
+                ].map((v, i) => (
+                  <motion.div
+                    key={v.size}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{
+                      duration: DUR.element,
+                      delay: 1.0 + i * STAGGER.variant,
+                      ease: EASE,
+                    }}
+                    className="flex-1 bg-neutral-50 border border-neutral-200 rounded-lg p-2 text-center"
+                  >
+                    <span className="text-xs font-bold text-neutral-900 block">
+                      {v.size}
+                    </span>
+                    <span className="text-xs text-neutral-500">{v.price}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+            <MockupField
+              label="Roasted Stock"
+              value="Ethiopia Yirgacheffe — 10 kg"
+              delay={1.0 + STAGGER.variant * 3}
+              isInView={isInView}
+            />
+            <MockupField
+              label="Price"
+              value="£9.50"
+              delay={1.0 + STAGGER.variant * 4}
+              isInView={isInView}
+            />
+          </MockupCard>
+
+          {/* Right — Integrations tiles that light up */}
+          <div className="flex flex-col gap-3">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: DUR.field, delay: 2.2, ease: EASE }}
+            >
+              <MockupCard className="!p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <Plugs size={18} weight="duotone" className="text-[#2563EB]" />
+                  <span className="text-xs font-semibold text-neutral-900">
+                    Sell across channels
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  {integrations.map((s, i) => (
                     <motion.div
-                      key={v.size}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                      key={s.name}
+                      initial={{ opacity: 0.4, scale: 0.95 }}
+                      animate={
+                        isInView
+                          ? { opacity: 1, scale: 1 }
+                          : { opacity: 0.4, scale: 0.95 }
+                      }
                       transition={{
                         duration: DUR.element,
-                        delay: 1.0 + i * STAGGER.variant,
+                        delay: 2.6 + i * STAGGER.card,
                         ease: EASE,
                       }}
-                      className="flex-1 bg-neutral-50 border border-neutral-200 rounded-lg p-2 text-center"
+                      className="flex items-center gap-2 bg-neutral-50 border border-neutral-200 rounded-lg px-3 py-2.5 relative"
                     >
-                      <span className="text-xs font-bold text-neutral-900 block">
-                        {v.size}
+                      <div
+                        className="w-5 h-5 rounded shrink-0"
+                        style={{ backgroundColor: s.color }}
+                      />
+                      <span className="text-xs font-medium text-neutral-700">
+                        {s.name}
                       </span>
-                      <span className="text-xs text-neutral-500">{v.price}</span>
+                      {/* Connected indicator */}
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={
+                          isInView
+                            ? { opacity: 1, scale: 1 }
+                            : { opacity: 0, scale: 0 }
+                        }
+                        transition={{
+                          duration: DUR.element,
+                          delay: 3.0 + i * STAGGER.card,
+                          ease: EASE,
+                        }}
+                        className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-green-500 flex items-center justify-center"
+                      >
+                        <svg width="8" height="8" viewBox="0 0 8 8" fill="none">
+                          <path
+                            d="M1.5 4L3.5 6L6.5 2"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </motion.div>
                     </motion.div>
                   ))}
                 </div>
-              </motion.div>
-            </div>
-          </MockupCard>
+              </MockupCard>
+            </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: DUR.card, delay: 2.0, ease: EASE }}
-            className="grid grid-cols-3 gap-3"
-          >
-            {products.map((p, i) => (
-              <motion.div
-                key={p.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: DUR.element,
-                  delay: 2.2 + i * STAGGER.card,
-                  ease: EASE,
-                }}
-              >
-                <MockupCard className="!p-3">
-                  <div className="w-full aspect-square rounded-lg bg-gradient-to-br from-amber-100 to-amber-50 mb-2 flex items-center justify-center">
-                    <Package size={28} weight="duotone" className="text-[#D97706]" />
-                  </div>
-                  <p className="text-xs font-semibold text-neutral-900 truncate">
-                    {p.name}
-                  </p>
-                  <p className="text-xs text-neutral-400">
-                    {p.weight} · {p.price}
-                  </p>
-                </MockupCard>
-              </motion.div>
-            ))}
-          </motion.div>
+            {/* Wholesale portal tile */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: DUR.field, delay: 3.6, ease: EASE }}
+            >
+              <MockupCard className="!p-4">
+                <div className="flex items-center gap-2">
+                  <Storefront size={18} weight="duotone" className="text-[#2563EB]" />
+                  <span className="text-xs font-semibold text-neutral-900">
+                    Wholesale Portal
+                  </span>
+                  <motion.span
+                    initial={{ opacity: 0 }}
+                    animate={isInView ? { opacity: 1 } : {}}
+                    transition={{ duration: DUR.element, delay: 4.0, ease: EASE }}
+                    className="ml-auto text-[10px] font-semibold text-green-600 bg-green-50 px-2 py-0.5 rounded-full"
+                  >
+                    Published
+                  </motion.span>
+                </div>
+              </MockupCard>
+            </motion.div>
+          </div>
         </div>
       </FadeIn>
     </Scene>
@@ -1013,41 +1085,6 @@ export function Scene6Invoice() {
    ACT 2 — Feature Cards
    ═══════════════════════════════════════════════════════ */
 
-function FeatureCardIntegrations() {
-  return (
-    <MockupCard className="h-full">
-      <div className="w-10 h-10 rounded-lg bg-[#2563EB]/10 flex items-center justify-center mb-4">
-        <Plugs size={24} weight="duotone" className="text-[#2563EB]" />
-      </div>
-      <h3 className="text-lg font-bold text-neutral-900 mb-2">Integrations</h3>
-      <p className="text-sm text-neutral-600 mb-5">
-        Connect your existing shopfronts.
-      </p>
-      <div className="grid grid-cols-2 gap-3">
-        {[
-          { name: "Shopify", color: "#96BF48" },
-          { name: "WooCommerce", color: "#7F54B3" },
-          { name: "Wix", color: "#0C6EFC" },
-          { name: "Squarespace", color: "#000000" },
-        ].map((s) => (
-          <div
-            key={s.name}
-            className="flex items-center gap-2 bg-neutral-50 border border-neutral-200 rounded-lg px-3 py-2"
-          >
-            <div
-              className="w-5 h-5 rounded"
-              style={{ backgroundColor: s.color }}
-            />
-            <span className="text-xs font-medium text-neutral-700">
-              {s.name}
-            </span>
-          </div>
-        ))}
-      </div>
-    </MockupCard>
-  );
-}
-
 function FeatureCardMarketing() {
   return (
     <MockupCard className="h-full">
@@ -1138,12 +1175,9 @@ export function Act2Features() {
           </div>
         </FadeIn>
         <FadeInStagger
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto"
           staggerDelay={0.3}
         >
-          <motion.div variants={staggerChildVariants}>
-            <FeatureCardIntegrations />
-          </motion.div>
           <motion.div variants={staggerChildVariants}>
             <FeatureCardMarketing />
           </motion.div>
