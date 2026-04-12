@@ -3,11 +3,9 @@ import Link from "next/link";
 import {
   Package,
   ClipboardText,
-  Storefront,
   ShoppingCart,
   Users,
   Receipt,
-  ChartBar,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -16,7 +14,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Sales Suite — Sell Wholesale & Direct-to-Consumer",
   description:
-    "Sell coffee wholesale and direct-to-consumer from one dashboard. Orders, invoicing, storefront, and CRM — included free on every plan.",
+    "Sell coffee wholesale and direct-to-consumer from one dashboard. Orders, invoicing, and CRM — from £39/mo.",
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
@@ -35,13 +33,6 @@ const features = [
     icon: ClipboardText,
     description:
       "Track every order from placement to delivery with real-time status updates and customer notifications.",
-  },
-  {
-    title: "Storefront",
-    href: "/features/storefront",
-    icon: Storefront,
-    description:
-      "Launch a branded online store with your own domain. Sell bags, subscriptions, and merchandise directly to customers.",
   },
   {
     title: "Wholesale",
@@ -64,13 +55,6 @@ const features = [
     description:
       "Generate and send professional invoices automatically. Track payments, overdue balances, and export for your accountant.",
   },
-  {
-    title: "Analytics",
-    href: "/features/sales-analytics",
-    icon: ChartBar,
-    description:
-      "Sales dashboards, revenue tracking, best sellers, and customer acquisition metrics.",
-  },
 ];
 
 export default function SalesSuitePage() {
@@ -84,11 +68,11 @@ export default function SalesSuitePage() {
           </h1>
           <p className="text-lg sm:text-xl text-neutral-600 max-w-2xl mx-auto mb-4">
             Everything you need to sell coffee wholesale and direct-to-consumer.
-            Manage orders, send invoices, and run your own branded storefront —
+            Manage orders, send invoices, and run your wholesale portal —
             all from one platform.
           </p>
           <p className="text-sm font-medium text-accent">
-            Included free on every plan
+            From £39/mo
           </p>
         </div>
       </section>

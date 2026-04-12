@@ -5,11 +5,8 @@ import {
   Envelope,
   ShareNetwork,
   Lightning,
-  Tag,
   Code,
   Sparkle,
-  ChartBar,
-  Globe,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -18,7 +15,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Marketing Suite — Email, Social, Automations & AI",
   description:
-    "Grow your coffee brand on autopilot. Email campaigns, social scheduling, automations, discount codes, and AI-powered content — included free on every plan.",
+    "Grow your coffee brand on autopilot. Email campaigns, social scheduling, automations, and AI-powered content — from £19/mo.",
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
@@ -30,7 +27,6 @@ const features = [
       "Plan, create, and schedule all your content from a single calendar view.",
     href: "/features/content-calendar",
     icon: Calendar,
-    comingSoon: false,
   },
   {
     title: "Email Campaigns",
@@ -38,7 +34,6 @@ const features = [
       "Design and send beautiful email campaigns. Audience segmentation and campaign analytics built in.",
     href: "/features/email-campaigns",
     icon: Envelope,
-    comingSoon: false,
   },
   {
     title: "Social Scheduling",
@@ -46,7 +41,6 @@ const features = [
       "Plan, create, and schedule social media posts across Instagram, Facebook, and LinkedIn from one dashboard.",
     href: "/features/social-scheduling",
     icon: ShareNetwork,
-    comingSoon: false,
   },
   {
     title: "Automations",
@@ -54,15 +48,6 @@ const features = [
       "Build automated workflows — welcome sequences, abandoned cart recovery, and re-engagement campaigns.",
     href: "/features/automations",
     icon: Lightning,
-    comingSoon: false,
-  },
-  {
-    title: "Discount Codes",
-    description:
-      "Create percentage or fixed-amount codes for promotions, loyalty rewards, and first-time buyers.",
-    href: "/features/discount-codes",
-    icon: Tag,
-    comingSoon: false,
   },
   {
     title: "Embedded Forms",
@@ -70,7 +55,6 @@ const features = [
       "Capture leads and grow your audience with embeddable signup and contact forms.",
     href: "/features/embedded-forms",
     icon: Code,
-    comingSoon: false,
   },
   {
     title: "AI Studio",
@@ -78,23 +62,6 @@ const features = [
       "Generate product descriptions, social captions, email copy, and marketing images with AI.",
     href: "/features/ai-studio",
     icon: Sparkle,
-    comingSoon: false,
-  },
-  {
-    title: "Analytics",
-    description:
-      "Campaign performance, audience metrics, and engagement tracking in one place.",
-    href: "/features/marketing-analytics",
-    icon: ChartBar,
-    comingSoon: false,
-  },
-  {
-    title: "Marketing Websites",
-    description:
-      "Build full marketing sites for your brand — landing pages, about pages, and more.",
-    href: "/features/marketing-websites",
-    icon: Globe,
-    comingSoon: true,
   },
 ];
 
@@ -112,7 +79,7 @@ export default function MarketingSuitePage() {
             campaigns and automations to AI-powered content and analytics.
           </p>
           <p className="text-sm font-medium text-accent">
-            Included free on every plan
+            From £19/mo — add-on to Sales Suite
           </p>
         </div>
       </section>
@@ -123,29 +90,6 @@ export default function MarketingSuitePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {features.map((feature) => {
               const Icon = feature.icon;
-
-              if (feature.comingSoon) {
-                return (
-                  <div
-                    key={feature.title}
-                    className="relative p-6 rounded-xl border border-neutral-200 bg-neutral-50 flex flex-col opacity-60"
-                  >
-                    <span className="absolute top-4 right-4 text-xs font-semibold uppercase tracking-wide bg-neutral-200 text-neutral-500 px-2.5 py-1 rounded-full">
-                      Coming Soon
-                    </span>
-                    <div className="w-12 h-12 rounded-lg bg-neutral-200 text-neutral-400 flex items-center justify-center mb-4">
-                      <Icon size={28} weight="duotone" />
-                    </div>
-                    <h3 className="text-xl font-bold text-neutral-400 mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-neutral-400 flex-1">
-                      {feature.description}
-                    </p>
-                  </div>
-                );
-              }
-
               return (
                 <Link
                   key={feature.title}

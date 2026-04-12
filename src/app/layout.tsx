@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Roastery Platform",
   },
   description:
-    "Everything you need to sell more coffee. Storefront, wholesale, marketing, roaster tools, and website builder — one platform, one login.",
+    "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
   metadataBase: new URL("https://roasteryplatform.com"),
   openGraph: {
     type: "website",
@@ -32,13 +32,13 @@ export const metadata: Metadata = {
     siteName: "Roastery Platform",
     title: "Roastery Platform — The All-in-One Platform for Coffee Roasters",
     description:
-      "Everything you need to sell more coffee. Storefront, wholesale, marketing, roaster tools, and website builder — one platform, one login.",
+      "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Roastery Platform — The All-in-One Platform for Coffee Roasters",
     description:
-      "Everything you need to sell more coffee. Storefront, wholesale, marketing, roaster tools, and website builder — one platform, one login.",
+      "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
   },
   icons: {
     icon: [

@@ -9,7 +9,6 @@ import {
   X,
   CaretDown,
   ShoppingCart,
-  Storefront,
   Receipt,
   Envelope,
   ShareNetwork,
@@ -27,18 +26,10 @@ import {
   ShoppingBag,
   ClipboardText,
   Wrench,
-  Browser,
   Leaf,
   Fire,
   CalendarBlank,
   Star,
-  Calculator,
-  Certificate,
-  PaintBrush,
-  Compass,
-  Globe,
-  Eye,
-  Layout,
 } from "@phosphor-icons/react";
 import type { IconWeight } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
@@ -80,20 +71,21 @@ function TopBar({ onDismiss }: { onDismiss: () => void }) {
 const productsSections = [
   {
     title: "Sales Suite",
-    badge: "Free",
+    badge: null,
+    priceLabel: "From £39/mo",
     allHref: "/features/sales",
     mobileIcon: ShoppingBag,
-    mobileDesc: "Storefront, wholesale, orders & invoicing",
+    mobileDesc: "Wholesale, orders, invoicing & CRM",
     items: [
       { icon: ClipboardText, label: "Order Tracking", desc: "Track every order from roast to doorstep", href: "/features/order-tracking" },
       { icon: ShoppingCart, label: "Wholesale", desc: "Manage wholesale accounts and orders", href: "/features/wholesale" },
-      { icon: Storefront, label: "Storefront", desc: "Your branded online coffee shop", href: "/features/storefront" },
       { icon: Receipt, label: "Invoicing", desc: "Automated invoicing and payment tracking", href: "/features/invoices" },
     ],
   },
   {
     title: "Marketing Suite",
-    badge: "Free",
+    badge: null,
+    priceLabel: "From £19/mo",
     allHref: "/features/marketing",
     mobileIcon: Envelope,
     mobileDesc: "Email campaigns, social, automations & AI",
@@ -106,7 +98,7 @@ const productsSections = [
   },
   {
     title: "Roaster Tools",
-    badge: "Free",
+    badge: "Included",
     allHref: "/features/roaster-tools",
     mobileIcon: Wrench,
     mobileDesc: "Green bean inventory, roast log & cupping",
@@ -115,20 +107,6 @@ const productsSections = [
       { icon: Fire, label: "Roast Log", desc: "Record profiles, curves and notes", href: "/features/roast-log" },
       { icon: CalendarBlank, label: "Production Planner", desc: "Schedule roasts and manage capacity", href: "/features/production-planner" },
       { icon: Star, label: "Cupping Scorecards", desc: "Score and compare every batch", href: "/features/cupping-scorecards" },
-    ],
-  },
-  {
-    title: "Website Builder",
-    badge: null,
-    priceLabel: "From £14/mo",
-    allHref: "/features/website",
-    mobileIcon: Browser,
-    mobileDesc: "Page builder, theming, custom domains",
-    items: [
-      { icon: Layout, label: "Page Builder", desc: "Drag-and-drop pages in minutes", href: "/features/website" },
-      { icon: PaintBrush, label: "Design & Theming", desc: "Your brand, your colours, your fonts", href: "/features/website" },
-      { icon: Globe, label: "Custom Domains", desc: "Use your own domain name", href: "/features/website" },
-      { icon: Eye, label: "Live Preview", desc: "See changes before you publish", href: "/features/website" },
     ],
   },
 ];
@@ -185,7 +163,7 @@ function MegaCTAPanel() {
         <ArrowRight weight="duotone" size={24} className="shrink-0" />
         <div>
           <p className="text-sm font-semibold">Join the Platform</p>
-          <p className="text-xs text-white/70">Free to get started</p>
+          <p className="text-xs text-white/70">Start your free trial</p>
         </div>
       </a>
     </div>
@@ -270,10 +248,10 @@ function MegaMenuTrigger({
 
 /* ── Badge ─────────────────────────────────────────────── */
 
-function FreeBadge() {
+function SuiteBadge({ label }: { label: string }) {
   return (
     <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-600 border border-emerald-200">
-      Free
+      {label}
     </span>
   );
 }
@@ -432,14 +410,14 @@ export function RoastersNavbar() {
               <MegaMenuTrigger label="Products" hasTopBar={topBarVisible}>
                 <div className="flex gap-8">
                   {/* Product sections */}
-                  <div className="flex-1 grid grid-cols-4 gap-8">
+                  <div className="flex-1 grid grid-cols-3 gap-8">
                     {productsSections.map((section) => (
                       <div key={section.title}>
                         <div className="flex items-center mb-4">
                           <h3 className="text-xs font-semibold text-neutral-900 uppercase tracking-wider">
                             {section.title}
                           </h3>
-                          {section.badge && <FreeBadge />}
+                          {section.badge && <SuiteBadge label={section.badge} />}
                           {"priceLabel" in section && (section as { priceLabel?: string }).priceLabel && (
                             <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider bg-accent/10 text-accent border border-accent/20">
                               {(section as { priceLabel?: string }).priceLabel}
@@ -608,7 +586,7 @@ export function RoastersNavbar() {
                           <p className="text-sm font-semibold text-neutral-900 group-hover:text-accent transition-colors">
                             {section.title}
                           </p>
-                          {section.badge && <FreeBadge />}
+                          {section.badge && <SuiteBadge label={section.badge} />}
                           {"priceLabel" in section && (section as { priceLabel?: string }).priceLabel && (
                             <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider bg-accent/10 text-accent border border-accent/20">
                               {(section as { priceLabel?: string }).priceLabel}

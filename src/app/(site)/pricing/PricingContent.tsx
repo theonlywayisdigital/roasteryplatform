@@ -19,6 +19,7 @@ type CellValue = string | boolean;
 interface Tier {
   name: string;
   monthly: number;
+  annualMonthly: number;
   description: string;
   highlighted?: boolean;
   cta: string;
@@ -48,54 +49,45 @@ const suites: Suite[] = [
     subtitle: "Sell wholesale and direct-to-consumer from one dashboard",
     tiers: [
       {
-        name: "Free",
-        monthly: 0,
-        description: "Start selling at zero cost",
-        cta: "Start Free",
-        ctaHref: `${PLATFORM_URL}/signup`,
-      },
-      {
-        name: "Starter",
-        monthly: 29,
-        description: "Lower fees, add invoicing",
-        cta: "Start Free Trial",
-        ctaHref: `${PLATFORM_URL}/signup?plan=starter`,
-      },
-      {
         name: "Growth",
-        monthly: 49,
+        monthly: 39,
+        annualMonthly: 33,
         description: "Most roasters start here",
-        highlighted: true,
         cta: "Start Free Trial",
         ctaHref: `${PLATFORM_URL}/signup?plan=growth`,
       },
       {
         name: "Pro",
         monthly: 79,
-        description: "Full analytics, more capacity",
+        annualMonthly: 66,
+        description: "More capacity, integrations",
+        highlighted: true,
         cta: "Start Free Trial",
         ctaHref: `${PLATFORM_URL}/signup?plan=pro`,
       },
       {
         name: "Scale",
-        monthly: 149,
-        description: "Unlimited everything",
-        cta: "Contact Us",
-        ctaHref: `${PLATFORM_URL}/contact`,
+        monthly: 129,
+        annualMonthly: 108,
+        description: "High-volume roasteries",
+        cta: "Start Free Trial",
+        ctaHref: `${PLATFORM_URL}/signup?plan=scale`,
       },
     ],
     features: [
-      { label: "Products", values: ["5", "10", "20", "50", "Unlimited"] },
-      { label: "Storefront Orders", values: ["Unlimited", "Unlimited", "Unlimited", "Unlimited", "Unlimited"] },
-      { label: "Wholesale Orders / month", values: ["30", "150", "400", "800", "Unlimited"] },
-      { label: "CRM Contacts", values: ["100", "500", "1,500", "5,000", "Unlimited"] },
-      { label: "Team Members", values: ["1", "2", "3", "5", "10"] },
-      { label: "Storefront", values: ["Subdomain", true, true, true, true] },
-      { label: "Wholesale Accounts", values: ["5", "20", "50", "200", "Unlimited"] },
-      { label: "Invoices", values: [false, true, true, true, true] },
-      { label: "Sales Analytics", values: [false, "Basic", "Full", "Full", "Full"] },
-      { label: "CRM Email Integration", values: [false, false, true, true, true] },
-      { label: "Card Payment Fees", values: ["5% + 20p", "2% + 20p", "2% + 20p", "2% + 20p", "2% + 20p"] },
+      { label: "Products", values: ["5", "25", "100"] },
+      { label: "Orders", values: [true, true, true] },
+      { label: "Wholesale Portal", values: [true, true, true] },
+      { label: "Wholesale Accounts", values: ["30", "100", "500"] },
+      { label: "Wholesale Orders / month", values: ["100", "250", "1,000"] },
+      { label: "CRM Contacts", values: ["1,500", "5,000", "25,000"] },
+      { label: "Invoices", values: [true, true, true] },
+      { label: "Sales Pipeline", values: [true, true, true] },
+      { label: "AI Order Extraction", values: [true, true, true] },
+      { label: "Custom Email Domain", values: [true, true, true] },
+      { label: "Accounting Integrations", values: [false, true, true] },
+      { label: "E-commerce Integrations", values: [false, true, true] },
+      { label: "Team Members", values: ["1", "3", "10"] },
     ],
   },
   {
@@ -105,89 +97,47 @@ const suites: Suite[] = [
     isAddOn: true,
     tiers: [
       {
-        name: "Free",
-        monthly: 0,
-        description: "Basic tools to get started",
-        cta: "Start Free",
-        ctaHref: `${PLATFORM_URL}/signup`,
-      },
-      {
-        name: "Starter",
-        monthly: 19,
-        description: "More sends, more forms",
-        cta: "Start Free Trial",
-        ctaHref: `${PLATFORM_URL}/signup?plan=starter`,
-      },
-      {
         name: "Growth",
-        monthly: 39,
-        description: "Social, automations, full analytics",
-        highlighted: true,
+        monthly: 19,
+        annualMonthly: 16,
+        description: "Essential marketing tools",
         cta: "Start Free Trial",
         ctaHref: `${PLATFORM_URL}/signup?plan=growth`,
       },
       {
         name: "Pro",
-        monthly: 59,
-        description: "Higher limits, cheaper AI credits",
+        monthly: 49,
+        annualMonthly: 42,
+        description: "Higher limits, more forms",
+        highlighted: true,
         cta: "Start Free Trial",
         ctaHref: `${PLATFORM_URL}/signup?plan=pro`,
       },
       {
         name: "Scale",
         monthly: 99,
-        description: "Unlimited sends and contacts",
-        cta: "Contact Us",
-        ctaHref: `${PLATFORM_URL}/contact`,
-      },
-    ],
-    features: [
-      { label: "Email Sends / month", values: ["500", "2,000", "5,000", "15,000", "Unlimited"] },
-      { label: "Embedded Forms", values: ["1 (branded)", "3", "10", "Unlimited", "Unlimited"] },
-      { label: "AI Credits / month", values: ["10", "50", "150", "500", "1,500"] },
-      { label: "Blog", values: [false, false, true, true, true] },
-      { label: "Content Calendar", values: [false, true, true, true, true] },
-      { label: "Social Scheduling", values: [false, false, true, true, true] },
-      { label: "Automations", values: [false, false, true, true, true] },
-      { label: "Marketing Analytics", values: [false, "Basic", "Full", "Full", "Full"] },
-      { label: "Additional AI Credits", values: ["\u2014", "£5/100", "£5/100", "£4/100", "£3/100"] },
-    ],
-  },
-  {
-    key: "website",
-    label: "Website Builder",
-    subtitle: "Build and publish a full website for your roastery with a custom domain",
-    isAddOn: true,
-    tiers: [
-      {
-        name: "Website Builder",
-        monthly: 19,
-        description: "Everything you need for a professional roastery website",
-        highlighted: true,
+        annualMonthly: 84,
+        description: "High-volume campaigns",
         cta: "Start Free Trial",
-        ctaHref: `${PLATFORM_URL}/signup`,
+        ctaHref: `${PLATFORM_URL}/signup?plan=scale`,
       },
     ],
     features: [
-      { label: "Multi-page Website Builder", values: [true] },
-      { label: "Custom Domain Support", values: [true] },
-      { label: "SEO Tools", values: [true] },
-      { label: "Mobile Responsive", values: [true] },
-      { label: "SSL Certificate", values: [true] },
-      { label: "Blog", values: ["Requires Marketing Suite"] },
+      { label: "Email Campaigns", values: [true, true, true] },
+      { label: "Email Sends / month", values: ["5,000", "25,000", "50,000"] },
+      { label: "Content Calendar", values: [true, true, true] },
+      { label: "Social Scheduling", values: [true, true, true] },
+      { label: "Embedded Forms", values: ["3", "10", "25"] },
+      { label: "AI Credits / month", values: ["150", "500", "2,000"] },
     ],
   },
 ];
 
 /* ── Helpers ────────────────────────────────────────────── */
 
-function formatPrice(monthly: number, annual: boolean) {
-  if (monthly === 0) return { main: "Free", sub: "forever" };
-  if (annual) {
-    const discounted = Math.round((monthly * 10) / 12);
-    return { main: `£${discounted}`, sub: "/mo billed annually" };
-  }
-  return { main: `£${monthly}`, sub: "/month" };
+function formatPrice(tier: Tier, annual: boolean) {
+  const amount = annual ? tier.annualMonthly : tier.monthly;
+  return { main: `£${amount}`, sub: annual ? "/mo billed annually" : "/month" };
 }
 
 function CellContent({ value }: { value: CellValue }) {
@@ -222,7 +172,7 @@ function PricingTable({
             <tr>
               <th className="p-4 text-left w-[200px]" />
               {tiers.map((tier) => {
-                const price = formatPrice(tier.monthly, annual);
+                const price = formatPrice(tier, annual);
                 return (
                   <th
                     key={tier.name}
@@ -300,9 +250,7 @@ function PricingTable({
                       "inline-flex items-center justify-center px-5 py-2.5 border-2 rounded-lg text-sm font-semibold transition-colors w-full max-w-[160px]",
                       tier.highlighted
                         ? "border-accent bg-accent text-white hover:bg-transparent hover:text-accent"
-                        : tier.cta === "Contact Us"
-                          ? "border-neutral-900 bg-neutral-900 text-white hover:bg-transparent hover:text-neutral-900"
-                          : "border-neutral-200 bg-neutral-100 text-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white"
+                        : "border-neutral-200 bg-neutral-100 text-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white"
                     )}
                   >
                     {tier.cta}
@@ -317,7 +265,7 @@ function PricingTable({
       {/* Mobile cards */}
       <div className="lg:hidden space-y-6">
         {tiers.map((tier) => {
-          const price = formatPrice(tier.monthly, annual);
+          const price = formatPrice(tier, annual);
           return (
             <div
               key={tier.name}
@@ -377,9 +325,7 @@ function PricingTable({
                   "block w-full text-center px-6 py-3 border-2 rounded-lg font-semibold transition-colors",
                   tier.highlighted
                     ? "border-accent bg-accent text-white hover:bg-transparent hover:text-accent"
-                    : tier.cta === "Contact Us"
-                      ? "border-neutral-900 bg-neutral-900 text-white hover:bg-transparent hover:text-neutral-900"
-                      : "border-neutral-200 bg-neutral-100 text-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white"
+                    : "border-neutral-200 bg-neutral-100 text-neutral-700 hover:bg-neutral-700 hover:border-neutral-700 hover:text-white"
                 )}
               >
                 {tier.cta}
@@ -397,39 +343,33 @@ function PricingTable({
 const defaultFaqs: FAQ[] = [
   {
     _id: "dfaq-1",
-    question: "What's included on the free plan?",
+    question: "What is Roaster Tools?",
     answer:
-      "Both the Sales Suite and Marketing Suite have free tiers with generous limits. Roaster Tools (inventory, roast log, cupping, calculators) are free on every plan. You only pay when you need more capacity.",
+      "Roaster Tools is a suite of production tools — green bean inventory, roast log, cupping scorecards, production planner, and calculators — included with every Sales Suite plan at no extra cost.",
   },
   {
     _id: "dfaq-2",
-    question: "Are there transaction fees on paid plans?",
+    question: "Is there a free trial?",
     answer:
-      "No. The 5% Ghost Roastery fee only applies on the free Sales Suite tier. All paid plans charge 0% — you only pay Stripe's standard processing fee (1.5% + 20p).",
+      "Yes. Every plan includes a 14-day free trial with full access to all features. No credit card required to start.",
   },
   {
     _id: "dfaq-3",
-    question: "How much is the Website Builder?",
+    question: "Is the Marketing Suite required?",
     answer:
-      "£14–19/month depending on your plan. Unlimited pages, custom domain, SSL included, and drag-and-drop builder. No per-page charges.",
+      "No. The Marketing Suite is an optional add-on. You can use the Sales Suite and Roaster Tools without it.",
   },
   {
     _id: "dfaq-4",
-    question: "Is the Marketing Suite required?",
-    answer:
-      "No. The Marketing Suite is an optional add-on. You can use the Sales Suite and Roaster Tools without it. The free marketing tier is always included.",
-  },
-  {
-    _id: "dfaq-5",
     question: "Can I switch plans at any time?",
     answer:
       "Yes. Upgrade, downgrade, or cancel at any time. No lock-in contracts. Changes take effect at the end of your current billing period.",
   },
   {
-    _id: "dfaq-6",
+    _id: "dfaq-5",
     question: "Do you offer annual billing?",
     answer:
-      "Yes. Annual billing saves you 2 months — roughly 17% off. Switch between monthly and annual at any time.",
+      "Yes. Annual billing saves you roughly 15–16% compared to monthly pricing. Switch between monthly and annual at any time.",
   },
 ];
 
@@ -450,7 +390,7 @@ export function PricingContent({ faqs, cms }: { faqs: FAQ[]; cms?: any }) {
             <span className="text-accent">pricing.</span>
           </h1>
           <p className="text-lg sm:text-xl text-neutral-600 max-w-2xl mx-auto">
-            {cms?.heroSubheadline ?? "Sales suite, marketing suite, and roaster tools included on every plan. Website builder from £14/month. No transaction fees on paid plans."}
+            {cms?.heroSubheadline ?? "Sales Suite from £39/mo. Marketing Suite from £19/mo. Roaster Tools included with every plan."}
           </p>
         </div>
       </section>
@@ -493,7 +433,7 @@ export function PricingContent({ faqs, cms }: { faqs: FAQ[]; cms?: any }) {
             </span>
             {annual && (
               <span className="text-xs font-semibold text-accent bg-accent/10 px-2.5 py-1 rounded-full">
-                2 months free
+                Save ~15%
               </span>
             )}
           </div>
@@ -543,58 +483,6 @@ export function PricingContent({ faqs, cms }: { faqs: FAQ[]; cms?: any }) {
                   </p>
                 </div>
                 <PricingTable suite={suite} annual={annual} />
-
-                {/* Fees transparency — Sales Suite only */}
-                {suite.key === "sales" && (
-                  <div className="mt-12 max-w-3xl mx-auto">
-                    <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8">
-                      <h3 className="text-lg font-bold text-neutral-900 mb-4">
-                        Card payment fees — full transparency
-                      </h3>
-                      <p className="text-sm text-neutral-600 mb-5">
-                        Card payment fees include all processing costs.
-                        We believe in being upfront about costs so you can
-                        price with confidence.
-                      </p>
-
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                        {/* Free tier */}
-                        <div className="rounded-xl border border-neutral-200 bg-white p-5">
-                          <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wider mb-2">
-                            Free plan
-                          </p>
-                          <p className="text-2xl font-black text-neutral-900">
-                            5% + 20p
-                          </p>
-                          <p className="text-sm text-neutral-500 mt-1">
-                            per storefront sale
-                          </p>
-                        </div>
-
-                        {/* Paid tiers */}
-                        <div className="rounded-xl border border-accent/20 bg-accent/5 p-5">
-                          <p className="text-xs font-semibold text-accent uppercase tracking-wider mb-2">
-                            All paid plans
-                          </p>
-                          <p className="text-2xl font-black text-neutral-900">
-                            2% + 20p
-                          </p>
-                          <p className="text-sm text-neutral-500 mt-1">
-                            per storefront sale
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Worked example */}
-                      <div className="rounded-lg bg-white border border-neutral-200 px-5 py-4">
-                        <p className="text-sm text-neutral-700">
-                          <span className="font-semibold">Example — £20 sale:</span>{" "}
-                          Free plan = £1.20 in fees. Paid plan = 60p in fees.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
           </div>
@@ -629,16 +517,16 @@ export function PricingContent({ faqs, cms }: { faqs: FAQ[]; cms?: any }) {
       <section className="py-20 lg:py-28 bg-neutral-900 text-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-6">
-            {cms?.ctaHeadline ?? "Start free. Upgrade when you're ready."}
+            {cms?.ctaHeadline ?? "Start your free trial today."}
           </h2>
           <p className="text-lg text-neutral-300 max-w-xl mx-auto mb-10">
-            {cms?.ctaDescription ?? "Sales suite, marketing suite, and roaster tools included. No credit card required."}
+            {cms?.ctaDescription ?? "14 days free. No credit card required. Explore every feature."}
           </p>
           <a
             href={`${PLATFORM_URL}/signup`}
             className="inline-flex items-center px-8 py-4 border-2 border-accent bg-accent text-white font-semibold text-lg rounded-lg hover:bg-transparent hover:text-accent transition-colors"
           >
-            {cms?.ctaButtonText ?? "Get Started Free"}
+            {cms?.ctaButtonText ?? "Start Free Trial"}
             <ArrowRight className="ml-2" size={24} weight="duotone" />
           </a>
         </div>

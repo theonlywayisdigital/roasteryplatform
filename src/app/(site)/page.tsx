@@ -24,7 +24,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Ghost Roastery Platform — Sell, Market & Grow Your Roastery",
   description:
-    "Everything you need to sell more coffee. Storefront, wholesale, marketing, roaster tools, and website builder — one platform, one login.",
+    "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
@@ -71,7 +71,7 @@ export default async function RoastersHomePage() {
     settings?.heroHeadline || "The all-in-one platform built for coffee roasters. Market. Sell. Manage.";
   const subheadline =
     settings?.heroSubheadline ||
-    "Storefront, wholesale, marketing, roaster tools, and website builder — one platform, one login. Free to start.";
+    "Wholesale, marketing, roaster tools — one platform, one login. Sales Suite from £39/mo.";
 
   const liveCaseStudies = caseStudies.filter((cs) => !cs.isPlaceholder);
   const latestPosts = blogPosts.slice(0, 3);
@@ -132,7 +132,7 @@ export default async function RoastersHomePage() {
     name: "Ghost Roastery",
     url: "https://roasteryplatform.com",
     description:
-      "The all-in-one platform for coffee roasters. Sales, marketing, roaster tools, and website builder.",
+      "The all-in-one platform for coffee roasters. Sales, marketing, and roaster tools.",
     address: {
       "@type": "PostalAddress",
       addressCountry: "GB",
@@ -147,12 +147,12 @@ export default async function RoastersHomePage() {
     operatingSystem: "Web",
     offers: {
       "@type": "Offer",
-      price: "0",
+      price: "39",
       priceCurrency: "GBP",
-      description: "Free plan available. Paid plans from £29/month.",
+      description: "Sales Suite from £39/month. Marketing Suite from £19/month. Roaster Tools included.",
     },
     description:
-      "Sell coffee wholesale and direct-to-consumer, manage marketing, track roasts, and build your website — one platform.",
+      "Sell coffee wholesale and direct-to-consumer, manage marketing, and track roasts — one platform.",
   };
 
   return (
@@ -240,7 +240,7 @@ export default async function RoastersHomePage() {
                 {settings?.ctaStrip1Headline ?? "Stop stitching together Shopify, Mailchimp, and spreadsheets"}
               </h2>
               <p className="text-white/80 mt-1">
-                {settings?.ctaStrip1Subtitle ?? "One platform for sales, marketing, production, and your website. Free to start."}
+                {settings?.ctaStrip1Subtitle ?? "One platform for sales, marketing, and production. Start your free trial today."}
               </p>
             </div>
             <a
@@ -261,11 +261,11 @@ export default async function RoastersHomePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-4">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-900 tracking-tight">
-              {settings?.toolsSectionTitle ?? "Four products."}{" "}
+              {settings?.toolsSectionTitle ?? "Three products."}{" "}
               <span className="text-accent">{settings?.toolsSectionSubtitle ?? "One platform."}</span>
             </h2>
             <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
-              {settings?.toolsSectionDescription ?? "Sales, marketing, roaster tools, and website builder. Each works on its own. Together they replace the stack of apps you're paying for."}
+              {settings?.toolsSectionDescription ?? "Sales, marketing, and roaster tools. Each works on its own. Together they replace the stack of apps you're paying for."}
             </p>
           </div>
           <ProductsCarousel cms={carouselCms} />
@@ -280,10 +280,10 @@ export default async function RoastersHomePage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                {settings?.ctaStrip2Headline ?? "Free to start. Paid plans that grow with your business."}
+                {settings?.ctaStrip2Headline ?? "Plans that grow with your business."}
               </h2>
               <p className="text-neutral-400 mt-1">
-                {settings?.ctaStrip2Subtitle ?? "No transaction fees on paid plans. No lock-in. Cancel any time."}
+                {settings?.ctaStrip2Subtitle ?? "No lock-in. Cancel any time. 14-day free trial."}
               </p>
             </div>
             <div className="flex items-center gap-4 w-full md:w-auto">
@@ -291,7 +291,7 @@ export default async function RoastersHomePage() {
                 href={`${PLATFORM_URL}/signup`}
                 className="inline-flex items-center justify-center px-8 py-4 border-2 border-accent bg-accent text-white font-semibold text-lg rounded-lg hover:bg-transparent hover:text-white transition-colors w-full md:w-auto"
               >
-                Start Free
+                Start Free Trial
                 <ArrowRight className="ml-2" size={24} weight="duotone" />
               </a>
             </div>

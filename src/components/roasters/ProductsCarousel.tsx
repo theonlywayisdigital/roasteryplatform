@@ -4,7 +4,6 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   ShoppingCart,
-  Storefront,
   Receipt,
   Envelope,
   ShareNetwork,
@@ -17,12 +16,7 @@ import {
   Fire,
   Star,
   Calculator,
-  Layout,
-  PaintBrush,
-  Globe,
-  Eye,
   Wrench,
-  Browser,
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
@@ -40,7 +34,7 @@ const suites = [
     label: "Sales Suite",
     tagline: "Sell wholesale and direct — from one dashboard",
     description:
-      "Manage your products, launch a branded storefront, track every order, handle wholesale accounts, and get paid automatically. Included free on every plan.",
+      "Manage your products, track every order, handle wholesale accounts, send invoices, and get paid automatically. From £39/mo.",
     allHref: "/features/sales",
     placeholderIcon: Package,
     placeholderLabel: "Sales Suite Screenshot",
@@ -58,12 +52,6 @@ const suites = [
         href: "/features/wholesale",
       },
       {
-        icon: Storefront,
-        title: "Storefront",
-        desc: "Launch a branded online store with your own domain. Sell bags, subscriptions, and merch.",
-        href: "/features/storefront",
-      },
-      {
         icon: Receipt,
         title: "Invoices",
         desc: "Generate and send professional invoices. Track payments and export for your accountant.",
@@ -76,7 +64,7 @@ const suites = [
     label: "Marketing Suite",
     tagline: "Grow your brand on autopilot",
     description:
-      "Email campaigns, social scheduling, automations, and AI-powered content — all included free on every plan.",
+      "Email campaigns, social scheduling, automations, and AI-powered content. From £19/mo.",
     allHref: "/features/marketing",
     placeholderIcon: Envelope,
     placeholderLabel: "Marketing Suite Screenshot",
@@ -112,7 +100,7 @@ const suites = [
     label: "Roaster Tools",
     tagline: "The tools your roastery actually needs",
     description:
-      "Green bean inventory, roast logging, cupping scorecards, and calculators — built for working roasters. Free on every plan.",
+      "Green bean inventory, roast logging, cupping scorecards, and calculators — built for working roasters. Included with Sales Suite.",
     allHref: "/features/roaster-tools",
     placeholderIcon: Wrench,
     placeholderLabel: "Roaster Tools Screenshot",
@@ -143,42 +131,6 @@ const suites = [
       },
     ],
   },
-  {
-    key: "website",
-    label: "Website Builder",
-    tagline: "A proper website for your roastery",
-    description:
-      "Build your website without a developer. Drag-and-drop pages, your own domain, and a design that matches your brand. From £14/month.",
-    allHref: "/features/website",
-    placeholderIcon: Browser,
-    placeholderLabel: "Website Builder Screenshot",
-    features: [
-      {
-        icon: Layout,
-        title: "Page Builder",
-        desc: "Drag-and-drop blocks to build pages in minutes. Pre-built components for roasters.",
-        href: "/features/website",
-      },
-      {
-        icon: PaintBrush,
-        title: "Design & Theming",
-        desc: "Set your brand colours, typography, and logo. Every page inherits your design.",
-        href: "/features/website",
-      },
-      {
-        icon: Globe,
-        title: "Custom Domains",
-        desc: "Use your own domain — yourroastery.com. SSL included. One-click setup.",
-        href: "/features/website",
-      },
-      {
-        icon: Eye,
-        title: "Live Preview",
-        desc: "See changes before you publish. Desktop and mobile preview built in.",
-        href: "/features/website",
-      },
-    ],
-  },
 ];
 
 export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
@@ -197,7 +149,7 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
     <div>
       {/* Toggle tabs */}
       <div className="flex justify-center mb-12">
-        <div className="grid grid-cols-4 sm:inline-flex rounded-lg border border-neutral-200 p-1 bg-neutral-50 w-full sm:w-auto">
+        <div className="grid grid-cols-3 sm:inline-flex rounded-lg border border-neutral-200 p-1 bg-neutral-50 w-full sm:w-auto">
           {resolvedSuites.map((suite, i) => (
             <button
               key={suite.key}

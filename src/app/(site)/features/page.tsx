@@ -3,34 +3,24 @@ import Link from "next/link";
 import {
   Package,
   ClipboardText,
-  Storefront,
   ShoppingCart,
   Users,
   Receipt,
-  ChartBar,
   Calendar,
   Envelope,
   ShareNetwork,
   Lightning,
-  Tag,
   Code,
   Sparkle,
-  Globe,
   ArrowRight,
   CaretRight,
-  Rocket,
   Leaf,
   Fire,
   CalendarBlank,
   Star,
   Calculator,
   Certificate,
-  Layout,
-  PaintBrush,
-  Compass,
-  Eye,
   Wrench,
-  Browser,
 } from "@phosphor-icons/react/dist/ssr";
 import { client } from "@/sanity/lib/client";
 import {
@@ -42,9 +32,9 @@ import {
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Features — Sales, Marketing, Roaster Tools & Website Builder",
+  title: "Features — Sales, Marketing & Roaster Tools",
   description:
-    "Everything a coffee roaster needs in one platform. Sales suite, marketing suite, roaster tools (free), and website builder. Sell, market, and grow your roastery.",
+    "Everything a coffee roaster needs in one platform. Sales suite, marketing suite, and roaster tools. Sell, market, and grow your roastery.",
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
@@ -93,13 +83,6 @@ const salesFeatures: DefaultFeature[] = [
     href: "/features/order-tracking",
   },
   {
-    icon: <Storefront size={28} weight="duotone" />,
-    title: "Storefront",
-    description:
-      "Launch a branded online store with your own domain. Sell bags, subscriptions, and merchandise.",
-    href: "/features/storefront",
-  },
-  {
     icon: <ShoppingCart size={28} weight="duotone" />,
     title: "Wholesale",
     description:
@@ -119,13 +102,6 @@ const salesFeatures: DefaultFeature[] = [
     description:
       "Generate and send professional invoices. Track payments and export for your accountant.",
     href: "/features/invoices",
-  },
-  {
-    icon: <ChartBar size={28} weight="duotone" />,
-    title: "Analytics",
-    description:
-      "Sales dashboards, revenue tracking, best sellers, and customer acquisition metrics.",
-    href: "/features/sales-analytics",
   },
 ];
 
@@ -159,13 +135,6 @@ const marketingFeatures: DefaultFeature[] = [
     href: "/features/automations",
   },
   {
-    icon: <Tag size={28} weight="duotone" />,
-    title: "Discount Codes",
-    description:
-      "Create percentage or fixed-amount codes for promotions, loyalty, and first-time buyers.",
-    href: "/features/discount-codes",
-  },
-  {
     icon: <Code size={28} weight="duotone" />,
     title: "Embedded Forms",
     description:
@@ -178,21 +147,6 @@ const marketingFeatures: DefaultFeature[] = [
     description:
       "Generate product descriptions, social captions, email copy, and marketing images with AI.",
     href: "/features/ai-studio",
-  },
-  {
-    icon: <ChartBar size={28} weight="duotone" />,
-    title: "Analytics",
-    description:
-      "Campaign performance, audience metrics, and engagement tracking in one place.",
-    href: "/features/marketing-analytics",
-  },
-  {
-    icon: <Globe size={28} weight="duotone" />,
-    title: "Marketing Websites",
-    description:
-      "Build full marketing sites for your brand — landing pages, about pages, and more.",
-    href: "/features/marketing-websites",
-    comingSoon: true,
   },
 ];
 
@@ -241,62 +195,20 @@ const roasterToolsFeatures: DefaultFeature[] = [
   },
 ];
 
-const websiteBuilderFeatures: DefaultFeature[] = [
-  {
-    icon: <Layout size={28} weight="duotone" />,
-    title: "Page Builder",
-    description:
-      "Drag-and-drop blocks to build pages in minutes. Hero sections, galleries, contact forms — all pre-built.",
-    href: "/features/website",
-  },
-  {
-    icon: <PaintBrush size={28} weight="duotone" />,
-    title: "Design & Theming",
-    description:
-      "Set brand colours, typography, and logo once. Every page inherits your design automatically.",
-    href: "/features/website",
-  },
-  {
-    icon: <Compass size={28} weight="duotone" />,
-    title: "Navigation & Menus",
-    description:
-      "Build your site structure with a visual menu editor. Add pages, dropdowns, and external links.",
-    href: "/features/website",
-  },
-  {
-    icon: <Globe size={28} weight="duotone" />,
-    title: "Custom Domains",
-    description:
-      "Use your own domain — yourroastery.com. SSL certificate included. One-click setup.",
-    href: "/features/website",
-  },
-  {
-    icon: <Eye size={28} weight="duotone" />,
-    title: "Live Preview",
-    description:
-      "See exactly what your page looks like before publishing. Desktop and mobile preview.",
-    href: "/features/website",
-  },
-];
-
 // ── Icon Map (for Sanity-sourced features) ───────────────────
 
 const iconMap: Record<string, React.ReactNode> = {
   boxes: <Package size={28} weight="duotone" />,
   "clipboard-list": <ClipboardText size={28} weight="duotone" />,
-  store: <Storefront size={28} weight="duotone" />,
   "shopping-cart": <ShoppingCart size={28} weight="duotone" />,
   users: <Users size={28} weight="duotone" />,
   receipt: <Receipt size={28} weight="duotone" />,
-  "bar-chart-3": <ChartBar size={28} weight="duotone" />,
   "calendar-days": <Calendar size={28} weight="duotone" />,
   mail: <Envelope size={28} weight="duotone" />,
   share2: <ShareNetwork size={28} weight="duotone" />,
   zap: <Lightning size={28} weight="duotone" />,
-  tags: <Tag size={28} weight="duotone" />,
   code2: <Code size={28} weight="duotone" />,
   sparkles: <Sparkle size={28} weight="duotone" />,
-  globe: <Globe size={28} weight="duotone" />,
   package: <Package size={28} weight="duotone" />,
 };
 
@@ -369,7 +281,6 @@ export default async function FeaturesPage() {
           title: f.title,
           description: f.description,
           href: `/features/${f.slug?.current || f.title.toLowerCase().replace(/\s+/g, "-")}`,
-          comingSoon: f.title === "Marketing Websites",
         }))
     : marketingFeatures;
 
@@ -403,7 +314,7 @@ export default async function FeaturesPage() {
               {cms?.salesSuiteTitle ?? "Sales Suite"}
             </h2>
             <p className="text-neutral-500 text-lg">
-              {cms?.salesSuiteSubtitle ?? "Included free on every plan"}
+              {cms?.salesSuiteSubtitle ?? "From £39/mo"}
             </p>
           </div>
 
@@ -433,7 +344,7 @@ export default async function FeaturesPage() {
               {cms?.marketingSuiteTitle ?? "Marketing Suite"}
             </h2>
             <p className="text-neutral-500 text-lg">
-              {cms?.marketingSuiteSubtitle ?? "Included free on every plan"}
+              {cms?.marketingSuiteSubtitle ?? "From £19/mo — add-on"}
             </p>
           </div>
 
@@ -463,7 +374,7 @@ export default async function FeaturesPage() {
               Roaster Tools
             </h2>
             <p className="text-neutral-500 text-lg">
-              Free on every plan
+              Included with Sales Suite
             </p>
           </div>
 
@@ -481,58 +392,6 @@ export default async function FeaturesPage() {
               View all Roaster Tools
               <ArrowRight size={20} weight="duotone" className="ml-2" />
             </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Website Builder ────────────────────────────────────── */}
-      <section className="py-16 lg:py-24 bg-white border-t border-neutral-100">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-black text-neutral-900 mb-3">
-              Website Builder
-            </h2>
-            <p className="text-neutral-500 text-lg">
-              From £14/month
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {websiteBuilderFeatures.map((feature) => (
-              <FeatureCard key={feature.title} feature={feature} />
-            ))}
-          </div>
-
-          <div className="text-center mt-10">
-            <Link
-              href="/features/website"
-              className="inline-flex items-center text-accent font-semibold hover:underline"
-            >
-              Learn more about Website Builder
-              <ArrowRight size={20} weight="duotone" className="ml-2" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Marketplace ──────────────────────────────────────── */}
-      <section className="py-16 lg:py-24 bg-neutral-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="p-10 rounded-2xl border border-dashed border-neutral-300 bg-white">
-              <div className="w-14 h-14 rounded-xl bg-accent/10 text-accent flex items-center justify-center mx-auto mb-6">
-                <Rocket size={32} weight="duotone" />
-              </div>
-              <span className="inline-block text-xs font-semibold uppercase tracking-wider text-accent bg-accent/10 px-3 py-1 rounded-full mb-4">
-                Coming Soon
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-neutral-900 mb-4">
-                {cms?.marketplaceTitle ?? "Marketplace"}
-              </h2>
-              <p className="text-neutral-600 text-lg max-w-xl mx-auto">
-                {cms?.marketplaceCopy ?? "List your coffees on the Ghost Roastery marketplace and reach thousands of new customers. We handle the storefront, checkout, and marketing — you handle the roasting."}
-              </p>
-            </div>
           </div>
         </div>
       </section>

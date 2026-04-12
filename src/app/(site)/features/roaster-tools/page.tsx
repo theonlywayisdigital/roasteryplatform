@@ -16,9 +16,9 @@ export const revalidate = 3600;
 const PLATFORM_URL = "https://app.roasteryplatform.com";
 
 export const metadata: Metadata = {
-  title: "Roaster Tools — Free Production & Inventory Tools",
+  title: "Roaster Tools — Production & Inventory Tools",
   description:
-    "Free tools built for working roasters. Green bean inventory, roast logging, production planning, cupping scorecards, and calculators — included on every plan.",
+    "Tools built for working roasters. Green bean inventory, roast logging, production planning, cupping scorecards, and calculators — included with every Sales Suite plan.",
 };
 
 const features = [
@@ -37,7 +37,6 @@ const features = [
   {
     icon: CalendarBlank,
     title: "Production Planner",
-    badge: "Growth+",
     description:
       "Schedule roasts against orders and capacity. See what needs roasting this week, allocate batches to orders, and avoid bottlenecks before they happen.",
   },
@@ -63,14 +62,14 @@ const features = [
 
 const faqs = [
   {
-    question: "Are Roaster Tools really free?",
+    question: "Are Roaster Tools included with my plan?",
     answer:
-      "Yes. Green bean inventory, roast log, cupping scorecards, calculators, and certifications are included free on every plan — including the free tier. Production Planner is available on Growth plans and above.",
+      "Yes. Green bean inventory, roast log, cupping scorecards, production planner, calculators, and certifications are all included with every Sales Suite plan at no extra cost.",
   },
   {
-    question: "Can I use Roaster Tools without using the Sales or Marketing Suite?",
+    question: "Do I need to use the Sales Suite to access Roaster Tools?",
     answer:
-      "Absolutely. Sign up for a free account and use only the tools you need. There is no requirement to sell through the platform to use Roaster Tools.",
+      "Roaster Tools are included with every Sales Suite plan. When you sign up for any Sales Suite tier, you get full access to all Roaster Tools automatically.",
   },
   {
     question: "Can my whole team access Roaster Tools?",
@@ -113,7 +112,7 @@ export default function RoasterToolsPage() {
             coffee hobbyists.
           </p>
           <p className="text-sm font-medium text-accent">
-            Included free on every plan
+            Included with every Sales Suite plan
           </p>
         </div>
       </section>
@@ -129,15 +128,8 @@ export default function RoasterToolsPage() {
                   key={feature.title}
                   className="group p-6 rounded-xl border border-neutral-200 hover:border-accent/30 hover:shadow-lg transition-all duration-300 bg-white flex flex-col"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-lg bg-accent/10 text-accent flex items-center justify-center group-hover:bg-accent group-hover:text-white transition-colors">
-                      <Icon size={28} weight="duotone" />
-                    </div>
-                    {"badge" in feature && feature.badge && (
-                      <span className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-amber-50 text-amber-700 border border-amber-200">
-                        {feature.badge}
-                      </span>
-                    )}
+                  <div className="w-12 h-12 rounded-lg bg-accent/10 text-accent flex items-center justify-center mb-4 group-hover:bg-accent group-hover:text-white transition-colors">
+                    <Icon size={28} weight="duotone" />
                   </div>
                   <h3 className="text-xl font-bold text-neutral-900 mb-2">
                     {feature.title}
@@ -202,14 +194,14 @@ export default function RoasterToolsPage() {
             Start using Roaster Tools today
           </h2>
           <p className="text-lg text-neutral-300 max-w-xl mx-auto mb-10">
-            Free on every plan. No credit card required. Sign up and start
-            logging roasts in minutes.
+            Included with every Sales Suite plan. Start your free trial and
+            begin logging roasts in minutes.
           </p>
           <a
             href={`${PLATFORM_URL}/signup`}
             className="inline-flex items-center px-8 py-4 border-2 border-accent bg-accent text-white font-semibold text-lg rounded-lg hover:bg-transparent hover:text-accent transition-colors"
           >
-            Get Started Free
+            Start Free Trial
             <ArrowRight className="ml-2" size={24} weight="duotone" />
           </a>
         </div>

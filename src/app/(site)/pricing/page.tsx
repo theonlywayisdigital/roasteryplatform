@@ -8,7 +8,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Pricing — Simple, Transparent Plans for Roasters",
   description:
-    "Start free. Upgrade when you need to. Sales suite, marketing suite, and roaster tools included on every plan. Website builder from £14/month. No transaction fees on paid plans.",
+    "Sales Suite from £39/mo. Marketing Suite from £19/mo. Roaster Tools included with every plan. Simple, transparent pricing for coffee roasters.",
 };
 
 interface FAQ {
