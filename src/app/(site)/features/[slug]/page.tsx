@@ -14,6 +14,22 @@ const suiteLabelMap: Record<string, string> = {
   marketing: "Marketing Suite",
 };
 
+const suitePriceLabel: Record<string, string> = {
+  sales: "From £39/mo",
+  marketing: "From £19/mo",
+  "roaster-tools": "Included",
+};
+
+/** Slugs that should no longer be publicly accessible. */
+const hiddenSlugs = new Set([
+  "storefront",
+  "discount-codes",
+  "sales-analytics",
+  "marketing-analytics",
+  "marketing-websites",
+  "marketplace",
+]);
+
 interface FeatureDetail {
   featureTitle: string;
   featureIcon?: string;
@@ -34,7 +50,9 @@ export async function generateStaticParams() {
   const slugs = await client
     .fetch<{ slug: string }[]>(allRoasterFeatureDetailSlugsQuery)
     .catch(() => []);
-  return slugs.map((s) => ({ slug: s.slug }));
+  return slugs
+    .filter((s) => !hiddenSlugs.has(s.slug))
+    .map((s) => ({ slug: s.slug }));
 }
 
 export async function generateMetadata({
@@ -43,6 +61,9 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+
+  if (hiddenSlugs.has(slug)) return { title: "Feature" };
+
   const detail = await client
     .fetch<FeatureDetail>(roasterFeatureDetailBySlugQuery, { slug })
     .catch(() => null);
@@ -61,6 +82,9 @@ export default async function FeatureDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+
+  if (hiddenSlugs.has(slug)) notFound();
+
   const detail = await client
     .fetch<FeatureDetail>(roasterFeatureDetailBySlugQuery, { slug })
     .catch(() => null);
@@ -83,9 +107,9 @@ export default async function FeatureDetailPage({
           <p className="text-lg sm:text-xl text-neutral-600 max-w-2xl mx-auto mb-3">
             {detail.heroDescription}
           </p>
-          {!detail.comingSoon && (
+          {!detail.comingSoon && (detail.includedNote || suitePriceLabel[detail.suite]) && (
             <p className="text-sm font-medium text-accent">
-              {detail.includedNote || "Included free on every plan"}
+              {detail.includedNote || suitePriceLabel[detail.suite]}
             </p>
           )}
           {detail.comingSoon && (
@@ -157,7 +181,7 @@ export default async function FeatureDetailPage({
             href={PLATFORM_URL}
             className="inline-flex items-center px-8 py-4 border-2 border-accent bg-accent text-white font-semibold text-lg rounded-lg hover:bg-transparent hover:text-accent transition-colors"
           >
-            {detail.ctaButtonText || "Get Started Free"}
+            {detail.ctaButtonText || "Start Free Trial"}
             <ArrowRight size={24} weight="duotone" className="ml-2" />
           </a>
         </div>
