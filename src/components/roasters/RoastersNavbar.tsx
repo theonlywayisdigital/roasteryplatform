@@ -27,12 +27,8 @@ import {
   Leaf,
   Fire,
   CalendarBlank,
-  Star,
-  SquaresFour,
-  ChartLine,
   Tray,
   Plugs,
-  Question,
   Robot,
   DotsThree,
 } from "@phosphor-icons/react";
@@ -97,6 +93,7 @@ const productsSections = [
     items: [
       { icon: Envelope, label: "Email Campaigns", desc: "Beautiful emails that drive repeat orders", href: "/features/email-campaigns" },
       { icon: ShareNetwork, label: "Social Scheduling", desc: "Plan and publish across all channels", href: "/features/social-scheduling" },
+      { icon: CalendarBlank, label: "Content Calendar", desc: "Plan campaigns across every channel", href: "/features/content-calendar" },
     ],
   },
   {
@@ -109,7 +106,6 @@ const productsSections = [
       { icon: Leaf, label: "Green Bean Inventory", desc: "Track every bag from arrival to roast", href: "/features/green-bean-inventory" },
       { icon: Fire, label: "Roast Log", desc: "Record profiles, curves and notes", href: "/features/roast-log" },
       { icon: CalendarBlank, label: "Production Planner", desc: "Schedule roasts and manage capacity", href: "/features/production-planner" },
-      { icon: Star, label: "Cupping Scorecards", desc: "Score and compare every batch", href: "/features/cupping-scorecards" },
     ],
   },
   {
@@ -119,11 +115,8 @@ const productsSections = [
     mobileIcon: DotsThree,
     mobileDesc: "Dashboard, analytics, inbox, integrations & AI",
     items: [
-      { icon: SquaresFour, label: "Dashboard", desc: "Your roastery at a glance", href: "/features/dashboard" },
-      { icon: ChartLine, label: "Analytics", desc: "Sales, customer and marketing insights", href: "/features/analytics" },
       { icon: Tray, label: "Inbox", desc: "Convert order emails into orders", href: "/features/inbox" },
       { icon: Plugs, label: "Integrations", desc: "Shopify, WooCommerce, Wix & more", href: "/features/integrations" },
-      { icon: Question, label: "Help Center", desc: "In-app documentation and guides", href: "/features/help-center" },
       { icon: Robot, label: "AI", desc: "AI-powered tools across the platform", href: "/features/ai" },
     ],
   },
