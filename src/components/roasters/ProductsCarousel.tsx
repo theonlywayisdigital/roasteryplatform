@@ -15,6 +15,11 @@ import {
   Star,
   Calculator,
   Wrench,
+  SquaresFour,
+  Tray,
+  Plugs,
+  Robot,
+  DotsThree,
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
@@ -117,6 +122,42 @@ const suites = [
       },
     ],
   },
+  {
+    key: "more",
+    label: "More",
+    tagline: "Everything else your roastery needs",
+    description:
+      "Dashboard, analytics, inbox, integrations, help centre, and AI-powered tools. Included with every plan.",
+    allHref: "/features/more",
+    placeholderIcon: DotsThree,
+    placeholderLabel: "More Features Screenshot",
+    features: [
+      {
+        icon: SquaresFour,
+        title: "Dashboard",
+        desc: "Orders, stock, revenue and activity at a glance.",
+        href: "/features/dashboard",
+      },
+      {
+        icon: Tray,
+        title: "Inbox",
+        desc: "Convert order emails into tracked orders with one click.",
+        href: "/features/inbox",
+      },
+      {
+        icon: Plugs,
+        title: "Integrations",
+        desc: "Shopify, WooCommerce, Wix and Squarespace — sync automatically.",
+        href: "/features/integrations",
+      },
+      {
+        icon: Robot,
+        title: "AI",
+        desc: "Generate campaigns, write descriptions, and extract orders automatically.",
+        href: "/features/ai",
+      },
+    ],
+  },
 ];
 
 export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
@@ -135,7 +176,7 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
     <div>
       {/* Toggle tabs */}
       <div className="flex justify-center mb-12">
-        <div className="grid grid-cols-3 sm:inline-flex rounded-lg border border-neutral-200 p-1 bg-neutral-50 w-full sm:w-auto">
+        <div className="grid grid-cols-4 sm:inline-flex rounded-lg border border-neutral-200 p-1 bg-neutral-50 w-full sm:w-auto">
           {resolvedSuites.map((suite, i) => (
             <button
               key={suite.key}

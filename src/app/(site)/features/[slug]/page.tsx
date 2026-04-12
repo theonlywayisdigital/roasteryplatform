@@ -13,12 +13,14 @@ const PLATFORM_URL = "https://app.roasteryplatform.com";
 const suiteLabelMap: Record<string, string> = {
   sales: "Sales Suite",
   marketing: "Marketing Suite",
+  more: "More",
 };
 
 const suitePriceLabel: Record<string, string> = {
   sales: "From £39/mo",
   marketing: "From £19/mo",
   "roaster-tools": "Included",
+  more: "Included",
 };
 
 /** Slugs that should no longer be publicly accessible. */

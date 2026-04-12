@@ -19,6 +19,12 @@ import {
   Calculator,
   Certificate,
   Wrench,
+  SquaresFour,
+  ChartLine,
+  Tray,
+  Plugs,
+  Question,
+  Robot,
 } from "@phosphor-icons/react/dist/ssr";
 import { client } from "@/sanity/lib/client";
 import {
@@ -176,6 +182,51 @@ const roasterToolsFeatures: DefaultFeature[] = [
     description:
       "Manage organic, Fairtrade, and Rainforest Alliance certifications. Track expiry dates and documents.",
     href: "/features/certifications",
+  },
+];
+
+const moreFeatures: DefaultFeature[] = [
+  {
+    icon: <SquaresFour size={28} weight="duotone" />,
+    title: "Dashboard",
+    description:
+      "Your roastery at a glance. Orders, stock, revenue and activity in one view.",
+    href: "/features/dashboard",
+  },
+  {
+    icon: <ChartLine size={28} weight="duotone" />,
+    title: "Analytics",
+    description:
+      "Track performance across sales, customers and marketing in one place.",
+    href: "/features/analytics",
+  },
+  {
+    icon: <Tray size={28} weight="duotone" />,
+    title: "Inbox",
+    description:
+      "Receive order emails directly into Roastery Platform. Convert emails into orders with one click.",
+    href: "/features/inbox",
+  },
+  {
+    icon: <Plugs size={28} weight="duotone" />,
+    title: "Integrations",
+    description:
+      "Connect Shopify, WooCommerce, Wix and Squarespace. Sync products and orders automatically.",
+    href: "/features/integrations",
+  },
+  {
+    icon: <Question size={28} weight="duotone" />,
+    title: "Help Center",
+    description:
+      "Embedded help documentation available inside the platform whenever your team needs it.",
+    href: "/features/help-center",
+  },
+  {
+    icon: <Robot size={28} weight="duotone" />,
+    title: "AI",
+    description:
+      "AI-powered tools across the platform. Generate campaigns, write product descriptions, and convert emails into orders automatically.",
+    href: "/features/ai",
   },
 ];
 
@@ -372,6 +423,36 @@ export default async function FeaturesPage() {
               className="inline-flex items-center text-accent font-semibold hover:underline"
             >
               View all Roaster Tools
+              <ArrowRight size={20} weight="duotone" className="ml-2" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── More ───────────────────────────────────────────────── */}
+      <section className="py-16 lg:py-24 bg-white border-t border-neutral-100">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl sm:text-4xl font-black text-neutral-900 mb-3">
+              More
+            </h2>
+            <p className="text-neutral-500 text-lg">
+              Included with every plan
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {moreFeatures.map((feature) => (
+              <FeatureCard key={feature.title} feature={feature} />
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              href="/features/more"
+              className="inline-flex items-center text-accent font-semibold hover:underline"
+            >
+              View all More features
               <ArrowRight size={20} weight="duotone" className="ml-2" />
             </Link>
           </div>

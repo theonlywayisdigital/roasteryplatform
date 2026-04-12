@@ -28,6 +28,13 @@ import {
   Fire,
   CalendarBlank,
   Star,
+  SquaresFour,
+  ChartLine,
+  Tray,
+  Plugs,
+  Question,
+  Robot,
+  DotsThree,
 } from "@phosphor-icons/react";
 import type { IconWeight } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
@@ -103,6 +110,21 @@ const productsSections = [
       { icon: Fire, label: "Roast Log", desc: "Record profiles, curves and notes", href: "/features/roast-log" },
       { icon: CalendarBlank, label: "Production Planner", desc: "Schedule roasts and manage capacity", href: "/features/production-planner" },
       { icon: Star, label: "Cupping Scorecards", desc: "Score and compare every batch", href: "/features/cupping-scorecards" },
+    ],
+  },
+  {
+    title: "More",
+    badge: "Included",
+    allHref: "/features/more",
+    mobileIcon: DotsThree,
+    mobileDesc: "Dashboard, analytics, inbox, integrations & AI",
+    items: [
+      { icon: SquaresFour, label: "Dashboard", desc: "Your roastery at a glance", href: "/features/dashboard" },
+      { icon: ChartLine, label: "Analytics", desc: "Sales, customer and marketing insights", href: "/features/analytics" },
+      { icon: Tray, label: "Inbox", desc: "Convert order emails into orders", href: "/features/inbox" },
+      { icon: Plugs, label: "Integrations", desc: "Shopify, WooCommerce, Wix & more", href: "/features/integrations" },
+      { icon: Question, label: "Help Center", desc: "In-app documentation and guides", href: "/features/help-center" },
+      { icon: Robot, label: "AI", desc: "AI-powered tools across the platform", href: "/features/ai" },
     ],
   },
 ];
@@ -406,7 +428,7 @@ export function RoastersNavbar() {
               <MegaMenuTrigger label="Products" hasTopBar={topBarVisible}>
                 <div className="flex gap-8">
                   {/* Product sections */}
-                  <div className="flex-1 grid grid-cols-3 gap-8">
+                  <div className="flex-1 grid grid-cols-4 gap-8">
                     {productsSections.map((section) => (
                       <div key={section.title}>
                         <div className="flex items-center mb-4">
