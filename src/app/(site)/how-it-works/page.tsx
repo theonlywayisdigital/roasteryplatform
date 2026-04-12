@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import {
+  ScrollIndicator,
   Scene1AddGreenStock,
   Scene2LogRoast,
   Scene4WholesalePortal,
@@ -49,12 +50,13 @@ export default function HowItWorksPage() {
             </a>
           </div>
         </div>
+        <ScrollIndicator />
       </section>
 
       {/* ═══════════════════════════════════════════════════
           ACT 1 — The Core Loop
       ═══════════════════════════════════════════════════ */}
-      <div className="bg-white divide-y divide-neutral-100">
+      <div id="scene-1" className="bg-white divide-y divide-neutral-100">
         <Scene1AddGreenStock />
         <Scene2LogRoast />
         <Scene4WholesalePortal />

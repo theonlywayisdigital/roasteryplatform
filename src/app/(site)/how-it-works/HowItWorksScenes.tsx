@@ -18,6 +18,40 @@ import {
   Plugs,
 } from "@phosphor-icons/react";
 
+/* ── Scroll indicator ─────────────────────────────────── */
+
+export function ScrollIndicator() {
+  return (
+    <motion.a
+      href="#scene-1"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 1.2, ease: EASE }}
+      className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-neutral-400 hover:text-accent transition-colors"
+    >
+      <span className="text-xs font-medium tracking-wide uppercase">
+        Scroll to explore
+      </span>
+      <motion.svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        animate={{ y: [0, 6, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <path
+          d="M4 7l6 6 6-6"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </motion.svg>
+    </motion.a>
+  );
+}
+
 /* ── Shared constants ────────────────────────────────── */
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
