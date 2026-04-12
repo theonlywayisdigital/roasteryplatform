@@ -35,6 +35,106 @@ const hiddenSlugs = new Set([
   "automations",
 ]);
 
+/** Hardcoded fallback data for features not yet in Sanity. */
+const fallbackFeatures: Record<string, FeatureDetail> = {
+  dashboard: {
+    featureTitle: "Dashboard",
+    slug: "dashboard",
+    suite: "more",
+    heroDescription:
+      "See everything that matters at a glance. Your dashboard brings together orders, stock levels, revenue, and recent activity so you always know the state of your roastery.",
+    includedNote: "Included",
+    benefits: [
+      "Real-time order count and revenue summary",
+      "Stock level overview across green and roasted beans",
+      "Recent activity feed — orders, invoices, dispatches",
+      "Quick-access shortcuts to common tasks",
+      "Customisable date range for key metrics",
+      "At-a-glance view of outstanding and overdue invoices",
+    ],
+  },
+  analytics: {
+    featureTitle: "Analytics",
+    slug: "analytics",
+    suite: "more",
+    heroDescription:
+      "Understand your roastery's performance with clear, actionable analytics. Track sales trends, customer behaviour, and marketing results — all in one place.",
+    includedNote: "Included",
+    benefits: [
+      "Sales performance charts — revenue, orders, and average order value",
+      "Customer analytics — new vs returning, lifetime value trends",
+      "Product performance — best sellers, margin analysis",
+      "Marketing campaign metrics — open rates, click rates, conversions",
+      "Date range filtering and comparison periods",
+      "Export data to CSV for your own reporting",
+    ],
+  },
+  inbox: {
+    featureTitle: "Inbox",
+    slug: "inbox",
+    suite: "more",
+    heroDescription:
+      "Stop copying orders from emails into spreadsheets. Your Roastery Platform inbox receives order emails and lets you convert them into tracked orders with a single click.",
+    includedNote: "Included",
+    benefits: [
+      "Dedicated inbox for receiving order emails",
+      "AI-powered email parsing extracts order details automatically",
+      "One-click conversion from email to tracked order",
+      "Full email thread visible alongside the order",
+      "Works with any email client your customers already use",
+      "No setup required for your wholesale buyers",
+    ],
+  },
+  integrations: {
+    featureTitle: "Integrations",
+    slug: "integrations",
+    suite: "more",
+    heroDescription:
+      "Connect your existing e-commerce platform and keep everything in sync. Products, orders, and stock levels flow automatically between Roastery Platform and your online store.",
+    includedNote: "Included",
+    benefits: [
+      "Shopify, WooCommerce, Wix, and Squarespace supported",
+      "Two-way product sync — update once, publish everywhere",
+      "Automatic order import from connected stores",
+      "Stock level sync to prevent overselling",
+      "Simple setup wizard — connect in under 5 minutes",
+      "Webhook-based for real-time updates",
+    ],
+  },
+  "help-center": {
+    featureTitle: "Help Center",
+    slug: "help-center",
+    suite: "more",
+    heroDescription:
+      "Get answers without leaving the platform. The built-in help centre provides searchable documentation, guides, and walkthroughs for every feature.",
+    includedNote: "Included",
+    benefits: [
+      "Searchable knowledge base embedded in the platform",
+      "Step-by-step guides for every feature",
+      "Context-sensitive help — relevant articles appear where you need them",
+      "Getting started walkthroughs for new team members",
+      "Regularly updated with new features and tips",
+      "No need to open a separate browser tab",
+    ],
+  },
+  ai: {
+    featureTitle: "AI",
+    slug: "ai",
+    suite: "more",
+    heroDescription:
+      "AI is woven throughout Roastery Platform to save you time. Generate email campaigns, write product descriptions, extract orders from emails, and get smart suggestions — all powered by AI.",
+    includedNote: "Included",
+    benefits: [
+      "Generate email campaign copy from a brief",
+      "Write and refine product descriptions automatically",
+      "AI-powered email-to-order extraction in the Inbox",
+      "Smart product suggestions based on buying patterns",
+      "AI credits included on every plan",
+      "Works across Sales Suite, Marketing Suite, and Inbox",
+    ],
+  },
+};
+
 interface FeatureDetail {
   featureTitle: string;
   featureIcon?: string;
@@ -55,9 +155,14 @@ export async function generateStaticParams() {
   const slugs = await client
     .fetch<{ slug: string }[]>(allRoasterFeatureDetailSlugsQuery)
     .catch(() => []);
-  return slugs
+  const sanityPaths = slugs
     .filter((s) => !hiddenSlugs.has(s.slug))
     .map((s) => ({ slug: s.slug }));
+  const sanitySlugs = new Set(sanityPaths.map((p) => p.slug));
+  const fallbackPaths = Object.keys(fallbackFeatures)
+    .filter((s) => !sanitySlugs.has(s))
+    .map((s) => ({ slug: s }));
+  return [...sanityPaths, ...fallbackPaths];
 }
 
 export async function generateMetadata({
@@ -69,9 +174,10 @@ export async function generateMetadata({
 
   if (hiddenSlugs.has(slug)) return { title: "Feature" };
 
-  const detail = await client
-    .fetch<FeatureDetail>(roasterFeatureDetailBySlugQuery, { slug })
-    .catch(() => null);
+  const detail =
+    (await client
+      .fetch<FeatureDetail>(roasterFeatureDetailBySlugQuery, { slug })
+      .catch(() => null)) ?? fallbackFeatures[slug] ?? null;
 
   if (!detail) return { title: "Feature" };
 
@@ -90,9 +196,10 @@ export default async function FeatureDetailPage({
 
   if (hiddenSlugs.has(slug)) notFound();
 
-  const detail = await client
-    .fetch<FeatureDetail>(roasterFeatureDetailBySlugQuery, { slug })
-    .catch(() => null);
+  const detail =
+    (await client
+      .fetch<FeatureDetail>(roasterFeatureDetailBySlugQuery, { slug })
+      .catch(() => null)) ?? fallbackFeatures[slug] ?? null;
 
   if (!detail) notFound();
 
