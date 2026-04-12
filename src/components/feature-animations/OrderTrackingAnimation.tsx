@@ -74,7 +74,7 @@ export function OrderTrackingAnimation() {
   }, [isInView]);
 
   return (
-    <div ref={ref} className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-neutral-200 shadow-lg p-5 flex flex-col">
+    <div ref={ref} className="bg-white rounded-xl border border-neutral-200 shadow-lg p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -102,7 +102,7 @@ export function OrderTrackingAnimation() {
       </motion.div>
 
       {/* Order rows */}
-      <div className="flex-1 flex flex-col justify-center space-y-1">
+      <div className="space-y-1">
         {orders.map((order, i) => (
           <motion.div
             key={order.buyer}

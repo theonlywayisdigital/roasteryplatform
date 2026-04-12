@@ -60,7 +60,7 @@ export function ProductManagementAnimation() {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <div ref={ref} className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-neutral-200 shadow-lg p-5 flex flex-col">
+    <div ref={ref} className="bg-white rounded-xl border border-neutral-200 shadow-lg p-6">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0 }}
@@ -75,7 +75,7 @@ export function ProductManagementAnimation() {
       </motion.div>
 
       {/* Product cards */}
-      <div className="flex-1 space-y-3">
+      <div className="space-y-3">
         {products.map((product, i) => (
           <motion.div
             key={product.name}

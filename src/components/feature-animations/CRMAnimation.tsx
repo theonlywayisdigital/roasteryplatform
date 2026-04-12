@@ -42,19 +42,19 @@ export function CRMAnimation() {
   const ltvValue = useAnimatedCounter(mainContact.ltv, isInView, DUR.counter, 1.6);
 
   return (
-    <div ref={ref} className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200 shadow-lg flex items-center justify-center p-6">
+    <div ref={ref} className="relative flex items-center justify-center py-8">
       {/* Background offset cards */}
       <motion.div
         initial={{ opacity: 0, x: 16, y: 16, rotate: 3 }}
         animate={isInView ? { opacity: 0.4, x: 16, y: 16, rotate: 3 } : {}}
         transition={{ duration: DUR.card, delay: 0.4, ease: EASE }}
-        className="absolute inset-x-8 inset-y-8 bg-white rounded-xl border border-neutral-200 shadow-md"
+        className="absolute inset-0 bg-white rounded-xl border border-neutral-200 shadow-md"
       />
       <motion.div
         initial={{ opacity: 0, x: 8, y: 8, rotate: 1.5 }}
         animate={isInView ? { opacity: 0.6, x: 8, y: 8, rotate: 1.5 } : {}}
         transition={{ duration: DUR.card, delay: 0.6, ease: EASE }}
-        className="absolute inset-x-8 inset-y-8 bg-white rounded-xl border border-neutral-200 shadow-md"
+        className="absolute inset-0 bg-white rounded-xl border border-neutral-200 shadow-md"
       />
 
       {/* Main contact card */}
@@ -62,7 +62,7 @@ export function CRMAnimation() {
         initial={{ opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: DUR.card, delay: 0.8, ease: EASE }}
-        className="relative bg-white rounded-xl border border-neutral-200 shadow-lg p-5 w-full max-w-sm z-10"
+        className="relative bg-white rounded-xl border border-neutral-200 shadow-lg p-5 w-full z-10"
       >
         {/* Avatar + name */}
         <motion.div

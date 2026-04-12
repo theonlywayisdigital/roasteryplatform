@@ -61,11 +61,10 @@ export function WholesaleAnimation() {
   const accentHex = stage >= 3 ? "#D97706" : "#CBD5E1";
 
   return (
-    <div ref={ref} className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-neutral-200 shadow-lg">
-      <div className="grid grid-cols-5 gap-3 h-full p-4">
+    <div ref={ref} className="grid grid-cols-5 gap-4">
         {/* Left: Branding controls */}
-        <div className="col-span-2 flex flex-col">
-          <div className="bg-white rounded-xl border border-neutral-200 shadow-lg p-4 space-y-3 flex-1">
+        <div className="col-span-2">
+          <div className="bg-white rounded-xl border border-neutral-200 shadow-lg p-4 space-y-3">
             <span className="text-xs font-semibold text-neutral-900 block">
               Brand Identity
             </span>
@@ -152,8 +151,8 @@ export function WholesaleAnimation() {
         </div>
 
         {/* Right: Portal preview */}
-        <div className="col-span-3 flex flex-col">
-          <div className="bg-white rounded-xl border border-neutral-200 shadow-lg overflow-hidden flex-1 flex flex-col">
+        <div className="col-span-3">
+          <div className="bg-white rounded-xl border border-neutral-200 shadow-lg overflow-hidden">
             {/* Hero banner */}
             <motion.div
               className="h-24 flex flex-col justify-end p-3 relative overflow-hidden"
@@ -224,7 +223,6 @@ export function WholesaleAnimation() {
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 }
