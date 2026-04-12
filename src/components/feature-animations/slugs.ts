@@ -5,4 +5,8 @@ export const animatedSlugs = new Set([
   "crm",
   "invoices",
   "product-management",
+  "email-campaigns",
+  "social-scheduling",
+  "content-calendar",
+  "embedded-forms",
 ]);
