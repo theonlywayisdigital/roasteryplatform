@@ -240,7 +240,7 @@ type TransitionDef = {
   presentation: TransitionPresentation<Record<string, unknown>>;
 };
 
-const WHITE_FLASH_DUR = 16; // 8 out + 8 in
+const WHITE_FLASH_DUR = 12; // 6 out + 6 in
 const ZOOM_DUR = 20;
 const SHARED_DUR = 25;
 

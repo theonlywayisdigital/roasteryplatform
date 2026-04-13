@@ -47,14 +47,14 @@ export const MergedScene5_Marketing: React.FC = () => {
      Head1 out by 145, Head2 in at 160. Head2 out by 290, Head3 in at 305.
      ════════════════════════════════════════════════════════════ */
 
-  const head1Opacity = interpolate(frame, [0, 12, 130, 145], [0, 1, 1, 0], clamp);
-  const head1Y = interpolate(frame, [0, 12], [25, 0], easeOut);
+  const head1Opacity = interpolate(frame, [0, 10, 130, 140], [0, 1, 1, 0], clamp);
+  const head1Y = interpolate(frame, [0, 10], [25, 0], easeOut);
 
-  const head2Opacity = interpolate(frame, [160, 175, 275, 290], [0, 1, 1, 0], clamp);
-  const head2Y = interpolate(frame, [160, 175], [25, 0], easeOut);
+  const head2Opacity = interpolate(frame, [160, 170, 275, 285], [0, 1, 1, 0], clamp);
+  const head2Y = interpolate(frame, [160, 170], [25, 0], easeOut);
 
-  const head3Opacity = interpolate(frame, [305, 320], [0, 1], clamp);
-  const head3Y = interpolate(frame, [305, 320], [25, 0], easeOut);
+  const head3Opacity = interpolate(frame, [305, 315], [0, 1], clamp);
+  const head3Y = interpolate(frame, [305, 315], [25, 0], easeOut);
 
   /* ════════════════════════════════════════════════════════════
      ACT 1 — Email Campaigns (frames 0–150)
@@ -82,11 +82,10 @@ export const MergedScene5_Marketing: React.FC = () => {
     easing: Easing.out(Easing.back(1.3)),
   });
 
-  // Send button pulses then is clicked
+  // Send button pulses then is clicked — interpolated envelope
   const sendBtnOpacity = interpolate(frame, [65, 78], [0, 1], clamp);
-  const sendBtnPulse = frame >= 78 && frame < 88
-    ? 1 + 0.04 * Math.sin((frame - 78) * 0.4)
-    : 1;
+  const sendPulseEnv = interpolate(frame, [78, 80, 86, 88], [0, 1, 1, 0], clamp);
+  const sendBtnPulse = 1 + 0.04 * Math.sin((frame - 78) * 0.4) * sendPulseEnv;
   const sendBtnFadeOut = interpolate(frame, [88, 96], [1, 0], clamp);
   const sentBadgeSpring = spring({
     frame: frame - 88,
@@ -179,11 +178,10 @@ export const MergedScene5_Marketing: React.FC = () => {
   const field0Glow = interpolate(frame, [338, 342, 367, 372], [0, 1, 1, 0], clamp);
   const field1Glow = interpolate(frame, [353, 357, 387, 392], [0, 1, 1, 0], clamp);
 
-  // Submit button pulses and is clicked
+  // Submit button pulses and is clicked — interpolated envelope
   const submitBtnOpacity = interpolate(frame, [390, 400], [0, 1], clamp);
-  const submitBtnPulse = frame >= 400 && frame < 410
-    ? 1 + 0.04 * Math.sin((frame - 400) * 0.4)
-    : 1;
+  const submitPulseEnv = interpolate(frame, [400, 402, 408, 410], [0, 1, 1, 0], clamp);
+  const submitBtnPulse = 1 + 0.04 * Math.sin((frame - 400) * 0.4) * submitPulseEnv;
   const submitClickedSpring = spring({
     frame: frame - 410,
     fps,

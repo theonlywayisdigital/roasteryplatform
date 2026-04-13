@@ -31,12 +31,12 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
      ════════════════════════════════════════════════════════════ */
 
   // Act 1 headline: "It starts with the green bean."
-  const head1Opacity = interpolate(frame, [0, 12, 160, 180], [0, 1, 1, 0], clamp);
+  const head1Opacity = interpolate(frame, [0, 12, 155, 165], [0, 1, 1, 0], clamp);
   const head1Y = interpolate(frame, [0, 12], [25, 0], easeOut);
 
   // Act 2 headline: "Log every roast. Stock updates automatically."
-  const head2Opacity = interpolate(frame, [180, 200], [0, 1], clamp);
-  const head2Y = interpolate(frame, [180, 200], [25, 0], easeOut);
+  const head2Opacity = interpolate(frame, [185, 195], [0, 1], clamp);
+  const head2Y = interpolate(frame, [185, 195], [25, 0], easeOut);
 
   /* ════════════════════════════════════════════════════════════
      ACT 1 — Add Green Bean form (frames 0–180)
@@ -47,25 +47,24 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
   const act1FormScale = interpolate(frame, [8, 24], [0.92, 1], easeOut);
   const act1FormX = interpolate(frame, [8, 24], [-60, 0], easeOut);
 
-  // Act 1 form exits: shrinks to 80% and slides left at transition
-  const act1ExitScale = interpolate(frame, [170, 210], [1, 0.8], easeOut);
-  const act1ExitX = interpolate(frame, [170, 210], [0, -500], easeOut);
-  const act1ExitOpacity = interpolate(frame, [170, 210], [1, 0], clamp);
+  // Act 1 form exits: shrinks to 85% and slides left over 20 frames
+  const act1ExitScale = interpolate(frame, [155, 175], [1, 0.85], easeOut);
+  const act1ExitX = interpolate(frame, [155, 175], [0, -500], easeOut);
+  const act1ExitOpacity = interpolate(frame, [155, 175], [1, 0], clamp);
 
   // Combined act 1 form transforms
-  const act1Scale = frame < 170 ? act1FormScale : act1FormScale * act1ExitScale;
-  const act1X = frame < 170 ? act1FormX : act1FormX + act1ExitX;
-  const act1Opacity = frame < 170 ? act1FormOpacity : act1FormOpacity * act1ExitOpacity;
+  const act1Scale = frame < 155 ? act1FormScale : act1FormScale * act1ExitScale;
+  const act1X = frame < 155 ? act1FormX : act1FormX + act1ExitX;
+  const act1Opacity = frame < 155 ? act1FormOpacity : act1FormOpacity * act1ExitOpacity;
 
   // Field stagger — type in sequentially
   const fieldFo = (d: number) => interpolate(frame, [d, d + 18], [0, 1], clamp);
   const fieldFy = (d: number) => interpolate(frame, [d, d + 18], [16, 0], easeOut);
 
-  // Act 1 button pulse at frame 150
+  // Act 1 button pulse — interpolated envelope, no boolean jump
   const act1BtnOpacity = interpolate(frame, [80, 95], [0, 1], clamp);
-  const act1BtnPulse = frame >= 145 && frame <= 165
-    ? 1 + 0.06 * Math.sin((frame - 145) * 0.4)
-    : 1;
+  const act1PulseEnv = interpolate(frame, [120, 130, 145, 155], [0, 1, 1, 0], clamp);
+  const act1BtnPulse = 1 + 0.06 * Math.sin((frame - 120) * 0.4) * act1PulseEnv;
 
   /* ════════════════════════════════════════════════════════════
      ACT 2 — Log Roast form (frames 180–420)
@@ -88,11 +87,10 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
   // Weight loss badge
   const wlOpacity = interpolate(frame, [240, 258], [0, 1], clamp);
 
-  // Act 2 button appears before stock deduction, pulses at 280
+  // Act 2 button appears before stock deduction, interpolated pulse envelope
   const act2BtnOpacity = interpolate(frame, [255, 270], [0, 1], clamp);
-  const act2BtnPulse = frame >= 275 && frame <= 295
-    ? 1 + 0.06 * Math.sin((frame - 275) * 0.4)
-    : 1;
+  const act2PulseEnv = interpolate(frame, [275, 280, 290, 295], [0, 1, 1, 0], clamp);
+  const act2BtnPulse = 1 + 0.06 * Math.sin((frame - 275) * 0.4) * act2PulseEnv;
 
   /* ════════════════════════════════════════════════════════════
      STOCK COUNTERS — persistent, right side
@@ -107,8 +105,8 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
   const greenAct2 = interpolate(frame, [290, 340], [120, 108], easeOut);
   const greenVal = Math.round(frame < 290 ? greenAct1 : greenAct2);
 
-  // Green stock arrow — shows up arrow in Act 1, down arrow in Act 2 after roast
-  const greenDeltaVisible = frame >= 290;
+  // Green stock arrow — crossfade from up arrow to down arrow over 10 frames
+  const greenDeltaProgress = interpolate(frame, [290, 300], [0, 1], clamp);
 
   // Roasted stock counter — appears in Act 2
   const roastedCounterSpring = spring({
@@ -122,15 +120,15 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
   // Roasted stock value: 0→10 when roast logs
   const roastedVal = Math.round(interpolate(frame, [290, 340], [0, 10], easeOut));
 
-  // Roasted delta visible after counting
-  const roastedDeltaVisible = frame >= 340;
+  // Roasted delta fades in after counting — interpolated, no boolean jump
+  const roastedDeltaOpacity = interpolate(frame, [340, 350], [0, 1], clamp);
 
   /* ════════════════════════════════════════════════════════════
      RENDER
      ════════════════════════════════════════════════════════════ */
 
-  const showAct1Form = frame < 220; // keep visible during exit animation
-  const showAct2Form = frame >= 180;
+  const showAct1Form = frame < 185; // keep visible during exit animation, gone before Act 2 enters
+  const showAct2Form = frame >= 185;
 
   return (
     <AbsoluteFill style={fullScreen}>
@@ -168,7 +166,7 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
               opacity: act1Opacity,
               transform: `scale(${act1Scale}) translateX(${act1X}px)`,
               transformOrigin: "left center",
-              position: frame >= 180 ? "absolute" as const : "relative" as const,
+              position: frame >= 155 ? "absolute" as const : "relative" as const,
               top: 0,
               left: 0,
               width: 520,
@@ -297,29 +295,26 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
           <Card style={{ width: 240, textAlign: "center" as const }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 8 }}>
               <svg width="16" height="16" viewBox="0 0 16 16">
-                {greenDeltaVisible
-                  ? <path d="M4 6l4 4 4-4" stroke="#EF4444" strokeWidth="2" fill="none" strokeLinecap="round" />
-                  : <path d="M4 10l4-4 4 4" stroke="#16A34A" strokeWidth="2" fill="none" strokeLinecap="round" />
-                }
+                <path d="M4 10l4-4 4 4" stroke="#16A34A" strokeWidth="2" fill="none" strokeLinecap="round" opacity={1 - greenDeltaProgress} />
+                <path d="M4 6l4 4 4-4" stroke="#EF4444" strokeWidth="2" fill="none" strokeLinecap="round" opacity={greenDeltaProgress} />
               </svg>
               <span style={{ fontSize: 12, fontWeight: 500, color: BRAND.muted, fontFamily: FONT_FAMILY }}>Green Stock</span>
             </div>
             <span style={{
               fontSize: 30, fontWeight: 900,
-              color: greenDeltaVisible ? "#EF4444" : BRAND.green,
+              color: `rgb(${Math.round(interpolate(greenDeltaProgress, [0, 1], [22, 239]))}, ${Math.round(interpolate(greenDeltaProgress, [0, 1], [163, 68]))}, ${Math.round(interpolate(greenDeltaProgress, [0, 1], [74, 68]))})`,
               fontFamily: FONT_FAMILY, fontVariantNumeric: "tabular-nums",
             }}>
               {greenVal}
               <span style={{ fontSize: 15, fontWeight: 500, color: BRAND.muted, marginLeft: 4 }}>kg</span>
             </span>
-            {greenDeltaVisible && (
-              <div style={{
-                fontSize: 12, color: "#F87171", fontFamily: FONT_FAMILY, marginTop: 6,
-                opacity: interpolate(frame, [340, 350], [0, 1], clamp),
-              }}>
-                &#x25BC; 12kg
-              </div>
-            )}
+            <div style={{
+              fontSize: 12, color: "#F87171", fontFamily: FONT_FAMILY, marginTop: 6,
+              opacity: interpolate(frame, [340, 350], [0, 1], clamp),
+              pointerEvents: frame < 340 ? "none" as const : "auto" as const,
+            }}>
+              &#x25BC; 12kg
+            </div>
           </Card>
 
           {/* Roasted Stock — appears in Act 2 */}
@@ -339,14 +334,13 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
                   {roastedVal}
                   <span style={{ fontSize: 13, fontWeight: 500, color: BRAND.muted, marginLeft: 4 }}>kg</span>
                 </span>
-                {roastedDeltaVisible && (
-                  <div style={{
-                    fontSize: 12, color: BRAND.orange, fontFamily: FONT_FAMILY, marginTop: 4,
-                    opacity: interpolate(frame, [340, 350], [0, 1], clamp),
-                  }}>
-                    &#x25B2; 10kg
-                  </div>
-                )}
+                <div style={{
+                  fontSize: 12, color: BRAND.orange, fontFamily: FONT_FAMILY, marginTop: 4,
+                  opacity: roastedDeltaOpacity,
+                  pointerEvents: roastedDeltaOpacity < 0.01 ? "none" as const : "auto" as const,
+                }}>
+                  &#x25B2; 10kg
+                </div>
               </Card>
             </div>
           )}

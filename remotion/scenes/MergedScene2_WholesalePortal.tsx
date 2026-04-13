@@ -31,14 +31,14 @@ export const MergedScene2_WholesalePortal: React.FC = () => {
      HEADLINES — crossfade across three acts
      ════════════════════════════════════════════════════════════ */
 
-  const head1Opacity = interpolate(frame, [0, 12, 190, 210], [0, 1, 1, 0], clamp);
-  const head1Y = interpolate(frame, [0, 12], [25, 0], easeOut);
+  const head1Opacity = interpolate(frame, [0, 10, 195, 205], [0, 1, 1, 0], clamp);
+  const head1Y = interpolate(frame, [0, 10], [25, 0], easeOut);
 
-  const head2Opacity = interpolate(frame, [210, 230, 340, 360], [0, 1, 1, 0], clamp);
-  const head2Y = interpolate(frame, [210, 230], [25, 0], easeOut);
+  const head2Opacity = interpolate(frame, [215, 225, 345, 355], [0, 1, 1, 0], clamp);
+  const head2Y = interpolate(frame, [215, 225], [25, 0], easeOut);
 
-  const head3Opacity = interpolate(frame, [360, 380], [0, 1], clamp);
-  const head3Y = interpolate(frame, [360, 380], [25, 0], easeOut);
+  const head3Opacity = interpolate(frame, [365, 375], [0, 1], clamp);
+  const head3Y = interpolate(frame, [365, 375], [25, 0], easeOut);
 
   /* ════════════════════════════════════════════════════════════
      STOCK COUNTERS — top right, persistent from frame 0
@@ -60,8 +60,11 @@ export const MergedScene2_WholesalePortal: React.FC = () => {
   // Counter scale bump in Act 3 to draw attention
   const counterScale = interpolate(frame, [370, 385, 430, 450], [1, 1.08, 1.08, 1], clamp);
 
+  // Arrow crossfade progress — interpolated, no boolean jump
+  const arrowFlipProgress = interpolate(frame, [375, 385], [0, 1], clamp);
+
   // Portal dims in Act 3 so counters stand out
-  const portalDim = interpolate(frame, [360, 390], [1, 0.5], clamp);
+  const portalDim = interpolate(frame, [365, 390], [1, 0.5], clamp);
 
   // "Order committed" badge
   const badgeSpring = spring({
@@ -128,10 +131,9 @@ export const MergedScene2_WholesalePortal: React.FC = () => {
   // First product card highlight on hover
   const card1Highlight = interpolate(frame, [255, 268], [0, 1], clamp);
 
-  // Click effect — scale pulse on card
-  const clickPulse = frame >= 268 && frame <= 278
-    ? 1 + 0.03 * Math.sin((frame - 268) * 0.6)
-    : 1;
+  // Click effect — interpolated pulse envelope
+  const clickPulseEnv = interpolate(frame, [268, 270, 276, 278], [0, 1, 1, 0], clamp);
+  const clickPulse = 1 + 0.03 * Math.sin((frame - 268) * 0.6) * clickPulseEnv;
 
   // Quantity selector appears (275–295)
   const qtyOpacity = interpolate(frame, [275, 290], [0, 1], clamp);
@@ -143,10 +145,9 @@ export const MergedScene2_WholesalePortal: React.FC = () => {
   const cursorY2 = interpolate(frame, [305, 320], [240, 360], easeOut);
   const cursorPhase2 = frame >= 305;
 
-  // Order button click (320–330)
-  const orderBtnPulse = frame >= 322 && frame <= 332
-    ? 1 + 0.04 * Math.sin((frame - 322) * 0.6)
-    : 1;
+  // Order button click — interpolated pulse envelope
+  const orderPulseEnv = interpolate(frame, [322, 324, 330, 332], [0, 1, 1, 0], clamp);
+  const orderBtnPulse = 1 + 0.04 * Math.sin((frame - 322) * 0.6) * orderPulseEnv;
 
   // Green checkmark confirmation (330–360)
   const checkSpring = spring({
@@ -387,38 +388,35 @@ export const MergedScene2_WholesalePortal: React.FC = () => {
           }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 6 }}>
               <svg width="14" height="14" viewBox="0 0 16 16">
-                {frame >= 375
-                  ? <path d="M4 6l4 4 4-4" stroke="#EF4444" strokeWidth="2" fill="none" strokeLinecap="round" />
-                  : <path d="M4 10l4-4 4 4" stroke={BRAND.orange} strokeWidth="2" fill="none" strokeLinecap="round" />
-                }
+                <path d="M4 10l4-4 4 4" stroke={BRAND.orange} strokeWidth="2" fill="none" strokeLinecap="round" opacity={1 - arrowFlipProgress} />
+                <path d="M4 6l4 4 4-4" stroke="#EF4444" strokeWidth="2" fill="none" strokeLinecap="round" opacity={arrowFlipProgress} />
               </svg>
               <span style={{ fontSize: 11, fontWeight: 500, color: BRAND.muted, fontFamily: FONT_FAMILY }}>Roasted Stock</span>
             </div>
             <span style={{
               fontSize: 26, fontWeight: 900,
-              color: frame >= 375 ? "#EF4444" : BRAND.orange,
+              color: `rgb(${Math.round(interpolate(arrowFlipProgress, [0, 1], [217, 239]))}, ${Math.round(interpolate(arrowFlipProgress, [0, 1], [119, 68]))}, ${Math.round(interpolate(arrowFlipProgress, [0, 1], [6, 68]))})`,
               fontFamily: FONT_FAMILY, fontVariantNumeric: "tabular-nums",
             }}>
               {roastedVal}
               <span style={{ fontSize: 13, fontWeight: 500, color: BRAND.muted, marginLeft: 4 }}>kg</span>
             </span>
-            {frame >= 375 && (
-              <div style={{
-                fontSize: 11, color: "#F87171", fontFamily: FONT_FAMILY, marginTop: 4,
-                opacity: interpolate(frame, [420, 430], [0, 1], clamp),
-              }}>
-                &#x25BC; 10kg
-              </div>
-            )}
+            <div style={{
+              fontSize: 11, color: "#F87171", fontFamily: FONT_FAMILY, marginTop: 4,
+              opacity: interpolate(frame, [420, 430], [0, 1], clamp),
+              pointerEvents: frame < 420 ? "none" as const : "auto" as const,
+            }}>
+              &#x25BC; 10kg
+            </div>
           </Card>
 
-          {/* "Order committed" badge */}
-          {frame >= 425 && (
-            <div style={{
-              opacity: badgeOpacity,
-              transform: `scale(${badgeScale})`,
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}>
+          {/* "Order committed" badge — always mounted, spring-animated */}
+          <div style={{
+            opacity: badgeOpacity,
+            transform: `scale(${badgeScale})`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            pointerEvents: badgeOpacity < 0.01 ? "none" as const : "auto" as const,
+          }}>
               <div style={{
                 display: "inline-flex", alignItems: "center", gap: 8,
                 backgroundColor: "#DCFCE7", padding: "8px 16px",
@@ -432,8 +430,7 @@ export const MergedScene2_WholesalePortal: React.FC = () => {
                   Order committed
                 </span>
               </div>
-            </div>
-          )}
+          </div>
         </div>
       </div>
     </AbsoluteFill>

@@ -39,17 +39,17 @@ export const MergedScene4_Operations: React.FC = () => {
      Head3 out by 430, Head4 in at 445.
      ════════════════════════════════════════════════════════════ */
 
-  const head1Opacity = interpolate(frame, [0, 12, 130, 145], [0, 1, 1, 0], clamp);
-  const head1Y = interpolate(frame, [0, 12], [25, 0], easeOut);
+  const head1Opacity = interpolate(frame, [0, 10, 130, 140], [0, 1, 1, 0], clamp);
+  const head1Y = interpolate(frame, [0, 10], [25, 0], easeOut);
 
-  const head2Opacity = interpolate(frame, [160, 175, 275, 290], [0, 1, 1, 0], clamp);
-  const head2Y = interpolate(frame, [160, 175], [25, 0], easeOut);
+  const head2Opacity = interpolate(frame, [160, 170, 275, 285], [0, 1, 1, 0], clamp);
+  const head2Y = interpolate(frame, [160, 170], [25, 0], easeOut);
 
-  const head3Opacity = interpolate(frame, [305, 320, 415, 430], [0, 1, 1, 0], clamp);
-  const head3Y = interpolate(frame, [305, 320], [25, 0], easeOut);
+  const head3Opacity = interpolate(frame, [305, 315, 415, 425], [0, 1, 1, 0], clamp);
+  const head3Y = interpolate(frame, [305, 315], [25, 0], easeOut);
 
-  const head4Opacity = interpolate(frame, [445, 460], [0, 1], clamp);
-  const head4Y = interpolate(frame, [445, 460], [25, 0], easeOut);
+  const head4Opacity = interpolate(frame, [445, 455], [0, 1], clamp);
+  const head4Y = interpolate(frame, [445, 455], [25, 0], easeOut);
 
   /* ════════════════════════════════════════════════════════════
      ACT 1 — Inbox (frames 0–150)
@@ -69,11 +69,10 @@ export const MergedScene4_Operations: React.FC = () => {
   // Letter content fades in inside card
   const letterOpacity = interpolate(frame, [40, 55], [0, 1], clamp);
 
-  // Convert button pulses
+  // Convert button pulses — interpolated envelope
   const convertBtnOpacity = interpolate(frame, [65, 78], [0, 1], clamp);
-  const convertBtnPulse = frame >= 78 && frame < 95
-    ? 1 + 0.04 * Math.sin((frame - 78) * 0.3)
-    : 1;
+  const convertPulseEnv = interpolate(frame, [78, 80, 92, 95], [0, 1, 1, 0], clamp);
+  const convertBtnPulse = 1 + 0.04 * Math.sin((frame - 78) * 0.3) * convertPulseEnv;
 
   // Click at frame 95 — flip to green
   const convertedSpring = spring({
@@ -594,7 +593,7 @@ export const MergedScene4_Operations: React.FC = () => {
                       opacity: tileOpacity,
                       transform: `translateX(${tileX}px)`,
                     }}>
-                      <IntegrationTile name={a.name} color={a.color} connected={frame >= acctTileDelay(idx) + 15} />
+                      <IntegrationTile name={a.name} color={a.color} connected={interpolate(frame, [acctTileDelay(idx) + 10, acctTileDelay(idx) + 20], [0, 1], clamp) > 0.5} />
                     </div>
                   </div>
                 );

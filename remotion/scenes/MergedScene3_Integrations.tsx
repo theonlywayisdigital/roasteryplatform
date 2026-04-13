@@ -43,11 +43,11 @@ export const MergedScene3_Integrations: React.FC = () => {
      HEADLINES
      ════════════════════════════════════════════════════════════ */
 
-  const head1Opacity = interpolate(frame, [0, 12, 180, 200], [0, 1, 1, 0], clamp);
-  const head1Y = interpolate(frame, [0, 12], [25, 0], easeOut);
+  const head1Opacity = interpolate(frame, [0, 10, 185, 195], [0, 1, 1, 0], clamp);
+  const head1Y = interpolate(frame, [0, 10], [25, 0], easeOut);
 
-  const head2Opacity = interpolate(frame, [200, 220], [0, 1], clamp);
-  const head2Y = interpolate(frame, [200, 220], [25, 0], easeOut);
+  const head2Opacity = interpolate(frame, [205, 215], [0, 1], clamp);
+  const head2Y = interpolate(frame, [205, 215], [25, 0], easeOut);
 
   /* ════════════════════════════════════════════════════════════
      STOCK COUNTERS — top right, persistent from frame 0
