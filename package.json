@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "remotion:studio": "remotion studio remotion/index.ts",
+    "remotion:render": "remotion render remotion/index.ts MarketingVideo out/marketing-video.mp4"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
@@ -24,12 +26,16 @@
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
+    "@remotion/cli": "^4.0.448",
+    "@remotion/player": "^4.0.448",
+    "@remotion/transitions": "^4.0.448",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
+    "remotion": "^4.0.448",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
