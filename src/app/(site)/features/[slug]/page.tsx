@@ -91,15 +91,15 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
     slug: "integrations",
     suite: "more",
     heroDescription:
-      "Connect your existing e-commerce platform and keep everything in sync. Products, orders, and stock levels flow automatically between Roastery Platform and your online store.",
-    includedNote: "Included",
+      "Connect your roastery to the tools you already use. Storefronts, accounting, social media, Google Shopping, and custom webhooks — all from one platform.",
+    includedNote: "Pro",
     benefits: [
-      "Shopify, WooCommerce, Wix, and Squarespace supported",
-      "Two-way product sync — update once, publish everywhere",
-      "Automatic order import from connected stores",
-      "Stock level sync to prevent overselling",
-      "Simple setup wizard — connect in under 5 minutes",
-      "Webhook-based for real-time updates",
+      "Storefronts — Shopify, WooCommerce, Wix, and Squarespace. Sync products, pricing, and orders automatically.",
+      "Accounting — Xero, QuickBooks, and Sage. Push invoices and payments directly to your accounting platform.",
+      "Social — Facebook and Instagram. Publish products and content directly from Roastery Platform.",
+      "Google Merchant — Sync your product catalogue to Google Shopping. Keep pricing and stock up to date automatically.",
+      "Webhooks — Connect any custom system via webhooks. Send order, stock, and customer events to your own APIs or third-party tools.",
+      "Simple setup wizard — connect in under 5 minutes. Webhook-based for real-time updates.",
     ],
   },
   "help-center": {
