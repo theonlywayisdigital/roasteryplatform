@@ -110,14 +110,14 @@ const productsSections = [
   },
   {
     title: "More",
-    badge: "Included",
+    badge: null,
     allHref: "/features/more",
     mobileIcon: DotsThree,
     mobileDesc: "Dashboard, analytics, inbox, integrations & AI",
     items: [
-      { icon: Tray, label: "Inbox", desc: "Convert order emails into orders", href: "/features/inbox" },
-      { icon: Plugs, label: "Integrations", desc: "Shopify, WooCommerce, Wix & more", href: "/features/integrations" },
-      { icon: Robot, label: "AI", desc: "AI-powered tools across the platform", href: "/features/ai" },
+      { icon: Tray, label: "Inbox", desc: "Convert order emails into orders", href: "/features/inbox", tierBadge: "Included" as const },
+      { icon: Plugs, label: "Integrations", desc: "Shopify, WooCommerce, Wix & more", href: "/features/integrations", tierBadge: "Pro" as const },
+      { icon: Robot, label: "AI", desc: "AI-powered tools across the platform", href: "/features/ai", tierBadge: "Growth" as const },
     ],
   },
 ];
@@ -267,6 +267,25 @@ function SuiteBadge({ label }: { label: string }) {
   );
 }
 
+/* ── Tier badge (per-item pricing chip) ────────────────── */
+
+const tierBadgeStyles: Record<string, string> = {
+  Included: "bg-emerald-50 text-emerald-600 border-emerald-200",
+  Pro: "bg-blue-50 text-blue-600 border-blue-200",
+  Growth: "bg-amber-50 text-amber-600 border-amber-200",
+};
+
+function TierBadge({ label }: { label: string }) {
+  return (
+    <span className={cn(
+      "ml-1.5 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider border",
+      tierBadgeStyles[label] || "bg-neutral-50 text-neutral-500 border-neutral-200"
+    )}>
+      {label}
+    </span>
+  );
+}
+
 /* ── Menu item (HubSpot style — icon, title, description) ─ */
 
 function MenuItem({
@@ -277,6 +296,7 @@ function MenuItem({
   external,
   comingSoon,
   onNavigate,
+  tierBadge,
 }: {
   icon: React.ComponentType<{ className?: string; weight?: IconWeight; size?: number }>;
   label: string;
@@ -285,6 +305,7 @@ function MenuItem({
   external?: boolean;
   comingSoon?: boolean;
   onNavigate?: () => void;
+  tierBadge?: string;
 }) {
   if (comingSoon) {
     return (
@@ -314,6 +335,7 @@ function MenuItem({
       <div>
         <p className="text-sm font-semibold text-neutral-900 group-hover:text-accent transition-colors">
           {label}
+          {tierBadge && <TierBadge label={tierBadge} />}
         </p>
         <p className="text-xs text-neutral-500 mt-0.5">{desc}</p>
       </div>
@@ -450,6 +472,7 @@ export function RoastersNavbar() {
                               href={item.href}
                               onNavigate={handleNavClick}
                               comingSoon={"comingSoon" in item && !!(item as { comingSoon?: boolean }).comingSoon}
+                              tierBadge={"tierBadge" in item ? (item as { tierBadge?: string }).tierBadge : undefined}
                             />
                           ))}
                         </div>
