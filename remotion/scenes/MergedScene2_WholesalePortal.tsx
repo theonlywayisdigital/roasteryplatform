@@ -206,7 +206,7 @@ export const MergedScene2_WholesalePortal: React.FC = () => {
                 display: "flex", flexDirection: "column",
                 justifyContent: "flex-end", padding: 20,
               }}>
-                <span style={{ fontSize: 18, fontWeight: 700, color: BRAND.dark, fontFamily: FONT_FAMILY, position: "relative", zIndex: 2 }}>
+                <span style={{ fontSize: 18, fontWeight: 700, color: "#FFFFFF", fontFamily: FONT_FAMILY, position: "relative", zIndex: 2 }}>
                   {brandName}
                 </span>
               </div>
