@@ -13,7 +13,7 @@ import { Scene0a_Problem } from "./scenes/Scene0a_Problem";
 import { Scene0b_Transition } from "./scenes/Scene0b_Transition";
 import { Scene0c_LogoIntro } from "./scenes/Scene0c_LogoIntro";
 import { MergedScene1_GreenBeanRoastLog } from "./scenes/MergedScene1_GreenBeanRoastLog";
-import { Scene3_Wholesale } from "./scenes/Scene3_Wholesale";
+import { MergedScene2_WholesalePortal } from "./scenes/MergedScene2_WholesalePortal";
 import { Scene4_Integrations } from "./scenes/Scene4_Integrations";
 import { Scene5_Purchasing } from "./scenes/Scene5_Purchasing";
 import { Scene6_Inbox } from "./scenes/Scene6_Inbox";
@@ -232,7 +232,7 @@ const scenes = [
   { id: "Scene0b", component: Scene0b_Transition, duration: 52 },
   { id: "Scene0c", component: Scene0c_LogoIntro, duration: 68 },
   { id: "MergedScene1", component: MergedScene1_GreenBeanRoastLog, duration: 420 },
-  { id: "Scene3", component: Scene3_Wholesale, duration: 134 },
+  { id: "MergedScene2", component: MergedScene2_WholesalePortal, duration: 540 },
   { id: "Scene4", component: Scene4_Integrations, duration: 134 },
   { id: "Scene5", component: Scene5_Purchasing, duration: 145 },
   { id: "Scene6", component: Scene6_Inbox, duration: 150 },
@@ -270,7 +270,7 @@ const transitionMap: Record<string, TransitionDef> = {
 
   /* Zoom through */
   Scene0c: { duration: ZOOM_DUR, presentation: zoomThrough() },
-  Scene3: { duration: ZOOM_DUR, presentation: zoomThrough() },
+  MergedScene2: { duration: ZOOM_DUR, presentation: zoomThrough() },
   Scene9: { duration: ZOOM_DUR, presentation: zoomThrough() },
 
   /* Shared element */

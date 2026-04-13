@@ -88,10 +88,10 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
   // Weight loss badge
   const wlOpacity = interpolate(frame, [240, 258], [0, 1], clamp);
 
-  // Act 2 button pulse at frame 380
-  const act2BtnOpacity = interpolate(frame, [340, 355], [0, 1], clamp);
-  const act2BtnPulse = frame >= 375 && frame <= 395
-    ? 1 + 0.06 * Math.sin((frame - 375) * 0.4)
+  // Act 2 button appears before stock deduction, pulses at 280
+  const act2BtnOpacity = interpolate(frame, [255, 270], [0, 1], clamp);
+  const act2BtnPulse = frame >= 275 && frame <= 295
+    ? 1 + 0.06 * Math.sin((frame - 275) * 0.4)
     : 1;
 
   /* ════════════════════════════════════════════════════════════
@@ -135,12 +135,13 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
   return (
     <AbsoluteFill style={fullScreen}>
       {/* ── Headlines ── */}
-      <div style={{ position: "relative", marginBottom: 40, height: 70, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ position: "relative", marginBottom: 40, height: 140, display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
         <h1 style={{
           ...headline,
           position: "absolute",
           opacity: head1Opacity,
           transform: `translateY(${head1Y}px)`,
+          maxWidth: 1200,
         }}>
           It starts with the green bean.
         </h1>
@@ -149,8 +150,9 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
           position: "absolute",
           opacity: head2Opacity,
           transform: `translateY(${head2Y}px)`,
+          maxWidth: 1200,
         }}>
-          Log every roast. Stock updates automatically.
+          Log every roast.<br />Stock updates automatically.
         </h1>
       </div>
 
