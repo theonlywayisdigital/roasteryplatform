@@ -17,6 +17,9 @@ import { Card, IntegrationTile } from "../components";
    Act 1 (0–100):   Connect your stores — 2×2 integration grid
    Act 2 (100–200): Stock broadcasts — signal pulse from counters
    Act 3 (200–300): Shopify order arrives — notification + stock deduct
+
+   Transition rule: all position/size/opacity changes interpolated.
+   No single-frame jumps anywhere.
    ═══════════════════════════════════════════════════════════════ */
 
 const SHOPIFY_GREEN = "#96BF48";
@@ -55,15 +58,12 @@ export const MergedScene3_Integrations: React.FC = () => {
   const counterY = interpolate(frame, [0, 15], [-20, 0], easeOut);
 
   const greenVal = 108;
+  const roastedVal = 0;
 
-  // Roasted drops briefly in Act 3 when Shopify order hits
-  const roastedVal = Math.round(interpolate(frame, [240, 265], [0, 0], easeOut));
-  // Stays at 0 — the point is the low stock warning
-
-  // Counter scale bump in Act 2 broadcast
+  // Counter scale bump in Act 2 broadcast — smooth in and out
   const broadcastScale = interpolate(frame, [110, 125, 155, 170], [1, 1.06, 1.06, 1], clamp);
 
-  // Low stock warning badge
+  // Low stock warning badge — spring-animated opacity + scale
   const lowStockSpring = spring({
     frame: frame - 255,
     fps,
@@ -83,8 +83,8 @@ export const MergedScene3_Integrations: React.FC = () => {
   });
   const tileOpacity = interpolate(frame, [30, 45], [0, 1], clamp);
 
-  // Green connected pulse appears on all simultaneously at frame 60
-  const connected = frame >= 60;
+  // Green connected checkmarks fade in smoothly over 10 frames (no boolean jump)
+  const connectedOpacity = interpolate(frame, [55, 65], [0, 1], clamp);
 
   // "All connected" label
   const connectedLabelOpacity = interpolate(frame, [70, 88], [0, 1], clamp);
@@ -92,17 +92,19 @@ export const MergedScene3_Integrations: React.FC = () => {
 
   /* ════════════════════════════════════════════════════════════
      ACT 2 — Signal broadcast pulse (100–200)
+     All pulse rings use interpolated opacity — no mount/unmount
      ════════════════════════════════════════════════════════════ */
 
   // Expanding ring radiates from top-right (counter position) outward
   const pulseProgress = interpolate(frame, [110, 155], [0, 1], easeOut);
   const pulseRadius = interpolate(pulseProgress, [0, 1], [0, 1200]);
-  const pulseOpacity = interpolate(pulseProgress, [0, 0.3, 1], [0.4, 0.25, 0]);
+  // Smooth fade in then fade out — no mount/unmount jump
+  const pulseOpacity = interpolate(frame, [108, 112, 155, 175], [0, 0.4, 0.1, 0], clamp);
 
   // Second wave slightly delayed
   const pulse2Progress = interpolate(frame, [125, 170], [0, 1], easeOut);
   const pulse2Radius = interpolate(pulse2Progress, [0, 1], [0, 1200]);
-  const pulse2Opacity = interpolate(pulse2Progress, [0, 0.3, 1], [0.3, 0.2, 0]);
+  const pulse2Opacity = interpolate(frame, [123, 127, 170, 185], [0, 0.3, 0.1, 0], clamp);
 
   // Each tile highlights briefly as signal hits — staggered slightly
   const tileGlow = (idx: number) => {
@@ -112,48 +114,51 @@ export const MergedScene3_Integrations: React.FC = () => {
 
   /* ════════════════════════════════════════════════════════════
      ACT 3 — Shopify order notification (200–300)
+     Notification slides in smoothly from below — always mounted,
+     controlled by interpolated opacity/transform
      ════════════════════════════════════════════════════════════ */
 
+  // Notification slides up from below with spring physics
   const notifSpring = spring({
     frame: frame - 210,
     fps,
     config: { damping: 14, stiffness: 90, mass: 0.7 },
   });
-  const notifY = interpolate(notifSpring, [0, 1], [-120, 0]);
+  const notifY = interpolate(notifSpring, [0, 1], [80, 0]);
   const notifOpacity = interpolate(notifSpring, [0, 0.2, 1], [0, 0.7, 1]);
+  // Keep notification invisible before frame 205 via additional gate
+  const notifVisible = interpolate(frame, [205, 212], [0, 1], clamp);
+  const notifFinalOpacity = notifOpacity * notifVisible;
 
   /* ════════════════════════════════════════════════════════════
-     RENDER
+     RENDER — all elements always mounted, controlled by
+     interpolated opacity/transform. No conditional renders.
      ════════════════════════════════════════════════════════════ */
 
   return (
     <AbsoluteFill style={fullScreen}>
 
-      {/* ── Signal pulse rings (Act 2) ── */}
-      {frame >= 110 && frame < 180 && (
-        <>
-          <div style={{
-            position: "absolute", top: 120, right: 140,
-            width: pulseRadius * 2, height: pulseRadius * 2,
-            borderRadius: "50%",
-            border: `2px solid ${BRAND.blue}`,
-            opacity: pulseOpacity,
-            transform: `translate(50%, -50%)`,
-            pointerEvents: "none" as const,
-            zIndex: 1,
-          }} />
-          <div style={{
-            position: "absolute", top: 120, right: 140,
-            width: pulse2Radius * 2, height: pulse2Radius * 2,
-            borderRadius: "50%",
-            border: `2px solid ${BRAND.blue}`,
-            opacity: pulse2Opacity,
-            transform: `translate(50%, -50%)`,
-            pointerEvents: "none" as const,
-            zIndex: 1,
-          }} />
-        </>
-      )}
+      {/* ── Signal pulse rings (Act 2) — always mounted, opacity-controlled ── */}
+      <div style={{
+        position: "absolute", top: 120, right: 140,
+        width: pulseRadius * 2, height: pulseRadius * 2,
+        borderRadius: "50%",
+        border: `2px solid ${BRAND.blue}`,
+        opacity: pulseOpacity,
+        transform: `translate(50%, -50%)`,
+        pointerEvents: "none" as const,
+        zIndex: 1,
+      }} />
+      <div style={{
+        position: "absolute", top: 120, right: 140,
+        width: pulse2Radius * 2, height: pulse2Radius * 2,
+        borderRadius: "50%",
+        border: `2px solid ${BRAND.blue}`,
+        opacity: pulse2Opacity,
+        transform: `translate(50%, -50%)`,
+        pointerEvents: "none" as const,
+        zIndex: 1,
+      }} />
 
       {/* ── Headlines ── */}
       <div style={{ position: "relative", marginBottom: 30, height: 140, display: "flex", alignItems: "center", justifyContent: "center", width: "100%" }}>
@@ -182,7 +187,7 @@ export const MergedScene3_Integrations: React.FC = () => {
                     : "none",
                   borderRadius: 12,
                 }}>
-                  <IntegrationTile name={s.name} color={s.color} connected={connected} />
+                  <IntegrationTile name={s.name} color={s.color} connected={connectedOpacity > 0.5} />
                 </div>
               );
             })}
@@ -201,59 +206,58 @@ export const MergedScene3_Integrations: React.FC = () => {
             </span>
           </div>
 
-          {/* ── Shopify order notification (Act 3) ── */}
-          {frame >= 205 && (
-            <div style={{
-              marginTop: 24,
-              opacity: notifOpacity,
-              transform: `translateY(${notifY}px)`,
-              width: 520,
+          {/* ── Shopify order notification (Act 3) — always mounted ── */}
+          <div style={{
+            marginTop: 24,
+            opacity: notifFinalOpacity,
+            transform: `translateY(${notifY}px)`,
+            width: 520,
+            pointerEvents: notifFinalOpacity < 0.01 ? "none" as const : "auto" as const,
+          }}>
+            <Card style={{
+              width: "100%",
+              padding: "16px 20px",
+              borderLeft: `4px solid ${SHOPIFY_GREEN}`,
+              display: "flex",
+              alignItems: "center",
+              gap: 14,
             }}>
-              <Card style={{
-                width: "100%",
-                padding: "16px 20px",
-                borderLeft: `4px solid ${SHOPIFY_GREEN}`,
-                display: "flex",
-                alignItems: "center",
-                gap: 14,
+              {/* Shopify logo mark */}
+              <div style={{
+                width: 36, height: 36, borderRadius: 8,
+                backgroundColor: SHOPIFY_GREEN,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                flexShrink: 0,
               }}>
-                {/* Shopify logo mark */}
-                <div style={{
-                  width: 36, height: 36, borderRadius: 8,
-                  backgroundColor: SHOPIFY_GREEN,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  flexShrink: 0,
-                }}>
-                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M13 3l1 4 3 1-8 9-2-7 6-7z" fill="white" />
-                    <path d="M8 17V9l-3 1 3 7z" fill="rgba(255,255,255,0.7)" />
-                  </svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M13 3l1 4 3 1-8 9-2-7 6-7z" fill="white" />
+                  <path d="M8 17V9l-3 1 3 7z" fill="rgba(255,255,255,0.7)" />
+                </svg>
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: SHOPIFY_GREEN, fontFamily: FONT_FAMILY }}>Shopify</span>
+                  <span style={{ fontSize: 12, color: BRAND.muted, fontFamily: FONT_FAMILY }}>New Order</span>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-                    <span style={{ fontSize: 13, fontWeight: 600, color: SHOPIFY_GREEN, fontFamily: FONT_FAMILY }}>Shopify</span>
-                    <span style={{ fontSize: 12, color: BRAND.muted, fontFamily: FONT_FAMILY }}>New Order</span>
-                  </div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: BRAND.dark, fontFamily: FONT_FAMILY }}>
-                    House Blend × 5
-                  </div>
-                  <div style={{ fontSize: 14, fontWeight: 700, color: BRAND.dark, fontFamily: FONT_FAMILY, marginTop: 2 }}>
-                    £42.50
-                  </div>
+                <div style={{ fontSize: 15, fontWeight: 600, color: BRAND.dark, fontFamily: FONT_FAMILY }}>
+                  House Blend × 5
                 </div>
-                {/* Checkmark */}
-                <div style={{
-                  width: 28, height: 28, borderRadius: "50%",
-                  backgroundColor: SHOPIFY_GREEN,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                }}>
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <path d="M3 7L6 10L11 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                <div style={{ fontSize: 14, fontWeight: 700, color: BRAND.dark, fontFamily: FONT_FAMILY, marginTop: 2 }}>
+                  £42.50
                 </div>
-              </Card>
-            </div>
-          )}
+              </div>
+              {/* Checkmark */}
+              <div style={{
+                width: 28, height: 28, borderRadius: "50%",
+                backgroundColor: SHOPIFY_GREEN,
+                display: "flex", alignItems: "center", justifyContent: "center",
+              }}>
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M3 7L6 10L11 4" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+            </Card>
+          </div>
         </div>
 
         {/* ── Right: Stock counters ── */}
@@ -291,29 +295,28 @@ export const MergedScene3_Integrations: React.FC = () => {
             </span>
           </Card>
 
-          {/* Low stock warning badge (Act 3) */}
-          {frame >= 250 && (
+          {/* Low stock warning badge (Act 3) — always mounted, spring-animated */}
+          <div style={{
+            opacity: lowStockOpacity,
+            transform: `scale(${lowStockScale})`,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            pointerEvents: lowStockOpacity < 0.01 ? "none" as const : "auto" as const,
+          }}>
             <div style={{
-              opacity: lowStockOpacity,
-              transform: `scale(${lowStockScale})`,
-              display: "flex", alignItems: "center", justifyContent: "center",
+              display: "inline-flex", alignItems: "center", gap: 8,
+              backgroundColor: "#FEF3C7", padding: "8px 16px",
+              borderRadius: 20, fontFamily: FONT_FAMILY,
+              border: "1px solid #FDE68A",
             }}>
-              <div style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                backgroundColor: "#FEF3C7", padding: "8px 16px",
-                borderRadius: 20, fontFamily: FONT_FAMILY,
-                border: "1px solid #FDE68A",
-              }}>
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M8 1L1 14h14L8 1z" fill={BRAND.orange} />
-                  <path d="M8 6v4M8 11.5v.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-                <span style={{ fontSize: 13, fontWeight: 600, color: BRAND.orange }}>
-                  Low stock
-                </span>
-              </div>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M8 1L1 14h14L8 1z" fill={BRAND.orange} />
+                <path d="M8 6v4M8 11.5v.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+              <span style={{ fontSize: 13, fontWeight: 600, color: BRAND.orange }}>
+                Low stock
+              </span>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </AbsoluteFill>
