@@ -13,6 +13,7 @@ const PLATFORM_URL = "https://app.roasteryplatform.com";
 const suiteLabelMap: Record<string, string> = {
   sales: "Sales Suite",
   marketing: "Marketing Suite",
+  "roaster-tools": "Roaster Tools",
   more: "More",
 };
 
@@ -131,6 +132,102 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
       "Smart product suggestions based on buying patterns",
       "AI credits included on every plan",
       "Works across Sales Suite, Marketing Suite, and Inbox",
+    ],
+  },
+  "green-bean-inventory": {
+    featureTitle: "Green Bean Inventory",
+    slug: "green-bean-inventory",
+    suite: "roaster-tools",
+    heroDescription:
+      "Track every bag of green coffee from arrival to roast. Log origins, suppliers, weights, and costs — your inventory starts here.",
+    includedNote: "Included with Sales Suite",
+    benefits: [
+      "Log every delivery with origin, weight, and cost per kg",
+      "Track current stock levels in real time",
+      "See which beans are running low at a glance",
+      "Link green beans directly to roast logs",
+      "Record supplier details and lot numbers",
+      "Export inventory data for accounting",
+    ],
+  },
+  "roast-log": {
+    featureTitle: "Roast Log",
+    slug: "roast-log",
+    suite: "roaster-tools",
+    heroDescription:
+      "Record every roast with green and roasted weights, weight loss percentage, and batch notes. Your green stock adjusts automatically.",
+    includedNote: "Included with Sales Suite",
+    benefits: [
+      "Log green weight in, roasted weight out",
+      "Automatic weight loss percentage calculation",
+      "Green stock decrements in real time after each roast",
+      "Roasted stock increments automatically",
+      "Record roast profiles, temperatures, and development times",
+      "Full roast history searchable by bean, date, or batch",
+    ],
+  },
+  "production-planner": {
+    featureTitle: "Production Planner",
+    slug: "production-planner",
+    suite: "roaster-tools",
+    heroDescription:
+      "Plan your roasting schedule for the week ahead. Assign batches to days, track capacity, and fulfil orders on time.",
+    includedNote: "Included with Sales Suite",
+    benefits: [
+      "Weekly calendar view of planned roasts",
+      "Assign roast batches to specific days",
+      "Link batches to customer orders for fulfilment",
+      "Capacity tracking to avoid over-scheduling",
+      "Drag and drop to reschedule batches",
+      "At-a-glance view of the week's production load",
+    ],
+  },
+  "cupping-scorecards": {
+    featureTitle: "Cupping Scorecards",
+    slug: "cupping-scorecards",
+    suite: "roaster-tools",
+    heroDescription:
+      "Score every batch with SCA-aligned cupping scorecards. Compare across origins, profiles, and dates to maintain quality.",
+    includedNote: "Included with Sales Suite",
+    benefits: [
+      "SCA-aligned scoring for aroma, flavour, aftertaste, acidity, body, and overall",
+      "Automatic total score calculation",
+      "Compare scores across batches, origins, and dates",
+      "Attach cupping notes and tasting descriptors",
+      "Track quality trends over time",
+      "Share scorecards with your team",
+    ],
+  },
+  calculators: {
+    featureTitle: "Calculators",
+    slug: "calculators",
+    suite: "roaster-tools",
+    heroDescription:
+      "Roast loss, brew ratio, and cost-per-cup calculators built for working roasters. The maths without the spreadsheet.",
+    includedNote: "Included with Sales Suite",
+    benefits: [
+      "Roast loss calculator — weight loss and percentage",
+      "Cost per kg roasted based on green bean cost",
+      "Brew ratio calculator for dialling in recipes",
+      "Cost per cup breakdown for retail pricing",
+      "No spreadsheets needed — results update instantly",
+      "Save calculations alongside roast logs",
+    ],
+  },
+  certifications: {
+    featureTitle: "Certifications & Compliance",
+    slug: "certifications",
+    suite: "roaster-tools",
+    heroDescription:
+      "Track your certifications in one place. See expiry dates at a glance and never miss a renewal deadline.",
+    includedNote: "Included with Sales Suite",
+    benefits: [
+      "Store all certifications in one place — Organic, Fairtrade, Rainforest Alliance, and more",
+      "Expiry date tracking with clear valid/expired status",
+      "Visual alerts for expiring or expired certifications",
+      "Upload certificate documents for your records",
+      "Share compliance status with wholesale buyers",
+      "Never miss a renewal deadline again",
     ],
   },
 };
