@@ -9,4 +9,10 @@ export const animatedSlugs = new Set([
   "social-scheduling",
   "content-calendar",
   "embedded-forms",
+  "green-bean-inventory",
+  "roast-log",
+  "production-planner",
+  "cupping-scorecards",
+  "calculators",
+  "certifications",
 ]);

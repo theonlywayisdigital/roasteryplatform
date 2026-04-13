@@ -9,6 +9,12 @@ import { EmailCampaignsAnimation } from "./EmailCampaignsAnimation";
 import { SocialSchedulingAnimation } from "./SocialSchedulingAnimation";
 import { ContentCalendarAnimation } from "./ContentCalendarAnimation";
 import { EmbeddedFormsAnimation } from "./EmbeddedFormsAnimation";
+import { GreenBeanInventoryAnimation } from "./GreenBeanInventoryAnimation";
+import { RoastLogAnimation } from "./RoastLogAnimation";
+import { ProductionPlannerAnimation } from "./ProductionPlannerAnimation";
+import { CuppingScorecardsAnimation } from "./CuppingScorecardsAnimation";
+import { CalculatorsAnimation } from "./CalculatorsAnimation";
+import { CertificationsAnimation } from "./CertificationsAnimation";
 
 const animationMap: Record<string, React.ComponentType> = {
   "order-tracking": OrderTrackingAnimation,
@@ -20,6 +26,12 @@ const animationMap: Record<string, React.ComponentType> = {
   "social-scheduling": SocialSchedulingAnimation,
   "content-calendar": ContentCalendarAnimation,
   "embedded-forms": EmbeddedFormsAnimation,
+  "green-bean-inventory": GreenBeanInventoryAnimation,
+  "roast-log": RoastLogAnimation,
+  "production-planner": ProductionPlannerAnimation,
+  "cupping-scorecards": CuppingScorecardsAnimation,
+  calculators: CalculatorsAnimation,
+  certifications: CertificationsAnimation,
 };
 
 export function FeatureIllustration({ slug }: { slug: string }) {
