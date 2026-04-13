@@ -87,7 +87,6 @@ export const MergedScene5_Marketing: React.FC = () => {
   const sendBtnPulse = frame >= 78 && frame < 88
     ? 1 + 0.04 * Math.sin((frame - 78) * 0.4)
     : 1;
-  const sendClicked = frame >= 88;
   const sendBtnFadeOut = interpolate(frame, [88, 96], [1, 0], clamp);
   const sentBadgeSpring = spring({
     frame: frame - 88,
@@ -104,18 +103,18 @@ export const MergedScene5_Marketing: React.FC = () => {
   const planeOpacity = interpolate(frame, [88, 92, 115, 122], [0, 1, 1, 0], clamp);
   const planeRotate = interpolate(planeProgress, [0, 0.3, 1], [-10, -20, -5]);
 
-  // Stat cards slide in from right simultaneously
+  // Stat cards slide in from right — same timing as campaign card
   const statSpring = spring({
-    frame: frame - 95,
+    frame: frame - 10,
     fps,
     config: { damping: 14, stiffness: 80, mass: 0.7 },
   });
   const statX = interpolate(statSpring, [0, 1], [200, 0]);
   const statOpacity = interpolate(statSpring, [0, 0.2, 1], [0, 0.6, 1]);
 
-  // Stat counters tick up
-  const openRate = Math.round(interpolate(frame, [98, 130], [0, 68], easeOut));
-  const clickRate = Math.round(interpolate(frame, [100, 130], [0, 24], easeOut));
+  // Stat counters tick up (start ticking from frame 20 once cards are visible)
+  const openRate = Math.round(interpolate(frame, [20, 60], [0, 68], easeOut));
+  const clickRate = Math.round(interpolate(frame, [22, 60], [0, 24], easeOut));
 
   // Act 1 exit
   const act1ExitOpacity = interpolate(frame, [130, 150], [1, 0], clamp);
@@ -179,14 +178,6 @@ export const MergedScene5_Marketing: React.FC = () => {
   // Field active state — interpolated glow, not boolean
   const field0Glow = interpolate(frame, [338, 342, 367, 372], [0, 1, 1, 0], clamp);
   const field1Glow = interpolate(frame, [353, 357, 387, 392], [0, 1, 1, 0], clamp);
-
-  // Cursor blink in active field — smooth opacity cycle
-  const cursor0Opacity = field0Glow > 0.5
-    ? 0.5 + 0.5 * Math.sin(frame * 0.3)
-    : 0;
-  const cursor1Opacity = field1Glow > 0.5
-    ? 0.5 + 0.5 * Math.sin(frame * 0.3)
-    : 0;
 
   // Submit button pulses and is clicked
   const submitBtnOpacity = interpolate(frame, [390, 400], [0, 1], clamp);
@@ -489,7 +480,6 @@ export const MergedScene5_Marketing: React.FC = () => {
                 boxShadow: field0Glow > 0.5 ? `0 0 0 ${Math.round(field0Glow * 3)}px rgba(37,99,235,0.1)` : "none",
               }}>
                 {bizNameValue}
-                <span style={{ display: "inline-block", width: 2, height: 18, backgroundColor: BRAND.blue, marginLeft: 2, verticalAlign: "text-bottom", opacity: cursor0Opacity }} />
               </div>
             </div>
 
@@ -509,7 +499,6 @@ export const MergedScene5_Marketing: React.FC = () => {
                 boxShadow: field1Glow > 0.5 ? `0 0 0 ${Math.round(field1Glow * 3)}px rgba(37,99,235,0.1)` : "none",
               }}>
                 {emailValue}
-                <span style={{ display: "inline-block", width: 2, height: 18, backgroundColor: BRAND.blue, marginLeft: 2, verticalAlign: "text-bottom", opacity: cursor1Opacity }} />
               </div>
             </div>
 
