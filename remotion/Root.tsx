@@ -16,10 +16,7 @@ import { MergedScene1_GreenBeanRoastLog } from "./scenes/MergedScene1_GreenBeanR
 import { MergedScene2_WholesalePortal } from "./scenes/MergedScene2_WholesalePortal";
 import { MergedScene3_Integrations } from "./scenes/MergedScene3_Integrations";
 import { Scene5_Purchasing } from "./scenes/Scene5_Purchasing";
-import { Scene6_Inbox } from "./scenes/Scene6_Inbox";
-import { Scene7_Orders } from "./scenes/Scene7_Orders";
-import { Scene8_CRM } from "./scenes/Scene8_CRM";
-import { Scene9_Invoicing } from "./scenes/Scene9_Invoicing";
+import { MergedScene4_Operations } from "./scenes/MergedScene4_Operations";
 import { Scene10_EmailCampaigns } from "./scenes/Scene10_EmailCampaigns";
 import { Scene11_SocialScheduling } from "./scenes/Scene11_SocialScheduling";
 import { Scene12_EmbeddedForms } from "./scenes/Scene12_EmbeddedForms";
@@ -235,10 +232,7 @@ const scenes = [
   { id: "MergedScene2", component: MergedScene2_WholesalePortal, duration: 540 },
   { id: "MergedScene3", component: MergedScene3_Integrations, duration: 300 },
   { id: "Scene5", component: Scene5_Purchasing, duration: 145 },
-  { id: "Scene6", component: Scene6_Inbox, duration: 150 },
-  { id: "Scene7", component: Scene7_Orders, duration: 110 },
-  { id: "Scene8", component: Scene8_CRM, duration: 110 },
-  { id: "Scene9", component: Scene9_Invoicing, duration: 118 },
+  { id: "MergedScene4", component: MergedScene4_Operations, duration: 600 },
   { id: "Scene10", component: Scene10_EmailCampaigns, duration: 110 },
   { id: "Scene11", component: Scene11_SocialScheduling, duration: 68 },
   { id: "Scene12", component: Scene12_EmbeddedForms, duration: 94 },
@@ -262,8 +256,6 @@ const transitionMap: Record<string, TransitionDef> = {
   Scene0b: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   MergedScene3: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene5: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
-  Scene7: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
-  Scene8: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene10: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene11: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene12: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
@@ -271,11 +263,10 @@ const transitionMap: Record<string, TransitionDef> = {
   /* Zoom through */
   Scene0c: { duration: ZOOM_DUR, presentation: zoomThrough() },
   MergedScene2: { duration: ZOOM_DUR, presentation: zoomThrough() },
-  Scene9: { duration: ZOOM_DUR, presentation: zoomThrough() },
 
   /* Shared element */
   MergedScene1: { duration: SHARED_DUR, presentation: crossSlide() },
-  Scene6: { duration: SHARED_DUR, presentation: expand() },
+  MergedScene4: { duration: SHARED_DUR, presentation: expand() },
 };
 
 /* ── Calculate total duration accounting for overlaps ── */
