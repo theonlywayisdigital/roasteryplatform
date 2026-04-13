@@ -47,12 +47,12 @@ function TopBar({ onDismiss }: { onDismiss: () => void }) {
     <div className="bg-neutral-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center h-8 relative">
         <a
-          href={CONSUMER_URL}
+          href={`${PLATFORM_URL}/demo`}
           className="text-xs text-neutral-400 hover:text-neutral-200 transition-colors"
         >
-          Looking for white label coffee?{" "}
+          See how Roastery Platform can grow your business.{" "}
           <span className="font-semibold text-accent hover:underline">
-            Visit Ghost Roastery &rarr;
+            Book a Demo &rarr;
           </span>
         </a>
         <button
