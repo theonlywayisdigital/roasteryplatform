@@ -48,14 +48,6 @@ export const MergedScene4_Operations: React.FC = () => {
   const head4Y = interpolate(frame, [420, 440], [25, 0], easeOut);
 
   /* ════════════════════════════════════════════════════════════
-     STOCK COUNTERS — top right, persistent from frame 0
-     Carried over: Green 108kg, Roasted 0kg
-     ════════════════════════════════════════════════════════════ */
-
-  const counterOpacity = interpolate(frame, [0, 15], [0, 1], clamp);
-  const counterY = interpolate(frame, [0, 15], [-20, 0], easeOut);
-
-  /* ════════════════════════════════════════════════════════════
      ACT 1 — Inbox (frames 0–150)
      Enter: spring from frame 10
      Exit: frames 130–150, fade + slide up
@@ -247,11 +239,8 @@ export const MergedScene4_Operations: React.FC = () => {
         </h1>
       </div>
 
-      {/* ── Main content area ── */}
-      <div style={{ display: "flex", gap: 30, alignItems: "flex-start", position: "relative" }}>
-
-        {/* ── Left/Centre content — all acts stacked absolutely ── */}
-        <div style={{ flex: 1, position: "relative", minHeight: 420 }}>
+      {/* ── Main content area — centred ── */}
+      <div style={{ position: "relative", width: "100%", minHeight: 420 }}>
 
           {/* ═══ ACT 1 — Email + Order Card ═══ */}
           <div style={{
@@ -612,44 +601,6 @@ export const MergedScene4_Operations: React.FC = () => {
               })}
             </div>
           </div>
-        </div>
-
-        {/* ── Right: Stock counters ── */}
-        <div style={{
-          display: "flex", flexDirection: "column", gap: 16,
-          opacity: counterOpacity,
-          transform: `translateY(${counterY}px)`,
-          transformOrigin: "top right",
-          flexShrink: 0,
-        }}>
-          {/* Green Stock — static at 108kg */}
-          <Card style={{ width: 200, textAlign: "center" as const, padding: 20 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 6 }}>
-              <svg width="14" height="14" viewBox="0 0 16 16">
-                <path d="M4 10l4-4 4 4" stroke="#16A34A" strokeWidth="2" fill="none" strokeLinecap="round" />
-              </svg>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BRAND.muted, fontFamily: FONT_FAMILY }}>Green Stock</span>
-            </div>
-            <span style={{ fontSize: 26, fontWeight: 900, color: BRAND.green, fontFamily: FONT_FAMILY, fontVariantNumeric: "tabular-nums" }}>
-              108
-              <span style={{ fontSize: 13, fontWeight: 500, color: BRAND.muted, marginLeft: 4 }}>kg</span>
-            </span>
-          </Card>
-
-          {/* Roasted Stock — static at 0kg */}
-          <Card style={{ width: 200, textAlign: "center" as const, padding: 20 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, marginBottom: 6 }}>
-              <svg width="14" height="14" viewBox="0 0 16 16">
-                <path d="M4 10l4-4 4 4" stroke={BRAND.orange} strokeWidth="2" fill="none" strokeLinecap="round" />
-              </svg>
-              <span style={{ fontSize: 11, fontWeight: 500, color: BRAND.muted, fontFamily: FONT_FAMILY }}>Roasted Stock</span>
-            </div>
-            <span style={{ fontSize: 26, fontWeight: 900, color: BRAND.orange, fontFamily: FONT_FAMILY, fontVariantNumeric: "tabular-nums" }}>
-              0
-              <span style={{ fontSize: 13, fontWeight: 500, color: BRAND.muted, marginLeft: 4 }}>kg</span>
-            </span>
-          </Card>
-        </div>
       </div>
     </AbsoluteFill>
   );
