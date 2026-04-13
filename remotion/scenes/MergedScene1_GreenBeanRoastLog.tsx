@@ -35,8 +35,8 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
   const head1Y = interpolate(frame, [0, 12], [25, 0], easeOut);
 
   // Act 2 headline: "Log every roast. Stock updates automatically."
-  const head2Opacity = interpolate(frame, [185, 195], [0, 1], clamp);
-  const head2Y = interpolate(frame, [185, 195], [25, 0], easeOut);
+  const head2Opacity = interpolate(frame, [175, 185], [0, 1], clamp);
+  const head2Y = interpolate(frame, [175, 185], [25, 0], easeOut);
 
   /* ════════════════════════════════════════════════════════════
      ACT 1 — Add Green Bean form (frames 0–180)
@@ -52,10 +52,10 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
   const act1ExitX = interpolate(frame, [155, 175], [0, -500], easeOut);
   const act1ExitOpacity = interpolate(frame, [155, 175], [1, 0], clamp);
 
-  // Combined act 1 form transforms
-  const act1Scale = frame < 155 ? act1FormScale : act1FormScale * act1ExitScale;
-  const act1X = frame < 155 ? act1FormX : act1FormX + act1ExitX;
-  const act1Opacity = frame < 155 ? act1FormOpacity : act1FormOpacity * act1ExitOpacity;
+  // Combined act 1 form transforms — exit multiplied on top of enter
+  const act1Scale = act1FormScale * act1ExitScale;
+  const act1X = act1FormX + act1ExitX;
+  const act1Opacity = act1FormOpacity * act1ExitOpacity;
 
   // Field stagger — type in sequentially
   const fieldFo = (d: number) => interpolate(frame, [d, d + 18], [0, 1], clamp);
@@ -70,9 +70,9 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
      ACT 2 — Log Roast form (frames 180–420)
      ════════════════════════════════════════════════════════════ */
 
-  // Log Roast form slides in from right and scales up
+  // Log Roast form slides in from right as Act 1 exits — no gap
   const act2FormSpring = spring({
-    frame: frame - 185,
+    frame: frame - 165,
     fps,
     config: { damping: 14, stiffness: 80, mass: 0.7 },
   });
@@ -127,8 +127,8 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
      RENDER
      ════════════════════════════════════════════════════════════ */
 
-  const showAct1Form = frame < 185; // keep visible during exit animation, gone before Act 2 enters
-  const showAct2Form = frame >= 185;
+  const showAct1Form = frame < 180; // keep visible during exit animation
+  const showAct2Form = frame >= 155; // start entering as Act 1 exits
 
   return (
     <AbsoluteFill style={fullScreen}>
@@ -158,7 +158,7 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
       <div style={{ display: "flex", gap: 30, alignItems: "flex-start", position: "relative" }}>
 
         {/* ── Left: Form cards ── */}
-        <div style={{ width: 520, position: "relative" }}>
+        <div style={{ width: 520, position: "relative", minHeight: 320 }}>
 
           {/* Act 1: Add Green Bean form */}
           {showAct1Form && (
@@ -166,7 +166,7 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
               opacity: act1Opacity,
               transform: `scale(${act1Scale}) translateX(${act1X}px)`,
               transformOrigin: "left center",
-              position: frame >= 155 ? "absolute" as const : "relative" as const,
+              position: "absolute" as const,
               top: 0,
               left: 0,
               width: 520,
@@ -222,6 +222,10 @@ export const MergedScene1_GreenBeanRoastLog: React.FC = () => {
               opacity: act2FormOpacity,
               transform: `scale(${act2FormScale}) translateX(${act2FormX}px)`,
               transformOrigin: "left center",
+              position: "absolute" as const,
+              top: 0,
+              left: 0,
+              width: 520,
             }}>
               <Card style={{ width: 520 }}>
                 {/* Header */}

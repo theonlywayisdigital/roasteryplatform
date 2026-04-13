@@ -224,7 +224,7 @@ const expand = (): TransitionPresentation<ExpandProps> => ({
 const scenes = [
   { id: "Scene0a", component: Scene0a_Problem, duration: 140 },
   { id: "Scene0b", component: Scene0b_Transition, duration: 52 },
-  { id: "Scene0c", component: Scene0c_LogoIntro, duration: 68 },
+  { id: "Scene0c", component: Scene0c_LogoIntro, duration: 105 },
   { id: "MergedScene1", component: MergedScene1_GreenBeanRoastLog, duration: 420 },
   { id: "MergedScene2", component: MergedScene2_WholesalePortal, duration: 540 },
   { id: "MergedScene3", component: MergedScene3_Integrations, duration: 300 },
