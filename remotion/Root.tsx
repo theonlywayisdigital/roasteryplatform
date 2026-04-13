@@ -12,8 +12,7 @@ import { BRAND, VIDEO } from "./styles";
 import { Scene0a_Problem } from "./scenes/Scene0a_Problem";
 import { Scene0b_Transition } from "./scenes/Scene0b_Transition";
 import { Scene0c_LogoIntro } from "./scenes/Scene0c_LogoIntro";
-import { Scene1_GreenBean } from "./scenes/Scene1_GreenBean";
-import { Scene2_RoastLog } from "./scenes/Scene2_RoastLog";
+import { MergedScene1_GreenBeanRoastLog } from "./scenes/MergedScene1_GreenBeanRoastLog";
 import { Scene3_Wholesale } from "./scenes/Scene3_Wholesale";
 import { Scene4_Integrations } from "./scenes/Scene4_Integrations";
 import { Scene5_Purchasing } from "./scenes/Scene5_Purchasing";
@@ -232,8 +231,7 @@ const scenes = [
   { id: "Scene0a", component: Scene0a_Problem, duration: 140 },
   { id: "Scene0b", component: Scene0b_Transition, duration: 52 },
   { id: "Scene0c", component: Scene0c_LogoIntro, duration: 68 },
-  { id: "Scene1", component: Scene1_GreenBean, duration: 120 },
-  { id: "Scene2", component: Scene2_RoastLog, duration: 120 },
+  { id: "MergedScene1", component: MergedScene1_GreenBeanRoastLog, duration: 420 },
   { id: "Scene3", component: Scene3_Wholesale, duration: 134 },
   { id: "Scene4", component: Scene4_Integrations, duration: 134 },
   { id: "Scene5", component: Scene5_Purchasing, duration: 145 },
@@ -276,8 +274,7 @@ const transitionMap: Record<string, TransitionDef> = {
   Scene9: { duration: ZOOM_DUR, presentation: zoomThrough() },
 
   /* Shared element */
-  Scene1: { duration: SHARED_DUR, presentation: morph() },
-  Scene2: { duration: SHARED_DUR, presentation: crossSlide() },
+  MergedScene1: { duration: SHARED_DUR, presentation: crossSlide() },
   Scene6: { duration: SHARED_DUR, presentation: expand() },
 };
 
