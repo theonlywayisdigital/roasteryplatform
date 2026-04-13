@@ -14,7 +14,7 @@ import { Scene0b_Transition } from "./scenes/Scene0b_Transition";
 import { Scene0c_LogoIntro } from "./scenes/Scene0c_LogoIntro";
 import { MergedScene1_GreenBeanRoastLog } from "./scenes/MergedScene1_GreenBeanRoastLog";
 import { MergedScene2_WholesalePortal } from "./scenes/MergedScene2_WholesalePortal";
-import { Scene4_Integrations } from "./scenes/Scene4_Integrations";
+import { MergedScene3_Integrations } from "./scenes/MergedScene3_Integrations";
 import { Scene5_Purchasing } from "./scenes/Scene5_Purchasing";
 import { Scene6_Inbox } from "./scenes/Scene6_Inbox";
 import { Scene7_Orders } from "./scenes/Scene7_Orders";
@@ -233,7 +233,7 @@ const scenes = [
   { id: "Scene0c", component: Scene0c_LogoIntro, duration: 68 },
   { id: "MergedScene1", component: MergedScene1_GreenBeanRoastLog, duration: 420 },
   { id: "MergedScene2", component: MergedScene2_WholesalePortal, duration: 540 },
-  { id: "Scene4", component: Scene4_Integrations, duration: 134 },
+  { id: "MergedScene3", component: MergedScene3_Integrations, duration: 300 },
   { id: "Scene5", component: Scene5_Purchasing, duration: 145 },
   { id: "Scene6", component: Scene6_Inbox, duration: 150 },
   { id: "Scene7", component: Scene7_Orders, duration: 110 },
@@ -260,7 +260,7 @@ const transitionMap: Record<string, TransitionDef> = {
   /* White flash */
   Scene0a: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene0b: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
-  Scene4: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
+  MergedScene3: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene5: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene7: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene8: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
