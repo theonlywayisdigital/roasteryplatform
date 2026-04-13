@@ -16,9 +16,7 @@ import { MergedScene1_GreenBeanRoastLog } from "./scenes/MergedScene1_GreenBeanR
 import { MergedScene2_WholesalePortal } from "./scenes/MergedScene2_WholesalePortal";
 import { MergedScene3_Integrations } from "./scenes/MergedScene3_Integrations";
 import { MergedScene4_Operations } from "./scenes/MergedScene4_Operations";
-import { Scene10_EmailCampaigns } from "./scenes/Scene10_EmailCampaigns";
-import { Scene11_SocialScheduling } from "./scenes/Scene11_SocialScheduling";
-import { Scene12_EmbeddedForms } from "./scenes/Scene12_EmbeddedForms";
+import { MergedScene5_Marketing } from "./scenes/MergedScene5_Marketing";
 import { Outro } from "./scenes/Outro";
 
 /* ═══════════════════════════════════════════════════════
@@ -231,9 +229,7 @@ const scenes = [
   { id: "MergedScene2", component: MergedScene2_WholesalePortal, duration: 540 },
   { id: "MergedScene3", component: MergedScene3_Integrations, duration: 300 },
   { id: "MergedScene4", component: MergedScene4_Operations, duration: 600 },
-  { id: "Scene10", component: Scene10_EmailCampaigns, duration: 110 },
-  { id: "Scene11", component: Scene11_SocialScheduling, duration: 68 },
-  { id: "Scene12", component: Scene12_EmbeddedForms, duration: 94 },
+  { id: "MergedScene5", component: MergedScene5_Marketing, duration: 450 },
   { id: "Outro", component: Outro, duration: 96 },
 ] as const;
 
@@ -253,9 +249,7 @@ const transitionMap: Record<string, TransitionDef> = {
   Scene0a: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   Scene0b: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
   MergedScene3: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
-  Scene10: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
-  Scene11: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
-  Scene12: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
+  MergedScene5: { duration: WHITE_FLASH_DUR, presentation: whiteFlash() },
 
   /* Zoom through */
   Scene0c: { duration: ZOOM_DUR, presentation: zoomThrough() },
