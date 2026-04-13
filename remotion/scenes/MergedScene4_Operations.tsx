@@ -62,10 +62,7 @@ export const MergedScene4_Operations: React.FC = () => {
   const envX = interpolate(envSpring, [0, 1], [-400, 0]);
   const envOpacity = interpolate(envSpring, [0, 0.2, 1], [0, 0.6, 1]);
 
-  // Flap lifts (rotateX on top triangle)
-  const flapAngle = interpolate(frame, [25, 50], [0, 180], easeOut);
-
-  // Letter content fades in inside card (no translateY — stays inside card)
+  // Letter content fades in inside card
   const letterOpacity = interpolate(frame, [40, 55], [0, 1], clamp);
 
   // Convert button pulses
@@ -261,23 +258,7 @@ export const MergedScene4_Operations: React.FC = () => {
                 width: 600,
                 borderLeft: `4px solid ${BRAND.blue}`,
                 background: "rgba(37,99,235,0.02)",
-                position: "relative",
-                overflow: "visible",
               }}>
-                {/* Flap triangle */}
-                <div style={{
-                  position: "absolute",
-                  top: -2,
-                  left: "50%",
-                  width: 0, height: 0,
-                  borderLeft: "40px solid transparent",
-                  borderRight: "40px solid transparent",
-                  borderTop: `30px solid ${BRAND.blue}`,
-                  transform: `translateX(-50%) perspective(200px) rotateX(${flapAngle}deg)`,
-                  transformOrigin: "top center",
-                  opacity: interpolate(flapAngle, [0, 90, 180], [0.6, 0.3, 0]),
-                }} />
-
                 {/* Email header */}
                 <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 16 }}>
                   <div style={{ width: 40, height: 40, borderRadius: "50%", backgroundColor: "#DBEAFE", display: "flex", alignItems: "center", justifyContent: "center" }}>
