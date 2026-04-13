@@ -15,6 +15,12 @@ import { ProductionPlannerAnimation } from "./ProductionPlannerAnimation";
 import { CuppingScorecardsAnimation } from "./CuppingScorecardsAnimation";
 import { CalculatorsAnimation } from "./CalculatorsAnimation";
 import { CertificationsAnimation } from "./CertificationsAnimation";
+import { DashboardAnimation } from "./DashboardAnimation";
+import { AnalyticsAnimation } from "./AnalyticsAnimation";
+import { InboxAnimation } from "./InboxAnimation";
+import { IntegrationsAnimation } from "./IntegrationsAnimation";
+import { HelpCenterAnimation } from "./HelpCenterAnimation";
+import { AIAnimation } from "./AIAnimation";
 
 const animationMap: Record<string, React.ComponentType> = {
   "order-tracking": OrderTrackingAnimation,
@@ -32,6 +38,12 @@ const animationMap: Record<string, React.ComponentType> = {
   "cupping-scorecards": CuppingScorecardsAnimation,
   calculators: CalculatorsAnimation,
   certifications: CertificationsAnimation,
+  dashboard: DashboardAnimation,
+  analytics: AnalyticsAnimation,
+  inbox: InboxAnimation,
+  integrations: IntegrationsAnimation,
+  "help-center": HelpCenterAnimation,
+  ai: AIAnimation,
 };
 
 export function FeatureIllustration({ slug }: { slug: string }) {

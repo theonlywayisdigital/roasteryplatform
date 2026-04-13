@@ -15,4 +15,10 @@ export const animatedSlugs = new Set([
   "cupping-scorecards",
   "calculators",
   "certifications",
+  "dashboard",
+  "analytics",
+  "inbox",
+  "integrations",
+  "help-center",
+  "ai",
 ]);
