@@ -62,11 +62,11 @@ export async function generateMetadata(): Promise<Metadata> {
     icons: {
       icon: [
         {
-          url: "/favicon-dark.png?v=2",
+          url: "/favicon-dark.png?v=3",
           media: "(prefers-color-scheme: light)",
         },
         {
-          url: "/favicon-light.png?v=2",
+          url: "/favicon-light.png?v=3",
           media: "(prefers-color-scheme: dark)",
         },
       ],
