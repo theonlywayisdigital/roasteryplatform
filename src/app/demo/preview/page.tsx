@@ -10,6 +10,7 @@ interface PortalConfig {
   businessName: string;
   tagline: string;
   logo: string;
+  logoSize: "small" | "medium" | "large";
   headingFont: string;
   bodyFont: string;
   primaryColour: string;
@@ -27,6 +28,7 @@ const DEFAULTS: PortalConfig = {
   businessName: "Your Roastery",
   tagline: "Specialty coffee, roasted fresh to order",
   logo: "",
+  logoSize: "medium",
   headingFont: "Figtree",
   bodyFont: "Inter",
   primaryColour: "#1e293b",
@@ -188,8 +190,14 @@ export default function DemoPreviewPage() {
     function onStorage(e: StorageEvent) {
       if (e.key === "demo-portal-config") readConfig();
     }
+    // Also re-read when tab gains focus (fallback for same-tab navigations)
+    function onFocus() { readConfig(); }
     window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    window.addEventListener("focus", onFocus);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("focus", onFocus);
+    };
   }, []);
 
   /* Load Google Fonts for heading + body */
@@ -259,7 +267,7 @@ export default function DemoPreviewPage() {
     fontFamily: `"${config.bodyFont}", sans-serif`,
   } as React.CSSProperties;
 
-  const logoSizePx = 120; // "medium" default
+  const logoSizePx = { small: 80, medium: 120, large: 160 }[config.logoSize] ?? 120;
 
   const navLinks = [
     { label: "Catalogue", href: "#catalogue" },

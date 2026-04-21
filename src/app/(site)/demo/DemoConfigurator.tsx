@@ -94,6 +94,7 @@ const DEFAULTS = {
   businessName: "",
   tagline: "",
   logo: "",
+  logoSize: "medium" as "small" | "medium" | "large",
   headingFont: "Figtree",
   bodyFont: "Inter",
   primaryColour: "#1e293b",
@@ -564,6 +565,33 @@ export function DemoConfigurator() {
                 onUpload={(b64) => set("logo", b64)}
                 onClear={() => set("logo", "")}
               />
+
+              {/* Logo size — only shown when logo is uploaded */}
+              {config.logo && (
+                <div className="flex flex-col gap-1.5">
+                  <span className="text-sm font-medium text-neutral-700">Logo size</span>
+                  <div className="inline-flex rounded-lg border border-neutral-300 overflow-hidden">
+                    {([
+                      { value: "small" as const, label: "Small (80px)" },
+                      { value: "medium" as const, label: "Medium (120px)" },
+                      { value: "large" as const, label: "Large (160px)" },
+                    ]).map((opt) => (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        onClick={() => set("logoSize", opt.value)}
+                        className={`px-4 py-2 text-sm font-medium transition-colors ${
+                          config.logoSize === opt.value
+                            ? "bg-neutral-900 text-white"
+                            : "bg-white text-neutral-700 hover:bg-neutral-50"
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Fonts */}
               <div className="grid grid-cols-2 gap-4">
