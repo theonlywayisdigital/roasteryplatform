@@ -5,7 +5,7 @@ import {
   ArrowRight,
   Package,
   Play,
-  CalendarCheck,
+
   Truck,
   SealCheck,
   HandCoins,
@@ -207,7 +207,7 @@ export default async function RoastersHomePage() {
               href="/demo"
               className="inline-flex items-center px-8 py-4 border-2 border-neutral-300 text-neutral-700 font-semibold text-lg rounded-lg hover:border-neutral-700 hover:bg-neutral-700 hover:text-white transition-colors"
             >
-              <CalendarCheck className="mr-2" size={24} weight="duotone" />
+              <Play className="mr-2" size={24} weight="duotone" />
               Wholesale Demo
             </a>
           </div>
