@@ -47,12 +47,12 @@ function TopBar({ onDismiss }: { onDismiss: () => void }) {
     <div className="bg-neutral-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-center h-8 relative">
         <a
-          href={`${PLATFORM_URL}/demo`}
+          href={`${PLATFORM_URL}/signup`}
           className="text-xs text-neutral-400 hover:text-neutral-200 transition-colors"
         >
-          See how Roastery Platform can grow your business.{" "}
+          Free setup session when signing up for a 12-month PRO or Scale subscription.{" "}
           <span className="font-semibold text-accent hover:underline">
-            Book a Demo &rarr;
+            Speak to Sales &rarr;
           </span>
         </a>
         <button
