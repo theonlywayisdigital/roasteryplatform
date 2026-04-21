@@ -659,7 +659,7 @@ export function DemoConfigurator() {
             </div>
 
             {/* Live mini preview (desktop) — sticky so it follows scroll */}
-            <div className="hidden lg:block sticky top-8">
+            <div className="hidden lg:block sticky top-24">
               <p className="text-sm font-medium text-neutral-500 mb-4 uppercase tracking-wider">
                 Live preview
               </p>
