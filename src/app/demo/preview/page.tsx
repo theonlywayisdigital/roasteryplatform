@@ -164,9 +164,7 @@ const dividerColour = "color-mix(in srgb, var(--sf-nav-text) 10%, transparent)";
 
 export default function DemoPreviewPage() {
   const [config, setConfig] = useState<PortalConfig | null>(null);
-  const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const sentinelRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLElement>(null);
   const [headerHeight, setHeaderHeight] = useState(0);
 
@@ -216,18 +214,6 @@ export default function DemoPreviewPage() {
     });
     setHeaderHeight(header.offsetHeight);
     observer.observe(header);
-    return () => observer.disconnect();
-  }, []);
-
-  /* Scroll detection — matches Header.tsx IntersectionObserver */
-  useEffect(() => {
-    const sentinel = sentinelRef.current;
-    if (!sentinel) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => setScrolled(!entry.isIntersecting),
-      { threshold: 0 }
-    );
-    observer.observe(sentinel);
     return () => observer.disconnect();
   }, []);
 
@@ -297,15 +283,10 @@ export default function DemoPreviewPage() {
           HEADER — copied from platform: Header.tsx
       ═══════════════════════════════════════════════════ */}
 
-      <div ref={sentinelRef} className="absolute top-0 left-0 w-full h-1" />
-
       <header
         ref={headerRef}
-        className="fixed top-[41px] left-0 right-0 z-50 transition-all duration-300"
-        style={{
-          backgroundColor: scrolled ? "var(--sf-nav-bg)" : "transparent",
-          backdropFilter: scrolled ? "none" : "blur(8px)",
-        }}
+        className="fixed top-[41px] left-0 right-0 z-50"
+        style={{ backgroundColor: "var(--sf-nav-bg)" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="relative flex items-center justify-between py-3 md:py-4">
