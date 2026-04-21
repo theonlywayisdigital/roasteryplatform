@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   ShoppingCart,
@@ -162,7 +162,6 @@ const suites = [
 
 export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [animKey, setAnimKey] = useState(0);
 
   const resolvedSuites = suites.map((suite) => {
     const cmsSuite = cms?.suites?.find((s) => s.key === suite.key);
@@ -173,22 +172,6 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
     };
   });
 
-  // Reset animation key when tab changes
-  const handleTabChange = useCallback((i: number) => {
-    setActiveIndex(i);
-    setAnimKey((k) => k + 1);
-  }, []);
-
-  // Loop: replay animation every 4 seconds while tab is visible
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (document.visibilityState === "visible") {
-        setAnimKey((k) => k + 1);
-      }
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [activeIndex]);
-
   return (
     <div>
       {/* Toggle tabs */}
@@ -197,7 +180,7 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
           {resolvedSuites.map((suite, i) => (
             <button
               key={suite.key}
-              onClick={() => handleTabChange(i)}
+              onClick={() => setActiveIndex(i)}
               className={cn(
                 "px-2 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-200 text-center leading-tight",
                 activeIndex === i
@@ -226,20 +209,13 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
               )}
             >
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-                {/* Animation panel */}
-                <div
-                  className={cn(
-                    "relative",
-                    i === 1 ? "order-1 lg:order-2" : ""
-                  )}
-                >
-                  {AnimationComponent && activeIndex === i && (
-                    <AnimationComponent key={animKey} />
-                  )}
+                {/* Animation panel — always left */}
+                <div className="relative">
+                  {AnimationComponent && <AnimationComponent />}
                 </div>
 
-                {/* Content */}
-                <div className={i === 1 ? "order-2 lg:order-1" : ""}>
+                {/* Content — always right */}
+                <div>
                   <p className="text-sm font-semibold text-accent uppercase tracking-wider mb-3">
                     {suite.label}
                   </p>
