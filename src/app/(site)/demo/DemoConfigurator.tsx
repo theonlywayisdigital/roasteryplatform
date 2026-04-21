@@ -631,12 +631,19 @@ export function DemoConfigurator() {
               </button>
             </div>
 
-            {/* Live mini preview (desktop) */}
-            <div className="hidden lg:block sticky top-28">
+            {/* Live mini preview (desktop) — sticky so it follows scroll */}
+            <div className="hidden lg:block sticky top-8">
               <p className="text-sm font-medium text-neutral-500 mb-4 uppercase tracking-wider">
                 Live preview
               </p>
               <MiniPreview config={config} />
+              <a
+                href={`${PLATFORM_URL}/signup`}
+                className="mt-4 w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-accent text-white font-semibold text-base rounded-lg border-2 border-accent hover:bg-transparent hover:text-accent transition-colors"
+              >
+                Start Free Trial
+                <ArrowRight weight="bold" size={20} />
+              </a>
             </div>
           </div>
         </div>
