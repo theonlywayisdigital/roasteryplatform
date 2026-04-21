@@ -7,7 +7,7 @@ export default async function SiteLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="theme-light overflow-x-hidden">
+    <div className="theme-light overflow-x-clip">
       <RoastersNavbar />
       <main className="min-h-screen">{children}</main>
       <RoastersFooter />
