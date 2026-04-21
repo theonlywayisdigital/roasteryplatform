@@ -267,11 +267,11 @@ export default async function RoastersHomePage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-4">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-neutral-900 tracking-tight">
-              {settings?.toolsSectionTitle ?? "Four products."}{" "}
-              <span className="text-accent">{settings?.toolsSectionSubtitle ?? "One platform."}</span>
+              {settings?.toolsSectionTitle ?? "One platform."}{" "}
+              <span className="text-accent">{settings?.toolsSectionSubtitle ?? "Built for how roasters actually work."}</span>
             </h2>
             <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
-              {settings?.toolsSectionDescription ?? "Sales, marketing, roaster tools, and more. Each works on its own. Together they replace the stack of apps you're paying for."}
+              {settings?.toolsSectionDescription ?? "Sales Suite is the core. Roaster Tools come with it. Marketing is the add-on when you're ready to grow."}
             </p>
           </div>
           <ProductsCarousel cms={carouselCms} />
