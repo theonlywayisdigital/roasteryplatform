@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "@phosphor-icons/react";
 
@@ -165,8 +165,6 @@ const dividerColour = "color-mix(in srgb, var(--sf-nav-text) 10%, transparent)";
 export default function DemoPreviewPage() {
   const [config, setConfig] = useState<PortalConfig | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const headerRef = useRef<HTMLElement>(null);
-  const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
     function readConfig() {
@@ -204,18 +202,6 @@ export default function DemoPreviewPage() {
     loadGoogleFont(config.headingFont);
     loadGoogleFont(config.bodyFont);
   }, [config]);
-
-  /* Measure header height for spacer — matches Header.tsx */
-  useEffect(() => {
-    const header = headerRef.current;
-    if (!header) return;
-    const observer = new ResizeObserver(([entry]) => {
-      setHeaderHeight(entry.contentRect.height);
-    });
-    setHeaderHeight(header.offsetHeight);
-    observer.observe(header);
-    return () => observer.disconnect();
-  }, []);
 
   if (!config) {
     return (
@@ -284,8 +270,6 @@ export default function DemoPreviewPage() {
       ═══════════════════════════════════════════════════ */}
 
       <header
-        ref={headerRef}
-        className="fixed top-[41px] left-0 right-0 z-50"
         style={{ backgroundColor: "var(--sf-nav-bg)" }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -365,8 +349,6 @@ export default function DemoPreviewPage() {
         </div>
       </header>
 
-      {/* Spacer: banner (41px) + header height */}
-      {headerHeight > 0 && <div style={{ height: headerHeight + 41 }} />}
 
       {/* ── Mobile Menu — copied from platform: MobileMenu.tsx ── */}
       {mobileMenuOpen && (
