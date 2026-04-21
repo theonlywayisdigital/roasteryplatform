@@ -7,9 +7,13 @@ import { roasterBlogPostsQuery } from "@/sanity/lib/queries";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Blog — Guides, Tips & Insights for Coffee Roasters",
+  title: "Blog — Guides, Tips & Insights for Independent Coffee Roasters",
   description:
-    "Practical guides, business tips, and industry insights for working coffee roasters. From selling wholesale to growing your brand.",
+    "Practical guides, business tips, and industry insights for independent coffee roasters UK. From wholesale coffee management to growing your roastery brand online.",
+  openGraph: {
+    title: "Blog — Guides, Tips & Insights for Independent Coffee Roasters",
+    description: "Practical guides, business tips, and industry insights for independent coffee roasters.",
+  },
 };
 
 interface BlogPost {

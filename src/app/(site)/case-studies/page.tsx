@@ -8,9 +8,13 @@ import { roasterCaseStudiesQuery } from "@/sanity/lib/queries";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Case Studies — Roaster Success Stories",
+  title: "Case Studies — How Coffee Roasters Grow with Roastery Platform",
   description:
-    "Real roasteries, real results. See how coffee roasters use Ghost Roastery Platform to sell more coffee with less overhead.",
+    "Real roasteries, real results. See how independent coffee roasters use Roastery Platform to sell more coffee with less overhead.",
+  openGraph: {
+    title: "Case Studies — How Coffee Roasters Grow with Roastery Platform",
+    description: "Real roasteries, real results. See how independent coffee roasters use Roastery Platform.",
+  },
 };
 
 interface CaseStudy {
@@ -42,7 +46,7 @@ export default async function RoastersCaseStudiesPage() {
             Roaster <span className="text-accent">Success Stories</span>
           </h1>
           <p className="text-lg sm:text-xl text-neutral-600 max-w-2xl mx-auto">
-            See how roasters and brands are growing with Ghost Roastery
+            See how roasters and brands are growing with Roastery
             Platform.
           </p>
         </div>

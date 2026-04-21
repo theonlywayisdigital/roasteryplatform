@@ -11,9 +11,13 @@ import {
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Marketing Suite — Email, Social & Content Tools",
+  title: "Marketing Suite — Email & Social Marketing for Coffee Roasters",
   description:
-    "Grow your coffee brand on autopilot. Email campaigns, social scheduling, content calendar, and embedded forms — from £19/mo.",
+    "Grow your coffee brand with email campaigns, social scheduling, content calendar, and lead capture forms. Marketing tools built for independent roasters. From £19/mo.",
+  openGraph: {
+    title: "Marketing Suite — Email & Social Marketing for Coffee Roasters",
+    description: "Grow your coffee brand with email campaigns, social scheduling, content calendar, and lead capture forms. Built for independent roasters.",
+  },
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";

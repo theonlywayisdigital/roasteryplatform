@@ -22,9 +22,13 @@ import { ProductsCarousel } from "@/components/roasters/ProductsCarousel";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Roastery Platform — Sell, Market & Grow Your Roastery",
+  title: "Coffee Roastery Software — Sell, Market & Manage Your Roastery",
   description:
-    "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
+    "The all-in-one coffee roaster platform for independent UK roasteries. Wholesale coffee management, bean-to-sale inventory, marketing tools, and production tracking — one login.",
+  openGraph: {
+    title: "Coffee Roastery Software — Sell, Market & Manage Your Roastery",
+    description: "The all-in-one coffee roaster platform for independent UK roasteries. Wholesale coffee management, bean-to-sale inventory, marketing tools, and production tracking.",
+  },
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";

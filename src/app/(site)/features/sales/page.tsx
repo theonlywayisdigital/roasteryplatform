@@ -12,9 +12,13 @@ import {
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Sales Suite — Sell Wholesale & Direct-to-Consumer",
+  title: "Sales Suite — Wholesale Coffee Management Software",
   description:
-    "Sell coffee wholesale and direct-to-consumer from one dashboard. Orders, invoicing, and CRM — from £39/mo.",
+    "Manage wholesale coffee orders, invoicing, CRM, and your branded ordering portal from one dashboard. Built for independent coffee roasters. From £39/mo.",
+  openGraph: {
+    title: "Sales Suite — Wholesale Coffee Management Software",
+    description: "Manage wholesale coffee orders, invoicing, CRM, and your branded ordering portal from one dashboard. Built for independent coffee roasters.",
+  },
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";

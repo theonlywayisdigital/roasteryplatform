@@ -58,6 +58,12 @@ export default defineType({
       type: "string",
     }),
     defineField({
+      name: "ogImage",
+      title: "Default OG Image",
+      description: "Default social sharing image (1200×630 recommended)",
+      type: "image",
+    }),
+    defineField({
       name: "accentColour",
       title: "Accent Colour",
       type: "string",

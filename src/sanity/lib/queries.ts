@@ -13,7 +13,8 @@ export const siteSettingsQuery = groq`
     contactEmail,
     adminEmail,
     roasteryEmail,
-    accentColour
+    accentColour,
+    ogImage
   }
 `;
 

@@ -302,8 +302,28 @@ export default async function FeatureDetailPage({
 
   const suiteLabel = suiteLabelMap[detail.suite] || detail.suite;
 
+  const softwareJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: `Roastery Platform — ${detail.featureTitle}`,
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    description: detail.heroDescription,
+    offers: {
+      "@type": "Offer",
+      price: detail.suite === "sales" ? "39" : detail.suite === "marketing" ? "19" : "0",
+      priceCurrency: "GBP",
+      description: detail.includedNote || suitePriceLabel[detail.suite] || "Included",
+    },
+    featureList: detail.benefits?.join(", "),
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
+      />
       {/* Hero */}
       <section className="py-20 lg:py-28 bg-neutral-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">

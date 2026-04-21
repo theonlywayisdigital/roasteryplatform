@@ -17,13 +17,13 @@ const footerLinks = {
   ],
   resources: [
     { href: "/blog", label: "Blog" },
-    { href: "https://ghostroastery.com/contact", label: "Contact Us", external: true },
-    { href: "https://ghostroastery.com/about", label: "About Ghost Roastery", external: true },
+    { href: "https://roasteryplatform.com/contact", label: "Contact Us", external: true },
+    { href: "https://roasteryplatform.com/about", label: "About Us", external: true },
   ],
   legal: [
-    { href: "https://ghostroastery.com/privacy", label: "Privacy Policy", external: true },
-    { href: "https://ghostroastery.com/terms", label: "Terms of Service", external: true },
-    { href: "https://ghostroastery.com/cookies", label: "Cookie Policy", external: true },
+    { href: "https://roasteryplatform.com/privacy", label: "Privacy Policy", external: true },
+    { href: "https://roasteryplatform.com/terms", label: "Terms of Service", external: true },
+    { href: "https://roasteryplatform.com/cookies", label: "Cookie Policy", external: true },
   ],
 };
 
@@ -38,7 +38,7 @@ export function RoastersFooter() {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block">
               <Image
-                src="/ghost-roastery-platform-logo.png"
+                src="/roastery-platform-logo.png"
                 alt="Roastery Platform"
                 width={400}
                 height={100}
@@ -166,7 +166,7 @@ export function RoastersFooter() {
         <div className="mt-12 pt-8 border-t border-neutral-200">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-neutral-500">
-              &copy; {currentYear} Ghost Roastery. All rights reserved.
+              &copy; {currentYear} Roastery Platform Ltd. All rights reserved.
             </p>
             <p className="text-sm text-neutral-500">
               The platform for independent coffee roasters

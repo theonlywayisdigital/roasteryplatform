@@ -6,7 +6,7 @@ import { X } from "@phosphor-icons/react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
 
-const COOKIE_CONSENT_KEY = "ghost-roasting-cookie-consent";
+const COOKIE_CONSENT_KEY = "roastery-platform-cookie-consent";
 
 type ConsentStatus = "pending" | "accepted" | "declined";
 

@@ -16,9 +16,13 @@ import {
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "How It Works — Roastery Platform",
+  title: "How It Works — Bean to Sale Coffee Roastery Software",
   description:
-    "From green bean to paid invoice — see exactly how Roastery Platform works. Inventory, roasting, products, wholesale, orders, and invoicing in one platform.",
+    "See how Roastery Platform takes you from green bean inventory to paid invoice. Coffee roastery software for inventory, roasting, wholesale orders, and invoicing — all in one platform.",
+  openGraph: {
+    title: "How It Works — Bean to Sale Coffee Roastery Software",
+    description: "See how Roastery Platform takes you from green bean inventory to paid invoice. Coffee roastery software for inventory, roasting, wholesale orders, and invoicing.",
+  },
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";

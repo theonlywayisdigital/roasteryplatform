@@ -6,9 +6,13 @@ import { PricingContent } from "./PricingContent";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Pricing — Simple, Transparent Plans for Roasters",
+  title: "Pricing — Affordable Coffee Roastery Software from £39/mo",
   description:
-    "Sales Suite from £39/mo. Marketing Suite from £19/mo. Roaster Tools included with every plan. Simple, transparent pricing for coffee roasters.",
+    "Simple, transparent pricing for independent coffee roasters. Sales Suite from £39/mo, Marketing Suite from £19/mo. Roaster tools included. 14-day free trial, no credit card required.",
+  openGraph: {
+    title: "Pricing — Affordable Coffee Roastery Software from £39/mo",
+    description: "Simple, transparent pricing for independent coffee roasters. Sales Suite from £39/mo, Marketing Suite from £19/mo. 14-day free trial.",
+  },
 };
 
 interface FAQ {

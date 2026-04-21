@@ -103,8 +103,33 @@ export default async function RoastersBlogPostPage({ params }: PageProps) {
     coffee: "Coffee Knowledge",
   };
 
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.seoDescription || post.excerpt,
+    ...(post.featuredImage && {
+      image: urlFor(post.featuredImage).width(1200).height(675).url(),
+    }),
+    datePublished: post.publishedAt,
+    ...(post.author && { author: { "@type": "Person", name: post.author } }),
+    publisher: {
+      "@type": "Organization",
+      name: "Roastery Platform",
+      url: "https://roasteryplatform.com",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://roasteryplatform.com/blog/${post.slug.current}`,
+    },
+  };
+
   return (
     <article className="bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
       {/* Header */}
       <section className="py-16 lg:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">

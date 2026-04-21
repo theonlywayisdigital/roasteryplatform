@@ -16,7 +16,11 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Partner Programme — Roast for Brands, Get Paid Weekly",
   description:
-    "More orders without the marketing. Join the Roastery Platform partner network — we send the orders, you roast and ship. Weekly payouts, zero advertising spend.",
+    "Fill your spare roasting capacity without spending on marketing. Join the Roastery Platform partner network — we match you with brands, you roast and ship. Weekly payouts, UK roasters only.",
+  openGraph: {
+    title: "Partner Programme — Roast for Brands, Get Paid Weekly",
+    description: "Fill your spare roasting capacity without marketing spend. We match you with brands, you roast and ship. Weekly payouts.",
+  },
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";

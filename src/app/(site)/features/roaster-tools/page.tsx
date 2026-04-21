@@ -16,9 +16,13 @@ export const revalidate = 3600;
 const PLATFORM_URL = "https://app.roasteryplatform.com";
 
 export const metadata: Metadata = {
-  title: "Roaster Tools — Production & Inventory Tools",
+  title: "Roaster Tools — Bean to Sale Inventory & Production Software",
   description:
-    "Tools built for working roasters. Green bean inventory, roast logging, production planning, cupping scorecards, and calculators — included with every Sales Suite plan.",
+    "Green bean inventory, roast logging, production planning, cupping scorecards, and calculators — coffee roastery software built for working roasters. Included with every plan.",
+  openGraph: {
+    title: "Roaster Tools — Bean to Sale Inventory & Production Software",
+    description: "Green bean inventory, roast logging, production planning, cupping scorecards, and calculators — built for working roasters.",
+  },
 };
 
 const features = [

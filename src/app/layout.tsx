@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Figtree, Inter } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
-import { client } from "@/sanity/lib/client";
+import { client, urlFor } from "@/sanity/lib/client";
 import { siteSettingsQuery } from "@/sanity/lib/queries";
 import "./globals.css";
 
@@ -31,6 +31,9 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = settings?.defaultSeoTitle || FALLBACK_TITLE;
   const description = settings?.defaultSeoDescription || FALLBACK_DESCRIPTION;
+  const ogImageUrl = settings?.ogImage
+    ? urlFor(settings.ogImage).width(1200).height(630).url()
+    : undefined;
 
   return {
     title: {
@@ -46,11 +49,15 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Roastery Platform",
       title,
       description,
+      ...(ogImageUrl && {
+        images: [{ url: ogImageUrl, width: 1200, height: 630 }],
+      }),
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      ...(ogImageUrl && { images: [ogImageUrl] }),
     },
     icons: {
       icon: [

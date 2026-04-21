@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Ghost Roastery - Design Tokens */
+/* Roastery Platform - Design Tokens */
 :root {
   /* Core colours */
   --background: #0D0D0D;
@@ -271,7 +271,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #94a3b8;
 }
 
-/* Ghost Roastery consumer theme — dark bg, warm neutrals, amber accent */
+/* Roastery Platform consumer theme — dark bg, warm neutrals, amber accent */
 .theme-ghost {
   --background: #0D0D0D;
   --foreground: #F5F5F0;

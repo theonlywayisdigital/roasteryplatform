@@ -13,9 +13,13 @@ import {
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "More — Dashboard, Analytics, Inbox, Integrations, Help & AI",
+  title: "More Features — Dashboard, Analytics, AI & Integrations",
   description:
-    "Dashboard, analytics, inbox, integrations, help centre, and AI tools — included with every plan.",
+    "Dashboard, analytics, AI-powered tools, inbox, Shopify & WooCommerce integrations, and built-in help centre — all included with your coffee roaster platform subscription.",
+  openGraph: {
+    title: "More Features — Dashboard, Analytics, AI & Integrations",
+    description: "Dashboard, analytics, AI-powered tools, inbox, and e-commerce integrations — included with every plan.",
+  },
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";

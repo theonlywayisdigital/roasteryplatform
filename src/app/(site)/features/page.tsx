@@ -36,9 +36,13 @@ import {
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Features — Sales, Marketing & Roaster Tools",
+  title: "Features — Coffee Roaster Platform for Sales, Marketing & Production",
   description:
-    "Everything a coffee roaster needs in one platform. Sales suite, marketing suite, and roaster tools. Sell, market, and grow your roastery.",
+    "Explore every feature of Roastery Platform. Wholesale coffee management, CRM, invoicing, email marketing, roast logging, and production planning — built for independent coffee roasters UK.",
+  openGraph: {
+    title: "Features — Coffee Roaster Platform for Sales, Marketing & Production",
+    description: "Explore every feature of Roastery Platform. Wholesale coffee management, CRM, invoicing, email marketing, roast logging, and production planning.",
+  },
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";

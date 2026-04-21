@@ -9,6 +9,13 @@ import {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://roasteryplatform.com";
 
+  // Hardcoded feature detail slugs (roaster-tools + more categories not in Sanity)
+  const hardcodedFeatureSlugs = [
+    "dashboard", "analytics", "inbox", "integrations", "help-center", "ai",
+    "green-bean-inventory", "roast-log", "production-planner",
+    "cupping-scorecards", "calculators", "certifications",
+  ];
+
   // Static pages
   const staticPages: MetadataRoute.Sitemap = [
     {
@@ -16,6 +23,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/how-it-works`,
+      changeFrequency: "monthly",
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/features`,
@@ -84,8 +96,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .catch(() => []),
     ]);
 
-    featureDetailPages = featureSlugs.map((f) => ({
-      url: `${baseUrl}/features/${f.slug}`,
+    // Combine Sanity feature slugs with hardcoded ones, deduplicating
+    const sanitySlugsSet = new Set(featureSlugs.map((f) => f.slug));
+    const allFeatureSlugs = [
+      ...featureSlugs.map((f) => f.slug),
+      ...hardcodedFeatureSlugs.filter((s) => !sanitySlugsSet.has(s)),
+    ];
+    featureDetailPages = allFeatureSlugs.map((slug) => ({
+      url: `${baseUrl}/features/${slug}`,
       changeFrequency: "monthly" as const,
       priority: 0.7,
     }));
