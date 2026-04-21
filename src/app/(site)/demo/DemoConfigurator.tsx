@@ -481,6 +481,8 @@ export function DemoConfigurator() {
     const toSave = {
       ...config,
       businessName: config.businessName || "Your Roastery",
+      primaryColour: config.navBgColour,
+      accentColour: config.buttonColour,
     };
     try {
       localStorage.setItem("demo-portal-config", JSON.stringify(toSave));
@@ -572,16 +574,6 @@ export function DemoConfigurator() {
 
               {/* Colour grid */}
               <div className="grid grid-cols-2 gap-4">
-                <ColourField
-                  label="Primary colour"
-                  value={config.primaryColour}
-                  onChange={(v) => set("primaryColour", v)}
-                />
-                <ColourField
-                  label="Accent colour"
-                  value={config.accentColour}
-                  onChange={(v) => set("accentColour", v)}
-                />
                 <ColourField
                   label="Nav background"
                   value={config.navBgColour}
