@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
   ShoppingCart,
@@ -8,20 +8,28 @@ import {
   Envelope,
   ShareNetwork,
   ArrowRight,
-  Package,
   ClipboardText,
   Leaf,
   Fire,
   Star,
   Calculator,
-  Wrench,
   SquaresFour,
   Tray,
   Plugs,
   Robot,
-  DotsThree,
 } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
+import { SalesSuiteAnimation } from "@/components/feature-animations/SalesSuiteAnimation";
+import { MarketingSuiteAnimation } from "@/components/feature-animations/MarketingSuiteAnimation";
+import { RoasterToolsAnimation } from "@/components/feature-animations/RoasterToolsAnimation";
+import { MoreAnimation } from "@/components/feature-animations/MoreAnimation";
+
+const ANIMATION_MAP: Record<string, React.ComponentType> = {
+  sales: SalesSuiteAnimation,
+  marketing: MarketingSuiteAnimation,
+  "roaster-tools": RoasterToolsAnimation,
+  more: MoreAnimation,
+};
 
 interface CarouselCmsData {
   suites?: Array<{
@@ -39,8 +47,6 @@ const suites = [
     description:
       "Manage your products, track every order, handle wholesale accounts, send invoices, and get paid automatically. From £39/mo.",
     allHref: "/features/sales",
-    placeholderIcon: Package,
-    placeholderLabel: "Sales Suite Screenshot",
     features: [
       {
         icon: ClipboardText,
@@ -69,8 +75,6 @@ const suites = [
     description:
       "Email campaigns, social scheduling, content calendar, and embedded forms. From £19/mo.",
     allHref: "/features/marketing",
-    placeholderIcon: Envelope,
-    placeholderLabel: "Marketing Suite Screenshot",
     features: [
       {
         icon: Envelope,
@@ -93,8 +97,6 @@ const suites = [
     description:
       "Green bean inventory, roast logging, cupping scorecards, and calculators — built for working roasters. Included with Sales Suite.",
     allHref: "/features/roaster-tools",
-    placeholderIcon: Wrench,
-    placeholderLabel: "Roaster Tools Screenshot",
     features: [
       {
         icon: Leaf,
@@ -129,8 +131,6 @@ const suites = [
     description:
       "Dashboard, analytics, inbox, integrations, help centre, and AI-powered tools. Included with every plan.",
     allHref: "/features/more",
-    placeholderIcon: DotsThree,
-    placeholderLabel: "More Features Screenshot",
     features: [
       {
         icon: SquaresFour,
@@ -162,6 +162,7 @@ const suites = [
 
 export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [animKey, setAnimKey] = useState(0);
 
   const resolvedSuites = suites.map((suite) => {
     const cmsSuite = cms?.suites?.find((s) => s.key === suite.key);
@@ -172,6 +173,22 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
     };
   });
 
+  // Reset animation key when tab changes
+  const handleTabChange = useCallback((i: number) => {
+    setActiveIndex(i);
+    setAnimKey((k) => k + 1);
+  }, []);
+
+  // Loop: replay animation every 4 seconds while tab is visible
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (document.visibilityState === "visible") {
+        setAnimKey((k) => k + 1);
+      }
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [activeIndex]);
+
   return (
     <div>
       {/* Toggle tabs */}
@@ -180,7 +197,7 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
           {resolvedSuites.map((suite, i) => (
             <button
               key={suite.key}
-              onClick={() => setActiveIndex(i)}
+              onClick={() => handleTabChange(i)}
               className={cn(
                 "px-2 sm:px-6 py-2.5 text-xs sm:text-sm font-semibold rounded-md transition-all duration-200 text-center leading-tight",
                 activeIndex === i
@@ -197,7 +214,7 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
       {/* Content — crossfade */}
       <div className="relative">
         {resolvedSuites.map((suite, i) => {
-          const SuiteIcon = suite.placeholderIcon;
+          const AnimationComponent = ANIMATION_MAP[suite.key];
           return (
             <div
               key={suite.key}
@@ -208,22 +225,17 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
                   : "opacity-0 absolute inset-0 pointer-events-none"
               )}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                {/* Image placeholder */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+                {/* Animation panel */}
                 <div
                   className={cn(
-                    "relative aspect-[4/3] rounded-2xl overflow-hidden bg-neutral-100 border border-neutral-200",
+                    "relative",
                     i === 1 ? "order-1 lg:order-2" : ""
                   )}
                 >
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <SuiteIcon weight="duotone" size={72} className="text-neutral-300 mx-auto mb-3" />
-                      <p className="text-sm text-neutral-400 font-medium">
-                        {suite.placeholderLabel}
-                      </p>
-                    </div>
-                  </div>
+                  {AnimationComponent && activeIndex === i && (
+                    <AnimationComponent key={animKey} />
+                  )}
                 </div>
 
                 {/* Content */}
