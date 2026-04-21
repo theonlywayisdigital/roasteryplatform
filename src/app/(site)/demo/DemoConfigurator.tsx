@@ -505,7 +505,7 @@ export function DemoConfigurator() {
       {/* ── Hero ───────────────────────────────────────── */}
       <section className="relative flex items-center justify-center overflow-hidden bg-neutral-50">
         <div className="absolute inset-0 bg-gradient-to-b from-neutral-50 via-transparent to-white" />
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 text-center py-16 lg:py-24">
+        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 lg:pt-40 pb-16 lg:pb-24">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.1] mb-4 text-neutral-900">
             See your wholesale portal
             <br />
