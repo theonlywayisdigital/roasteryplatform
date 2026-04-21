@@ -365,7 +365,8 @@ export default function DemoPreviewPage() {
         </div>
       </header>
 
-      {headerHeight > 0 && <div style={{ height: headerHeight }} />}
+      {/* Spacer: banner (41px) + header height */}
+      {headerHeight > 0 && <div style={{ height: headerHeight + 41 }} />}
 
       {/* ── Mobile Menu — copied from platform: MobileMenu.tsx ── */}
       {mobileMenuOpen && (
