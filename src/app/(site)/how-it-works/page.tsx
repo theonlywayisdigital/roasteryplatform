@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
 import {
-  ScrollIndicator,
   Scene1AddGreenStock,
   Scene2LogRoast,
   Scene4WholesalePortal,
@@ -54,7 +54,7 @@ export default function HowItWorksPage() {
             </a>
           </div>
         </div>
-        <ScrollIndicator />
+        <ScrollIndicator href="#scene-1" />
       </section>
 
       {/* ═══════════════════════════════════════════════════

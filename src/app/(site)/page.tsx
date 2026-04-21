@@ -18,6 +18,7 @@ import {
   roasterProductsCarouselQuery,
 } from "@/sanity/lib/queries";
 import { ProductsCarousel } from "@/components/roasters/ProductsCarousel";
+import { ScrollIndicator } from "@/components/ui/ScrollIndicator";
 
 export const revalidate = 3600;
 
@@ -211,12 +212,13 @@ export default async function RoastersHomePage() {
             </a>
           </div>
         </div>
+        <ScrollIndicator href="#content" />
       </section>
 
       {/* ═══════════════════════════════════════════════════
           2. VIDEO PLACEHOLDER
       ═══════════════════════════════════════════════════ */}
-      <section className="py-16 lg:py-24 bg-white">
+      <section id="content" className="py-16 lg:py-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-4xl mx-auto">
             <div className="relative aspect-video rounded-2xl overflow-hidden bg-neutral-900 border border-neutral-200 shadow-xl">
