@@ -36,6 +36,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "remotion": "^4.0.448",
+    "sanity": "^5.21.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
