@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, animate } from "framer-motion";
 import {
   Envelope,
   PaperPlaneTilt,
@@ -14,13 +14,13 @@ import { EASE, DUR, STAGGER } from "./shared";
 
 function useAnimatedCounter(
   target: number,
-  isInView: boolean,
+  isActive: boolean,
   duration: number = DUR.counter,
   delay: number = 0
 ) {
   const [value, setValue] = useState(0);
   useEffect(() => {
-    if (!isInView) return;
+    if (!isActive) return;
     const timeout = setTimeout(() => {
       const controls = animate(0, target, {
         duration,
@@ -30,7 +30,7 @@ function useAnimatedCounter(
       return () => controls.stop();
     }, delay * 1000);
     return () => clearTimeout(timeout);
-  }, [isInView, target, duration, delay]);
+  }, [isActive, target, duration, delay]);
   return value;
 }
 
@@ -58,35 +58,32 @@ function useTypingEffect(
 
 /* ── Main component ── */
 
-export function MarketingSuiteAnimation() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
+export function MarketingSuiteAnimation({ isActive }: { isActive: boolean }) {
   const [sent, setSent] = useState(false);
 
   const subject = useTypingEffect(
     "New arrival: Ethiopia Yirgacheffe",
-    isInView,
+    isActive,
     35,
     600
   );
 
-  const openRate = useAnimatedCounter(68, isInView, DUR.counter, 2.8);
-  const clickRate = useAnimatedCounter(24, isInView, DUR.counter, 3.0);
+  const openRate = useAnimatedCounter(68, isActive, DUR.counter, 2.8);
+  const clickRate = useAnimatedCounter(24, isActive, DUR.counter, 3.0);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isActive) return;
     const t = setTimeout(() => setSent(true), 2200);
     return () => clearTimeout(t);
-  }, [isInView]);
+  }, [isActive]);
 
   return (
-    <div ref={ref} className="space-y-3">
+    <div className="space-y-3">
       {/* Email campaign card */}
       <div className="bg-white rounded-xl border border-neutral-200 shadow-lg p-5">
         <motion.div
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={isActive ? { opacity: 1 } : {}}
           transition={{ duration: DUR.element, delay: 0.2, ease: EASE }}
           className="flex items-center gap-2 mb-4"
         >
@@ -99,7 +96,7 @@ export function MarketingSuiteAnimation() {
         {/* From field */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isActive ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: DUR.field, delay: 0.3, ease: EASE }}
           className="mb-3"
         >
@@ -112,14 +109,14 @@ export function MarketingSuiteAnimation() {
         {/* Subject — typing */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isActive ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: DUR.field, delay: 0.3 + STAGGER.field, ease: EASE }}
           className="mb-3"
         >
           <span className="block text-xs font-medium text-neutral-400 mb-1">Subject</span>
           <div className="bg-neutral-50 border border-neutral-200 rounded-lg px-3 py-2 text-sm text-neutral-900 font-medium min-h-[36px]">
             {subject}
-            {subject.length < "New arrival: Ethiopia Yirgacheffe".length && isInView && (
+            {subject.length < "New arrival: Ethiopia Yirgacheffe".length && isActive && (
               <motion.span
                 animate={{ opacity: [1, 0] }}
                 transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
@@ -132,7 +129,7 @@ export function MarketingSuiteAnimation() {
         {/* Audience badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          animate={isActive ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: DUR.element, delay: 1.4, ease: EASE }}
           className="flex items-center gap-2 mb-4"
         >
@@ -145,7 +142,7 @@ export function MarketingSuiteAnimation() {
         {/* Send button */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          animate={isActive ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: DUR.element, delay: 1.8, ease: EASE }}
         >
           {!sent ? (
@@ -175,7 +172,7 @@ export function MarketingSuiteAnimation() {
       <div className="grid grid-cols-2 gap-3">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isActive ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: DUR.card, delay: 2.6, ease: EASE }}
           className="bg-white rounded-xl border border-neutral-200 shadow-lg p-4"
         >
@@ -193,7 +190,7 @@ export function MarketingSuiteAnimation() {
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isActive ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: DUR.card, delay: 2.8, ease: EASE }}
           className="bg-white rounded-xl border border-neutral-200 shadow-lg p-4"
         >

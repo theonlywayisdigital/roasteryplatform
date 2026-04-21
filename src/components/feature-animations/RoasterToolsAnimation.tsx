@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, animate } from "framer-motion";
 import {
   Leaf,
   Fire,
@@ -14,14 +14,14 @@ import { EASE, DUR, STAGGER } from "./shared";
 
 function useAnimatedCounter(
   target: number,
-  isInView: boolean,
+  isActive: boolean,
   duration: number = DUR.counter,
   delay: number = 0,
   decimals: number = 0
 ) {
   const [value, setValue] = useState(0);
   useEffect(() => {
-    if (!isInView) return;
+    if (!isActive) return;
     const timeout = setTimeout(() => {
       const controls = animate(0, target, {
         duration,
@@ -37,7 +37,7 @@ function useAnimatedCounter(
       return () => controls.stop();
     }, delay * 1000);
     return () => clearTimeout(timeout);
-  }, [isInView, target, duration, delay, decimals]);
+  }, [isActive, target, duration, delay, decimals]);
   return value;
 }
 
@@ -47,17 +47,17 @@ function MockupField({
   label,
   value,
   delay = 0,
-  isInView,
+  isActive,
 }: {
   label: string;
   value: string;
   delay?: number;
-  isInView: boolean;
+  isActive: boolean;
 }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      animate={isActive ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: DUR.field, delay, ease: EASE }}
     >
       <span className="block text-xs font-medium text-neutral-400 mb-1">{label}</span>
@@ -70,27 +70,24 @@ function MockupField({
 
 /* ── Main component ── */
 
-export function RoasterToolsAnimation() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
+export function RoasterToolsAnimation({ isActive }: { isActive: boolean }) {
   const [roastLogged, setRoastLogged] = useState(false);
-  const greenStock = useAnimatedCounter(108, isInView, DUR.counter, 2.4);
-  const roastedStock = useAnimatedCounter(10, isInView, DUR.counter, 2.4);
-  const weightLoss = useAnimatedCounter(16.7, isInView, DUR.counter, 2.8, 1);
+  const greenStock = useAnimatedCounter(108, isActive, DUR.counter, 2.4);
+  const roastedStock = useAnimatedCounter(10, isActive, DUR.counter, 2.4);
+  const weightLoss = useAnimatedCounter(16.7, isActive, DUR.counter, 2.8, 1);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isActive) return;
     const t = setTimeout(() => setRoastLogged(true), 1800);
     return () => clearTimeout(t);
-  }, [isInView]);
+  }, [isActive]);
 
   return (
-    <div ref={ref} className="space-y-3">
+    <div className="space-y-3">
       {/* Green bean entry */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: DUR.card, delay: 0.2, ease: EASE }}
         className="bg-white rounded-xl border border-neutral-200 shadow-lg p-5"
       >
@@ -107,26 +104,26 @@ export function RoasterToolsAnimation() {
               label="Name"
               value="Ethiopia Yirgacheffe"
               delay={0.4}
-              isInView={isInView}
+              isActive={isActive}
             />
           </div>
           <MockupField
             label="Origin"
             value="Ethiopia"
             delay={0.4 + STAGGER.field}
-            isInView={isInView}
+            isActive={isActive}
           />
           <MockupField
             label="Stock (kg)"
             value="120"
             delay={0.4 + STAGGER.field * 2}
-            isInView={isInView}
+            isActive={isActive}
           />
           <MockupField
             label="Cost/kg"
             value="£8.50"
             delay={0.4 + STAGGER.field * 3}
-            isInView={isInView}
+            isActive={isActive}
           />
         </div>
       </motion.div>
@@ -134,7 +131,7 @@ export function RoasterToolsAnimation() {
       {/* Roast logged card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: DUR.card, delay: 1.4, ease: EASE }}
         className="bg-white rounded-xl border border-neutral-200 shadow-lg p-5"
       >
@@ -160,20 +157,20 @@ export function RoasterToolsAnimation() {
             label="Green Weight"
             value="12 kg"
             delay={1.6}
-            isInView={isInView}
+            isActive={isActive}
           />
           <MockupField
             label="Roasted Weight"
             value="10 kg"
             delay={1.6 + STAGGER.field}
-            isInView={isInView}
+            isActive={isActive}
           />
         </div>
 
         {/* Weight loss */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={isActive ? { opacity: 1 } : {}}
           transition={{ duration: DUR.element, delay: 2.6, ease: EASE }}
           className="mt-3"
         >
@@ -188,7 +185,7 @@ export function RoasterToolsAnimation() {
       <div className="grid grid-cols-2 gap-3">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isActive ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: DUR.card, delay: 2.2, ease: EASE }}
           className="bg-white rounded-xl border border-neutral-200 shadow-lg p-4 text-center"
         >
@@ -205,7 +202,7 @@ export function RoasterToolsAnimation() {
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={isActive ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: DUR.card, delay: 2.4, ease: EASE }}
           className="bg-white rounded-xl border border-neutral-200 shadow-lg p-4 text-center"
         >

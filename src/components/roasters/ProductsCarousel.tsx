@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useInView } from "framer-motion";
 import Link from "next/link";
 import {
   ShoppingCart,
@@ -24,7 +25,7 @@ import { MarketingSuiteAnimation } from "@/components/feature-animations/Marketi
 import { RoasterToolsAnimation } from "@/components/feature-animations/RoasterToolsAnimation";
 import { MoreAnimation } from "@/components/feature-animations/MoreAnimation";
 
-const ANIMATION_MAP: Record<string, React.ComponentType> = {
+const ANIMATION_MAP: Record<string, React.ComponentType<{ isActive: boolean }>> = {
   sales: SalesSuiteAnimation,
   marketing: MarketingSuiteAnimation,
   "roaster-tools": RoasterToolsAnimation,
@@ -162,6 +163,8 @@ const suites = [
 
 export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: false, margin: "-100px" });
 
   const resolvedSuites = suites.map((suite) => {
     const cmsSuite = cms?.suites?.find((s) => s.key === suite.key);
@@ -173,7 +176,7 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
   });
 
   return (
-    <div>
+    <div ref={sectionRef}>
       {/* Toggle tabs */}
       <div className="flex justify-center mb-12">
         <div className="grid grid-cols-4 sm:inline-flex rounded-lg border border-neutral-200 p-1 bg-neutral-50 w-full sm:w-auto">
@@ -211,7 +214,9 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
                 {/* Animation panel — always left */}
                 <div className="relative">
-                  {AnimationComponent && <AnimationComponent />}
+                  {AnimationComponent && (
+                    <AnimationComponent isActive={isInView && activeIndex === i} />
+                  )}
                 </div>
 
                 {/* Content — always right */}

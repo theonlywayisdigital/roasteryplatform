@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useInView, animate } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, animate } from "framer-motion";
 import {
   ShoppingCart,
   Package,
@@ -16,13 +16,13 @@ import { EASE, DUR, STAGGER } from "./shared";
 
 function useAnimatedCounter(
   target: number,
-  isInView: boolean,
+  isActive: boolean,
   duration: number = DUR.counter,
   delay: number = 0
 ) {
   const [value, setValue] = useState(0);
   useEffect(() => {
-    if (!isInView) return;
+    if (!isActive) return;
     const timeout = setTimeout(() => {
       const controls = animate(0, target, {
         duration,
@@ -32,20 +32,20 @@ function useAnimatedCounter(
       return () => controls.stop();
     }, delay * 1000);
     return () => clearTimeout(timeout);
-  }, [isInView, target, duration, delay]);
+  }, [isActive, target, duration, delay]);
   return value;
 }
 
 /* ── Invoice Status Badge ── */
 
-function InvoiceStatusBadge({ isInView }: { isInView: boolean }) {
+function InvoiceStatusBadge({ isActive }: { isActive: boolean }) {
   const [status, setStatus] = useState<"Draft" | "Sent">("Draft");
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isActive) return;
     const t = setTimeout(() => setStatus("Sent"), 2800);
     return () => clearTimeout(t);
-  }, [isInView]);
+  }, [isActive]);
 
   const colors = {
     Draft: "bg-neutral-100 text-neutral-500",
@@ -70,18 +70,15 @@ function InvoiceStatusBadge({ isInView }: { isInView: boolean }) {
 
 /* ── Main component ── */
 
-export function SalesSuiteAnimation() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-  const stockCount = useAnimatedCounter(86, isInView, DUR.counter, 2.0);
+export function SalesSuiteAnimation({ isActive }: { isActive: boolean }) {
+  const stockCount = useAnimatedCounter(86, isActive, DUR.counter, 2.0);
 
   return (
-    <div ref={ref} className="space-y-3">
+    <div className="space-y-3">
       {/* Order card sliding in */}
       <motion.div
         initial={{ opacity: 0, x: -24 }}
-        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        animate={isActive ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: DUR.card, delay: 0.3, ease: EASE }}
         className="bg-white rounded-xl border border-neutral-200 shadow-lg p-5"
       >
@@ -92,7 +89,7 @@ export function SalesSuiteAnimation() {
           <span className="text-sm font-bold text-neutral-900">New Order</span>
           <motion.span
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            animate={isActive ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: DUR.element, delay: 0.8, ease: EASE }}
             className="ml-auto inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-green-100 text-green-700"
           >
@@ -105,7 +102,7 @@ export function SalesSuiteAnimation() {
         <div className="space-y-2.5">
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={isActive ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: DUR.field, delay: 0.6, ease: EASE }}
             className="flex items-center justify-between"
           >
@@ -114,7 +111,7 @@ export function SalesSuiteAnimation() {
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={isActive ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: DUR.field, delay: 0.6 + STAGGER.field, ease: EASE }}
             className="flex items-center justify-between"
           >
@@ -123,7 +120,7 @@ export function SalesSuiteAnimation() {
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={isActive ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: DUR.field, delay: 0.6 + STAGGER.field * 2, ease: EASE }}
             className="flex items-center justify-between border-t border-neutral-100 pt-2.5"
           >
@@ -136,7 +133,7 @@ export function SalesSuiteAnimation() {
       {/* Stock bar decreasing */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: DUR.card, delay: 1.6, ease: EASE }}
         className="bg-white rounded-xl border border-neutral-200 shadow-lg p-4"
       >
@@ -156,13 +153,13 @@ export function SalesSuiteAnimation() {
           <motion.div
             className="h-full bg-[#D97706] rounded-full"
             initial={{ width: "96%" }}
-            animate={isInView ? { width: "86%" } : {}}
+            animate={isActive ? { width: "86%" } : {}}
             transition={{ duration: DUR.counter, delay: 2.0, ease: EASE }}
           />
         </div>
         <motion.span
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={isActive ? { opacity: 1 } : {}}
           transition={{ duration: DUR.element, delay: 2.4, ease: EASE }}
           className="text-[10px] text-red-400 block mt-1"
         >
@@ -173,7 +170,7 @@ export function SalesSuiteAnimation() {
       {/* Invoice card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: DUR.card, delay: 2.2, ease: EASE }}
         className="bg-white rounded-xl border border-neutral-200 shadow-lg p-4"
       >
@@ -187,7 +184,7 @@ export function SalesSuiteAnimation() {
               <p className="text-xs text-neutral-400">The Daily Grind · £85.00</p>
             </div>
           </div>
-          <InvoiceStatusBadge isInView={isInView} />
+          <InvoiceStatusBadge isActive={isActive} />
         </div>
       </motion.div>
     </div>

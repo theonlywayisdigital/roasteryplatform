@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   Tray,
   Envelope,
@@ -53,23 +53,20 @@ function AIShimmer() {
 
 /* ── Main component ── */
 
-export function MoreAnimation() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-
+export function MoreAnimation({ isActive }: { isActive: boolean }) {
   const [showAI, setShowAI] = useState(false);
   const [showOrder, setShowOrder] = useState(false);
   const [converted, setConverted] = useState(false);
 
   const emailText = useTypingEffect(
     "Hi, can I order 5kg House Blend?",
-    isInView,
+    isActive,
     35,
     600
   );
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isActive) return;
     const t1 = setTimeout(() => setShowAI(true), 1800);
     const t2 = setTimeout(() => setShowOrder(true), 2600);
     const t3 = setTimeout(() => setConverted(true), 3600);
@@ -78,14 +75,14 @@ export function MoreAnimation() {
       clearTimeout(t2);
       clearTimeout(t3);
     };
-  }, [isInView]);
+  }, [isActive]);
 
   return (
-    <div ref={ref} className="space-y-3">
+    <div className="space-y-3">
       {/* Inbox — email arriving */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={isActive ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: DUR.card, delay: 0.2, ease: EASE }}
         className="bg-white rounded-xl border border-neutral-200 shadow-lg p-5"
       >
@@ -107,7 +104,7 @@ export function MoreAnimation() {
               <p className="text-xs font-semibold text-neutral-900 mb-0.5">The Daily Grind</p>
               <p className="text-sm text-neutral-600 min-h-[20px]">
                 {emailText}
-                {emailText.length < "Hi, can I order 5kg House Blend?".length && isInView && (
+                {emailText.length < "Hi, can I order 5kg House Blend?".length && isActive && (
                   <motion.span
                     animate={{ opacity: [1, 0] }}
                     transition={{ duration: 0.5, repeat: Infinity, repeatType: "reverse" }}
