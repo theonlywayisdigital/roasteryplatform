@@ -368,18 +368,20 @@ function MiniPreview({ config }: { config: Config }) {
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={config.logo}
-              alt=""
+              alt={name}
               className="h-6 w-auto max-w-[80px] object-contain"
             />
           ) : (
-            <div className="w-6 h-6 rounded bg-white/20" />
+            <>
+              <div className="w-6 h-6 rounded bg-white/20" />
+              <span
+                className="text-sm font-semibold truncate max-w-[120px]"
+                style={{ fontFamily: `"${config.headingFont}", sans-serif` }}
+              >
+                {name}
+              </span>
+            </>
           )}
-          <span
-            className="text-sm font-semibold truncate max-w-[120px]"
-            style={{ fontFamily: `"${config.headingFont}", sans-serif` }}
-          >
-            {name}
-          </span>
         </div>
         <div
           className="flex items-center gap-2 text-xs opacity-80"
