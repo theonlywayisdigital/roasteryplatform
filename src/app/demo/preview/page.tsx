@@ -428,18 +428,18 @@ export default function DemoPreviewPage() {
           HERO — copied from platform: HeroSection.tsx
       ═══════════════════════════════════════════════════ */}
 
-      <section className="relative w-full min-h-[80vh] md:min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center md:bg-fixed" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+      <section className="relative w-full flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
+        <div className="absolute inset-0 bg-black/50" />
 
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-20 md:py-24 text-center">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-10 md:py-14 text-center">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
           >
             <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
+              className="text-2xl md:text-4xl lg:text-5xl font-bold text-white mb-4"
               style={{ fontFamily: "var(--sf-font)" }}
               variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               transition={{ duration: 0.5 }}
@@ -459,12 +459,12 @@ export default function DemoPreviewPage() {
                   borderRadius: "var(--sf-btn-radius)",
                   fontFamily: "var(--sf-font-body)",
                 }}
-                className="px-7 py-3.5 font-semibold text-sm hover:opacity-90 transition-opacity"
+                className="px-6 py-2.5 font-semibold text-sm hover:opacity-90 transition-opacity"
               >
                 Apply for Wholesale Account
               </button>
               <button
-                className="px-7 py-3.5 font-semibold text-sm bg-white/15 text-white hover:bg-white/25 transition-colors backdrop-blur-sm border border-white/20"
+                className="px-6 py-2.5 font-semibold text-sm bg-white/15 text-white hover:bg-white/25 transition-colors backdrop-blur-sm border border-white/20"
                 style={{ borderRadius: "var(--sf-btn-radius)", fontFamily: "var(--sf-font-body)" }}
               >
                 Already have an account? Sign in
