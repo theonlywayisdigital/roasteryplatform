@@ -169,17 +169,27 @@ export default function DemoPreviewPage() {
   const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("demo-portal-config");
-      if (raw) {
-        const parsed = JSON.parse(raw) as Partial<PortalConfig>;
-        setConfig({ ...DEFAULTS, ...parsed });
-      } else {
+    function readConfig() {
+      try {
+        const raw = localStorage.getItem("demo-portal-config");
+        if (raw) {
+          const parsed = JSON.parse(raw) as Partial<PortalConfig>;
+          setConfig({ ...DEFAULTS, ...parsed });
+        } else {
+          setConfig(DEFAULTS);
+        }
+      } catch {
         setConfig(DEFAULTS);
       }
-    } catch {
-      setConfig(DEFAULTS);
     }
+    readConfig();
+
+    // Live-update when configurator tab writes to localStorage
+    function onStorage(e: StorageEvent) {
+      if (e.key === "demo-portal-config") readConfig();
+    }
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   /* Load Google Fonts for heading + body */

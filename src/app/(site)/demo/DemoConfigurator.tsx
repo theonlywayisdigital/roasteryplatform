@@ -474,21 +474,28 @@ function MiniPreview({ config }: { config: Config }) {
 export function DemoConfigurator() {
   const [config, setConfig] = useState<Config>(DEFAULTS);
 
+  // Persist to localStorage on every change so the preview tab live-updates
   const set = <K extends keyof Config>(key: K, value: Config[K]) =>
-    setConfig((prev) => ({ ...prev, [key]: value }));
+    setConfig((prev) => {
+      const next = { ...prev, [key]: value };
+      try {
+        localStorage.setItem(
+          "demo-portal-config",
+          JSON.stringify({
+            ...next,
+            businessName: next.businessName || "Your Roastery",
+            primaryColour: next.navBgColour,
+            accentColour: next.buttonColour,
+          })
+        );
+      } catch {
+        // localStorage might be full or unavailable
+      }
+      return next;
+    });
 
   const handlePreview = () => {
-    const toSave = {
-      ...config,
-      businessName: config.businessName || "Your Roastery",
-      primaryColour: config.navBgColour,
-      accentColour: config.buttonColour,
-    };
-    try {
-      localStorage.setItem("demo-portal-config", JSON.stringify(toSave));
-    } catch {
-      // localStorage might be full or unavailable
-    }
+    // Config is already saved by `set` — just open the preview tab
     window.open("/demo/preview", "_blank");
   };
 
