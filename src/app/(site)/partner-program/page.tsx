@@ -16,7 +16,7 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Partner Programme — Roast for Brands, Get Paid Weekly",
   description:
-    "More orders without the marketing. Join the Ghost Roaster network — we send the orders, you roast and ship. Weekly payouts, zero advertising spend.",
+    "More orders without the marketing. Join the Roastery Platform partner network — we send the orders, you roast and ship. Weekly payouts, zero advertising spend.",
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
@@ -102,7 +102,7 @@ const partnerFaqs = [
       "Yes. You set your capacity and preferences. We match you with suitable orders, and you can decline any that don't fit your schedule.",
   },
   {
-    question: "Do I need to use the Ghost Roastery platform for my own sales?",
+    question: "Do I need to use Roastery Platform for my own sales?",
     answer:
       "No. The partner programme is independent. You can roast for brands through us without using any other part of the platform.",
   },

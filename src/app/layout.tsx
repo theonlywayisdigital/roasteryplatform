@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Figtree, Inter } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
+import { client } from "@/sanity/lib/client";
+import { siteSettingsQuery } from "@/sanity/lib/queries";
 import "./globals.css";
 
 const figtree = Figtree({
@@ -17,46 +19,57 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: {
-    default: "Roastery Platform — The All-in-One Platform for Coffee Roasters",
-    template: "%s | Roastery Platform",
-  },
-  description:
-    "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
-  metadataBase: new URL("https://roasteryplatform.com"),
-  openGraph: {
-    type: "website",
-    locale: "en_GB",
-    url: "https://roasteryplatform.com",
-    siteName: "Roastery Platform",
-    title: "Roastery Platform — The All-in-One Platform for Coffee Roasters",
-    description:
-      "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Roastery Platform — The All-in-One Platform for Coffee Roasters",
-    description:
-      "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
-  },
-  icons: {
-    icon: [
-      {
-        url: "/favicon-dark.png?v=2",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/favicon-light.png?v=2",
-        media: "(prefers-color-scheme: dark)",
-      },
-    ],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const FALLBACK_TITLE =
+  "Roastery Platform — The All-in-One Platform for Coffee Roasters";
+const FALLBACK_DESCRIPTION =
+  "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await client
+    .fetch(siteSettingsQuery)
+    .catch(() => null);
+
+  const title = settings?.defaultSeoTitle || FALLBACK_TITLE;
+  const description = settings?.defaultSeoDescription || FALLBACK_DESCRIPTION;
+
+  return {
+    title: {
+      default: title,
+      template: "%s | Roastery Platform",
+    },
+    description,
+    metadataBase: new URL("https://roasteryplatform.com"),
+    openGraph: {
+      type: "website",
+      locale: "en_GB",
+      url: "https://roasteryplatform.com",
+      siteName: "Roastery Platform",
+      title,
+      description,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+    },
+    icons: {
+      icon: [
+        {
+          url: "/favicon-dark.png?v=2",
+          media: "(prefers-color-scheme: light)",
+        },
+        {
+          url: "/favicon-light.png?v=2",
+          media: "(prefers-color-scheme: dark)",
+        },
+      ],
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
+}
 
 export default function RootLayout({
   children,

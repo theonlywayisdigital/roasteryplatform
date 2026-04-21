@@ -17,7 +17,7 @@ export default defineConfig({
   name: "roastery-platform",
   title: "Roastery Platform",
 
-  projectId: "z97yvgto",
+  projectId: "7ptzzw40",
   dataset: "production",
 
   plugins: [

@@ -22,7 +22,7 @@ import { ProductsCarousel } from "@/components/roasters/ProductsCarousel";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-  title: "Ghost Roastery Platform — Sell, Market & Grow Your Roastery",
+  title: "Roastery Platform — Sell, Market & Grow Your Roastery",
   description:
     "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
 };
@@ -129,7 +129,7 @@ export default async function RoastersHomePage() {
   const organizationJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Ghost Roastery",
+    name: "Roastery Platform",
     url: "https://roasteryplatform.com",
     description:
       "The all-in-one platform for coffee roasters. Sales, marketing, and roaster tools.",
@@ -142,7 +142,7 @@ export default async function RoastersHomePage() {
   const softwareJsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Ghost Roastery Platform",
+    name: "Roastery Platform",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     offers: {

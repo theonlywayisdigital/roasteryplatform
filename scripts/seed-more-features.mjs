@@ -11,7 +11,7 @@
 
 import { createClient } from "@sanity/client";
 
-const projectId = "z97yvgto";
+const projectId = "7ptzzw40";
 const dataset = "production";
 const token = process.env.SANITY_WRITE_TOKEN;
 
