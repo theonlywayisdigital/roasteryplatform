@@ -76,7 +76,7 @@ const productsSections = [
     priceLabel: "From £39/mo",
     allHref: "/features/sales",
     mobileIcon: ShoppingBag,
-    mobileDesc: "Wholesale, orders, invoicing & CRM",
+    mobileDesc: "Wholesale portal, order tracking, invoicing and CRM. Everything that runs your sales.",
     items: [
       { icon: ClipboardText, label: "Order Tracking", desc: "Track every order from roast to doorstep", href: "/features/order-tracking" },
       { icon: ShoppingCart, label: "Wholesale", desc: "Manage wholesale accounts and orders", href: "/features/wholesale" },

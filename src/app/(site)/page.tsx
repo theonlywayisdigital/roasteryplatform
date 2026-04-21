@@ -72,10 +72,10 @@ export default async function RoastersHomePage() {
   ]);
 
   const headline =
-    settings?.heroHeadline || "The all-in-one platform built for coffee roasters. Market. Sell. Manage.";
+    settings?.heroHeadline || "Run your roastery. Not your spreadsheets.";
   const subheadline =
     settings?.heroSubheadline ||
-    "Wholesale, marketing, roaster tools — one platform, one login. Sales Suite from £39/mo.";
+    "One platform to manage your wholesale, track your stock from green bean to sale, and run every order in one place. Built specifically for independent roasters.";
 
   const liveCaseStudies = caseStudies.filter((cs) => !cs.isPlaceholder);
   const latestPosts = blogPosts.slice(0, 3);
@@ -241,10 +241,10 @@ export default async function RoastersHomePage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                {settings?.ctaStrip1Headline ?? "Stop stitching together Shopify, Mailchimp, and spreadsheets"}
+                {settings?.ctaStrip1Headline ?? "Your wholesale buyers deserve better than a WhatsApp message."}
               </h2>
               <p className="text-white/80 mt-1">
-                {settings?.ctaStrip1Subtitle ?? "One platform for sales, marketing, and production. Start your free trial today."}
+                {settings?.ctaStrip1Subtitle ?? "Give every buyer a branded ordering portal. Your logo, your colours, your prices. Looks like you built it yourself."}
               </p>
             </div>
             <a
@@ -284,10 +284,10 @@ export default async function RoastersHomePage() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                {settings?.ctaStrip2Headline ?? "Plans that grow with your business."}
+                {settings?.ctaStrip2Headline ?? "One source of truth. From bean to sale."}
               </h2>
               <p className="text-neutral-400 mt-1">
-                {settings?.ctaStrip2Subtitle ?? "No lock-in. Cancel any time. 14-day free trial."}
+                {settings?.ctaStrip2Subtitle ?? "No more reconciling spreadsheets. Every order, every batch, every bag — tracked in one place."}
               </p>
             </div>
             <div className="flex items-center gap-4 w-full md:w-auto">

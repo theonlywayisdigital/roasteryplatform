@@ -46,7 +46,7 @@ export function RoastersFooter() {
               />
             </Link>
             <p className="mt-4 text-neutral-600 max-w-sm">
-              The all-in-one platform for coffee roasters. Sell online, manage wholesale, and grow your business.
+              The platform built for independent coffee roasters. Wholesale, inventory and orders — one login, one place.
             </p>
             <div className="mt-6">
               <a
@@ -169,7 +169,7 @@ export function RoastersFooter() {
               &copy; {currentYear} Roastery Platform Ltd. All rights reserved.
             </p>
             <p className="text-sm text-neutral-500">
-              The platform for independent coffee roasters
+              The platform built for independent coffee roasters. Wholesale, inventory and orders — one login, one place.
             </p>
           </div>
         </div>

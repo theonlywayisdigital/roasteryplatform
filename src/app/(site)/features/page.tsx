@@ -327,11 +327,11 @@ export default async function FeaturesPage() {
       <section className="py-20 lg:py-28 bg-neutral-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-neutral-900 mb-6">
-            {cms?.heroHeadline ?? "Powerful tools for"}{" "}
-            <span className="text-accent">{cms?.heroAccentText ?? "modern roasters"}</span>
+            {cms?.heroHeadline ?? "Built for roasters."}{" "}
+            <span className="text-accent">{cms?.heroAccentText ?? "Not adapted for them."}</span>
           </h1>
           <p className="text-lg sm:text-xl text-neutral-600 max-w-2xl mx-auto mb-10">
-            {cms?.heroSubheadline ?? "Everything you need to sell, market, and grow your coffee brand online — all included on every plan."}
+            {cms?.heroSubheadline ?? "Every feature was designed around how a roastery actually works — from green bean intake to wholesale invoice. Not hashed out of a generic business SaaS."}
           </p>
           <a
             href={PLATFORM_URL}
