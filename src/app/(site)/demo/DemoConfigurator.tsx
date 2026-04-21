@@ -1,9 +1,92 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
-import { ArrowRight } from "@phosphor-icons/react";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { ArrowRight, CaretDown } from "@phosphor-icons/react";
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
+
+/* ── Font library — matches platform src/lib/fonts.ts ──── */
+
+interface FontOption {
+  family: string;
+  label: string;
+  category: "sans-serif" | "serif" | "display" | "script";
+}
+
+const FONT_LIBRARY: FontOption[] = [
+  // Sans-serif
+  { family: "Inter", label: "Inter", category: "sans-serif" },
+  { family: "Montserrat", label: "Montserrat", category: "sans-serif" },
+  { family: "Raleway", label: "Raleway", category: "sans-serif" },
+  { family: "Poppins", label: "Poppins", category: "sans-serif" },
+  { family: "Nunito", label: "Nunito", category: "sans-serif" },
+  { family: "Quicksand", label: "Quicksand", category: "sans-serif" },
+  { family: "Josefin Sans", label: "Josefin Sans", category: "sans-serif" },
+  { family: "Figtree", label: "Figtree", category: "sans-serif" },
+  { family: "DM Sans", label: "DM Sans", category: "sans-serif" },
+  { family: "Space Grotesk", label: "Space Grotesk", category: "sans-serif" },
+  { family: "Outfit", label: "Outfit", category: "sans-serif" },
+  { family: "Manrope", label: "Manrope", category: "sans-serif" },
+  { family: "Work Sans", label: "Work Sans", category: "sans-serif" },
+  // Serif
+  { family: "Playfair Display", label: "Playfair Display", category: "serif" },
+  { family: "Libre Baskerville", label: "Libre Baskerville", category: "serif" },
+  { family: "Merriweather", label: "Merriweather", category: "serif" },
+  { family: "Lora", label: "Lora", category: "serif" },
+  { family: "EB Garamond", label: "EB Garamond", category: "serif" },
+  { family: "Cormorant Garamond", label: "Cormorant Garamond", category: "serif" },
+  { family: "Bitter", label: "Bitter", category: "serif" },
+  { family: "Crimson Text", label: "Crimson Text", category: "serif" },
+  { family: "DM Serif Display", label: "DM Serif Display", category: "serif" },
+  { family: "Bodoni Moda", label: "Bodoni Moda", category: "serif" },
+  // Display
+  { family: "Oswald", label: "Oswald", category: "display" },
+  { family: "Bebas Neue", label: "Bebas Neue", category: "display" },
+  { family: "Anton", label: "Anton", category: "display" },
+  { family: "Abril Fatface", label: "Abril Fatface", category: "display" },
+  { family: "Righteous", label: "Righteous", category: "display" },
+  { family: "Permanent Marker", label: "Permanent Marker", category: "display" },
+  { family: "Lobster", label: "Lobster", category: "display" },
+  { family: "Russo One", label: "Russo One", category: "display" },
+  { family: "Fredoka", label: "Fredoka", category: "display" },
+  { family: "Archivo Black", label: "Archivo Black", category: "display" },
+  { family: "Secular One", label: "Secular One", category: "display" },
+  { family: "Bungee", label: "Bungee", category: "display" },
+  { family: "Dela Gothic One", label: "Dela Gothic One", category: "display" },
+  { family: "Syne", label: "Syne", category: "display" },
+  { family: "Teko", label: "Teko", category: "display" },
+  { family: "Barlow Condensed", label: "Barlow Condensed", category: "display" },
+  // Script
+  { family: "Pacifico", label: "Pacifico", category: "script" },
+  { family: "Dancing Script", label: "Dancing Script", category: "script" },
+  { family: "Great Vibes", label: "Great Vibes", category: "script" },
+  { family: "Sacramento", label: "Sacramento", category: "script" },
+  { family: "Satisfy", label: "Satisfy", category: "script" },
+  { family: "Caveat", label: "Caveat", category: "script" },
+  { family: "Kaushan Script", label: "Kaushan Script", category: "script" },
+  { family: "Shadows Into Light", label: "Shadows Into Light", category: "script" },
+  { family: "Amatic SC", label: "Amatic SC", category: "script" },
+  { family: "Courgette", label: "Courgette", category: "script" },
+  { family: "Allura", label: "Allura", category: "script" },
+];
+
+const CATEGORY_LABELS: Record<string, string> = {
+  "sans-serif": "Sans-Serif",
+  serif: "Serif",
+  display: "Display",
+  script: "Script",
+};
+
+function loadGoogleFont(family: string) {
+  if (typeof document === "undefined") return;
+  const id = `gf-${family.replace(/\s+/g, "-")}`;
+  if (document.getElementById(id)) return;
+  const link = document.createElement("link");
+  link.id = id;
+  link.rel = "stylesheet";
+  link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@400;500;600;700;800;900&display=swap`;
+  document.head.appendChild(link);
+}
 
 /* ── Defaults ──────────────────────────────────────────── */
 
@@ -11,6 +94,8 @@ const DEFAULTS = {
   businessName: "",
   tagline: "",
   logo: "",
+  headingFont: "Figtree",
+  bodyFont: "Inter",
   primaryColour: "#1e293b",
   accentColour: "#0083dc",
   navBgColour: "#1e293b",
@@ -18,6 +103,8 @@ const DEFAULTS = {
   buttonStyle: "rounded" as "sharp" | "rounded" | "pill",
   buttonColour: "#0083dc",
   buttonTextColour: "#ffffff",
+  pageBgColour: "#ffffff",
+  pageTextColour: "#0f172a",
 };
 
 type Config = typeof DEFAULTS;
@@ -54,6 +141,94 @@ function ColourField({
         </span>
       </div>
     </label>
+  );
+}
+
+/* ── Font picker ───────────────────────────────────────── */
+
+function FontPicker({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    function handleClick(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open]);
+
+  // Preload selected font for the label preview
+  useEffect(() => {
+    if (value) loadGoogleFont(value);
+  }, [value]);
+
+  return (
+    <div className="flex flex-col gap-1.5" ref={ref}>
+      <span className="text-sm font-medium text-neutral-700">{label}</span>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between px-4 py-2.5 rounded-lg border border-neutral-300 bg-white text-neutral-900 text-sm transition-shadow focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
+      >
+        <span style={{ fontFamily: `"${value}", sans-serif` }}>
+          {value || "Select font"}
+        </span>
+        <CaretDown
+          size={14}
+          weight="bold"
+          className={`text-neutral-400 transition-transform ${open ? "rotate-180" : ""}`}
+        />
+      </button>
+      {open && (
+        <div className="relative">
+          <div className="absolute z-20 top-0 left-0 right-0 max-h-64 overflow-y-auto bg-white border border-neutral-200 rounded-lg shadow-lg">
+            {(["sans-serif", "serif", "display", "script"] as const).map((cat) => {
+              const fonts = FONT_LIBRARY.filter((f) => f.category === cat);
+              return (
+                <div key={cat}>
+                  <div className="sticky top-0 bg-neutral-50 px-3 py-1.5 text-[10px] font-bold text-neutral-500 uppercase tracking-wider border-b border-neutral-100">
+                    {CATEGORY_LABELS[cat]}
+                  </div>
+                  {fonts.map((font) => {
+                    loadGoogleFont(font.family);
+                    return (
+                      <button
+                        key={font.family}
+                        type="button"
+                        onClick={() => {
+                          onChange(font.family);
+                          setOpen(false);
+                        }}
+                        className={`w-full text-left px-3 py-2 text-sm hover:bg-neutral-50 transition-colors ${
+                          value === font.family
+                            ? "bg-accent/5 text-accent font-medium"
+                            : "text-neutral-900"
+                        }`}
+                        style={{ fontFamily: `"${font.family}", sans-serif` }}
+                      >
+                        {font.label}
+                      </button>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -179,7 +354,7 @@ function MiniPreview({ config }: { config: Config }) {
   const name = config.businessName || "Your Roastery";
 
   return (
-    <div className="rounded-xl border border-neutral-200 overflow-hidden shadow-sm bg-white">
+    <div className="rounded-xl border border-neutral-200 overflow-hidden shadow-sm">
       {/* Nav */}
       <div
         className="flex items-center justify-between px-4 py-3"
@@ -199,11 +374,17 @@ function MiniPreview({ config }: { config: Config }) {
           ) : (
             <div className="w-6 h-6 rounded bg-white/20" />
           )}
-          <span className="text-sm font-semibold truncate max-w-[120px]">
+          <span
+            className="text-sm font-semibold truncate max-w-[120px]"
+            style={{ fontFamily: `"${config.headingFont}", sans-serif` }}
+          >
             {name}
           </span>
         </div>
-        <div className="flex items-center gap-2 text-xs opacity-80">
+        <div
+          className="flex items-center gap-2 text-xs opacity-80"
+          style={{ fontFamily: `"${config.bodyFont}", sans-serif` }}
+        >
           <span>Catalogue</span>
           <span>Contact</span>
         </div>
@@ -211,37 +392,74 @@ function MiniPreview({ config }: { config: Config }) {
 
       {/* Hero */}
       <div
-        className="px-4 py-8 text-center"
+        className="px-4 py-8 text-center bg-cover bg-center relative"
         style={{
-          background: `linear-gradient(135deg, ${config.primaryColour}, ${config.accentColour})`,
+          backgroundImage: "url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800)",
         }}
       >
-        <p className="text-white text-sm font-bold mb-1">{name}</p>
-        {config.tagline && (
-          <p className="text-white/80 text-xs mb-3">{config.tagline}</p>
-        )}
-        <div
-          className="inline-block px-3 py-1.5 text-xs font-semibold"
-          style={{
-            backgroundColor: config.buttonColour,
-            color: config.buttonTextColour,
-            borderRadius: btnRadius,
-          }}
-        >
-          Browse Catalogue
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+        <div className="relative z-10">
+          <p
+            className="text-white text-sm font-bold mb-1"
+            style={{ fontFamily: `"${config.headingFont}", sans-serif` }}
+          >
+            {name} Wholesale
+          </p>
+          <div className="flex items-center justify-center gap-2">
+            <div
+              className="inline-block px-3 py-1.5 text-xs font-semibold"
+              style={{
+                backgroundColor: config.buttonColour,
+                color: config.buttonTextColour,
+                borderRadius: btnRadius,
+                fontFamily: `"${config.bodyFont}", sans-serif`,
+              }}
+            >
+              Apply
+            </div>
+            <div
+              className="inline-block px-3 py-1.5 text-xs font-semibold text-white border border-white/30 backdrop-blur-sm"
+              style={{
+                borderRadius: btnRadius,
+                fontFamily: `"${config.bodyFont}", sans-serif`,
+              }}
+            >
+              Sign In
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Product cards placeholder */}
-      <div className="px-4 py-4 grid grid-cols-3 gap-2">
-        {[1, 2, 3].map((i) => (
+      <div
+        className="px-4 py-4 grid grid-cols-2 gap-2"
+        style={{ backgroundColor: config.pageBgColour }}
+      >
+        {[1, 2].map((i) => (
           <div
             key={i}
-            className="rounded-md border border-neutral-200 p-2 flex flex-col gap-1"
+            className="rounded-lg border p-2 flex flex-col gap-1"
+            style={{
+              backgroundColor: `color-mix(in srgb, ${config.pageTextColour} 8%, transparent)`,
+              borderColor: `color-mix(in srgb, ${config.pageTextColour} 15%, transparent)`,
+            }}
           >
-            <div className="w-full aspect-square rounded bg-neutral-100" />
-            <div className="h-2 w-3/4 rounded bg-neutral-200" />
-            <div className="h-2 w-1/2 rounded bg-neutral-100" />
+            <div
+              className="w-full aspect-[4/3] rounded"
+              style={{ backgroundColor: `color-mix(in srgb, ${config.pageTextColour} 5%, transparent)` }}
+            />
+            <div className="h-2 w-3/4 rounded" style={{ backgroundColor: `color-mix(in srgb, ${config.pageTextColour} 20%, transparent)` }} />
+            <div className="h-2 w-1/2 rounded" style={{ backgroundColor: `color-mix(in srgb, ${config.pageTextColour} 12%, transparent)` }} />
+            <div
+              className="h-6 w-full rounded mt-1 flex items-center justify-center text-[9px] font-semibold"
+              style={{
+                backgroundColor: config.buttonColour,
+                color: config.buttonTextColour,
+                borderRadius: btnRadius,
+              }}
+            >
+              Order
+            </div>
           </div>
         ))}
       </div>
@@ -336,6 +554,20 @@ export function DemoConfigurator() {
                 onClear={() => set("logo", "")}
               />
 
+              {/* Fonts */}
+              <div className="grid grid-cols-2 gap-4">
+                <FontPicker
+                  label="Heading font"
+                  value={config.headingFont}
+                  onChange={(v) => set("headingFont", v)}
+                />
+                <FontPicker
+                  label="Body font"
+                  value={config.bodyFont}
+                  onChange={(v) => set("bodyFont", v)}
+                />
+              </div>
+
               {/* Colour grid */}
               <div className="grid grid-cols-2 gap-4">
                 <ColourField
@@ -367,6 +599,16 @@ export function DemoConfigurator() {
                   label="Button text colour"
                   value={config.buttonTextColour}
                   onChange={(v) => set("buttonTextColour", v)}
+                />
+                <ColourField
+                  label="Page background"
+                  value={config.pageBgColour}
+                  onChange={(v) => set("pageBgColour", v)}
+                />
+                <ColourField
+                  label="Page text colour"
+                  value={config.pageTextColour}
+                  onChange={(v) => set("pageTextColour", v)}
                 />
               </div>
 

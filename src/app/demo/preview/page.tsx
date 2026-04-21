@@ -10,6 +10,8 @@ interface PortalConfig {
   businessName: string;
   tagline: string;
   logo: string;
+  headingFont: string;
+  bodyFont: string;
   primaryColour: string;
   accentColour: string;
   navBgColour: string;
@@ -17,12 +19,16 @@ interface PortalConfig {
   buttonStyle: "sharp" | "rounded" | "pill";
   buttonColour: string;
   buttonTextColour: string;
+  pageBgColour: string;
+  pageTextColour: string;
 }
 
 const DEFAULTS: PortalConfig = {
   businessName: "Your Roastery",
   tagline: "Specialty coffee, roasted fresh to order",
   logo: "",
+  headingFont: "Figtree",
+  bodyFont: "Inter",
   primaryColour: "#1e293b",
   accentColour: "#0083dc",
   navBgColour: "#1e293b",
@@ -30,6 +36,8 @@ const DEFAULTS: PortalConfig = {
   buttonStyle: "rounded",
   buttonColour: "#0083dc",
   buttonTextColour: "#ffffff",
+  pageBgColour: "#ffffff",
+  pageTextColour: "#0f172a",
 };
 
 const PLATFORM_URL = "https://app.roasteryplatform.com";
@@ -46,56 +54,81 @@ function isLightColour(hex: string): boolean {
   return luminance > 0.6;
 }
 
-/* ── Demo product data ─────────────────────────────────── */
+/* ── Font loader — matches platform: src/lib/fonts.ts ──── */
+
+const loadedFonts = new Set<string>();
+
+function loadGoogleFont(family: string) {
+  if (typeof document === "undefined") return;
+  if (loadedFonts.has(family)) return;
+  loadedFonts.add(family);
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.href = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(family)}:wght@400;500;600;700;800;900&display=swap`;
+  document.head.appendChild(link);
+}
+
+/* ── Demo products — with variants matching real catalogue layout ── */
 
 const DEMO_PRODUCTS = [
   {
     id: "demo-1",
     name: "Ethiopia Yirgacheffe Natural",
     description: "Stone fruit, blueberry, dark chocolate",
-    unit: "1kg",
-    price: 11.5,
-    minimumWholesaleQuantity: 1,
+    variants: [
+      { label: "250g", price: 5.0, stock: 2481 },
+      { label: "500g", price: 8.5, stock: 1240 },
+      { label: "1kg", price: 15.0, stock: 620 },
+    ],
   },
   {
     id: "demo-2",
     name: "Guatemala Huehuetenango",
     description: "Brown sugar, almond, citrus zest",
-    unit: "1kg",
-    price: 10.5,
-    minimumWholesaleQuantity: 1,
+    variants: [
+      { label: "250g", price: 4.5, stock: 1820 },
+      { label: "500g", price: 7.5, stock: 910 },
+      { label: "1kg", price: 13.0, stock: 455 },
+    ],
   },
   {
     id: "demo-3",
-    name: "House Blend No.1",
-    description: "Smooth, balanced, chocolatey",
-    unit: "1kg",
-    price: 9.5,
-    minimumWholesaleQuantity: 1,
+    name: "House Blend",
+    description: "Discover our Ethiopian and Colombian blend, bursting with bright citrus and...",
+    variants: [
+      { label: "250g", price: 5.0, stock: 2481 },
+      { label: "500g", price: 8.0, stock: 1240 },
+      { label: "1kg", price: 21.0, stock: 620 },
+    ],
   },
   {
     id: "demo-4",
     name: "Kenya AA Kirinyaga",
     description: "Blackcurrant, tomato, winey finish",
-    unit: "500g",
-    price: 13.0,
-    minimumWholesaleQuantity: 1,
+    variants: [
+      { label: "250g", price: 6.0, stock: 950 },
+      { label: "500g", price: 10.5, stock: 475 },
+    ],
   },
   {
     id: "demo-5",
     name: "Colombia Huila Washed",
     description: "Caramel, red apple, soft citrus",
-    unit: "1kg",
-    price: 10.0,
-    minimumWholesaleQuantity: 1,
+    variants: [
+      { label: "250g", price: 4.5, stock: 3200 },
+      { label: "500g", price: 7.5, stock: 1600 },
+      { label: "1kg", price: 13.0, stock: 800 },
+    ],
   },
   {
     id: "demo-6",
     name: "Espresso Blend Dark",
     description: "Dark chocolate, hazelnut, molasses",
-    unit: "1kg",
-    price: 9.0,
-    minimumWholesaleQuantity: 1,
+    variants: [
+      { label: "250g", price: 4.0, stock: 4100 },
+      { label: "500g", price: 7.0, stock: 2050 },
+      { label: "1kg", price: 12.0, stock: 1025 },
+    ],
   },
 ];
 
@@ -149,6 +182,13 @@ export default function DemoPreviewPage() {
     }
   }, []);
 
+  /* Load Google Fonts for heading + body */
+  useEffect(() => {
+    if (!config) return;
+    loadGoogleFont(config.headingFont);
+    loadGoogleFont(config.bodyFont);
+  }, [config]);
+
   /* Measure header height for spacer — matches Header.tsx */
   useEffect(() => {
     const header = headerRef.current;
@@ -188,8 +228,12 @@ export default function DemoPreviewPage() {
   const accentText = isLightColour(config.accentColour) ? "#1e293b" : "#ffffff";
   const accent = config.accentColour;
   const primary = config.primaryColour;
+  const pageBg = config.pageBgColour;
+  const pageText = config.pageTextColour;
 
   const cssVars = {
+    "--sf-font": `"${config.headingFont}", sans-serif`,
+    "--sf-font-body": `"${config.bodyFont}", sans-serif`,
     "--sf-primary": primary,
     "--sf-accent": accent,
     "--sf-accent-text": accentText,
@@ -198,16 +242,18 @@ export default function DemoPreviewPage() {
     "--sf-btn-colour": config.buttonColour,
     "--sf-btn-text": config.buttonTextColour,
     "--sf-btn-radius": btnRadius,
-    "--sf-bg": "#ffffff",
-    "--sf-text": "#0f172a",
-    backgroundColor: "#ffffff",
-    color: "#0f172a",
+    "--sf-bg": pageBg,
+    "--sf-text": pageText,
+    backgroundColor: pageBg,
+    color: pageText,
+    fontFamily: `"${config.bodyFont}", sans-serif`,
   } as React.CSSProperties;
 
   const logoSizePx = 120; // "medium" default
 
   const navLinks = [
     { label: "Catalogue", href: "#catalogue" },
+    { label: "Apply", href: "#apply" },
     { label: "Contact", href: "#contact" },
   ];
 
@@ -230,10 +276,9 @@ export default function DemoPreviewPage() {
       </div>
 
       {/* ═══════════════════════════════════════════════════
-          HEADER — copied from platform: src/app/s/[slug]/_components/Header.tsx
+          HEADER — copied from platform: Header.tsx
       ═══════════════════════════════════════════════════ */}
 
-      {/* Sentinel for scroll detection (transparent mode) */}
       <div ref={sentinelRef} className="absolute top-0 left-0 w-full h-1" />
 
       <header
@@ -253,18 +298,8 @@ export default function DemoPreviewPage() {
               style={{ color: "var(--sf-nav-text)" }}
               aria-label="Open menu"
             >
-              <svg
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
 
@@ -281,7 +316,7 @@ export default function DemoPreviewPage() {
               ) : (
                 <span
                   className="text-lg font-bold"
-                  style={{ color: "var(--sf-nav-text)" }}
+                  style={{ color: "var(--sf-nav-text)", fontFamily: "var(--sf-font)" }}
                 >
                   {config.businessName}
                 </span>
@@ -298,7 +333,7 @@ export default function DemoPreviewPage() {
                     el?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="px-3.5 py-2 text-sm font-medium rounded-lg hover:bg-white/10 transition-colors"
-                  style={{ color: "var(--sf-nav-text)", opacity: 0.85 }}
+                  style={{ color: "var(--sf-nav-text)", opacity: 0.85, fontFamily: "var(--sf-font-body)" }}
                 >
                   {link.label}
                 </button>
@@ -313,6 +348,7 @@ export default function DemoPreviewPage() {
                   borderColor: accent,
                   color: accent,
                   borderRadius: "var(--sf-btn-radius)",
+                  fontFamily: "var(--sf-font-body)",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.backgroundColor = accent;
@@ -330,41 +366,17 @@ export default function DemoPreviewPage() {
         </div>
       </header>
 
-      {/* Spacer to prevent content from being hidden behind the fixed header */}
       {headerHeight > 0 && <div style={{ height: headerHeight }} />}
 
       {/* ── Mobile Menu — copied from platform: MobileMenu.tsx ── */}
       {mobileMenuOpen && (
         <>
-          {/* Backdrop */}
-          <div
-            className="fixed inset-0 z-50 bg-black/40"
-            onClick={() => setMobileMenuOpen(false)}
-          />
-          {/* Drawer */}
-          <div
-            className="fixed top-0 left-0 z-50 h-full w-72 shadow-xl flex flex-col"
-            style={{ backgroundColor: "var(--sf-nav-bg)" }}
-          >
+          <div className="fixed inset-0 z-50 bg-black/40" onClick={() => setMobileMenuOpen(false)} />
+          <div className="fixed top-0 left-0 z-50 h-full w-72 shadow-xl flex flex-col" style={{ backgroundColor: "var(--sf-nav-bg)" }}>
             <div className="flex items-center justify-end p-4">
-              <button
-                onClick={() => setMobileMenuOpen(false)}
-                className="p-2 opacity-70 hover:opacity-100"
-                style={{ color: "var(--sf-nav-text)" }}
-                aria-label="Close menu"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2 opacity-70 hover:opacity-100" style={{ color: "var(--sf-nav-text)" }} aria-label="Close menu">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
             </div>
@@ -372,37 +384,21 @@ export default function DemoPreviewPage() {
               {navLinks.map((link) => (
                 <button
                   key={link.label}
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    const el = document.getElementById(link.href.slice(1));
-                    el?.scrollIntoView({ behavior: "smooth" });
-                  }}
+                  onClick={() => { setMobileMenuOpen(false); const el = document.getElementById(link.href.slice(1)); el?.scrollIntoView({ behavior: "smooth" }); }}
                   className="block w-full text-left px-4 py-3 opacity-80 hover:opacity-100 hover:bg-white/10 rounded-lg text-base font-medium transition-colors"
                   style={{ color: "var(--sf-nav-text)" }}
                 >
                   {link.label}
                 </button>
               ))}
-              <button
-                className="block mx-4 mt-3 px-4 py-3 text-center text-sm font-semibold rounded-lg border transition-colors w-[calc(100%-2rem)]"
-                style={{
-                  borderColor: accent,
-                  color: accent,
-                }}
-              >
+              <button className="block mx-4 mt-3 px-4 py-3 text-center text-sm font-semibold rounded-lg border transition-colors w-[calc(100%-2rem)]" style={{ borderColor: accent, color: accent }}>
                 Sign In
               </button>
             </nav>
-            {/* Social links */}
             <div className="px-8 py-6 border-t border-white/10">
               <div className="flex items-center gap-4">
                 {(["instagram", "facebook", "tiktok"] as const).map((type) => (
-                  <span
-                    key={type}
-                    className="text-white/60 hover:text-white transition-colors cursor-default"
-                  >
-                    {socialIcons[type]}
-                  </span>
+                  <span key={type} className="text-white/60 hover:text-white transition-colors cursor-default">{socialIcons[type]}</span>
                 ))}
               </div>
             </div>
@@ -411,81 +407,49 @@ export default function DemoPreviewPage() {
       )}
 
       {/* ═══════════════════════════════════════════════════
-          HERO — copied from platform: src/app/s/[slug]/_components/HeroSection.tsx
+          HERO — copied from platform: HeroSection.tsx
       ═══════════════════════════════════════════════════ */}
 
-      <section className="relative w-full min-h-[80vh] md:min-h-screen flex items-end overflow-hidden">
-        {/* Background — hero image */}
-        <div
-          className="absolute inset-0 bg-cover bg-center md:bg-fixed"
-          style={{ backgroundImage: `url(${HERO_IMAGE})` }}
-        />
-
-        {/* Overlay gradient */}
+      <section className="relative w-full min-h-[80vh] md:min-h-screen flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-cover bg-center md:bg-fixed" style={{ backgroundImage: `url(${HERO_IMAGE})` }} />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
-        {/* Content */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 pb-16 pt-32 md:pb-24">
+        <div className="relative z-10 w-full max-w-6xl mx-auto px-6 py-20 md:py-24 text-center">
           <motion.div
             initial="hidden"
             animate="visible"
-            variants={{
-              hidden: {},
-              visible: { transition: { staggerChildren: 0.12 } },
-            }}
+            variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.12 } } }}
           >
             <motion.h1
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 max-w-3xl"
+              className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6"
               style={{ fontFamily: "var(--sf-font)" }}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               transition={{ duration: 0.5 }}
             >
-              {config.businessName}
+              {config.businessName} Wholesale
             </motion.h1>
 
-            {config.tagline && (
-              <motion.p
-                className="text-lg md:text-xl lg:text-2xl text-white/85 mb-8 max-w-xl"
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 },
-                }}
-                transition={{ duration: 0.5 }}
-              >
-                {config.tagline}
-              </motion.p>
-            )}
-
             <motion.div
-              className="flex flex-wrap gap-3"
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0 },
-              }}
+              className="flex flex-wrap items-center justify-center gap-3"
+              variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
               transition={{ duration: 0.5 }}
             >
               <button
-                onClick={() => {
-                  const el = document.getElementById("catalogue");
-                  el?.scrollIntoView({ behavior: "smooth" });
-                }}
                 style={{
                   backgroundColor: "var(--sf-btn-colour)",
                   color: "var(--sf-btn-text)",
                   borderRadius: "var(--sf-btn-radius)",
+                  fontFamily: "var(--sf-font-body)",
                 }}
                 className="px-7 py-3.5 font-semibold text-sm hover:opacity-90 transition-opacity"
               >
-                Browse Catalogue
+                Apply for Wholesale Account
               </button>
               <button
                 className="px-7 py-3.5 font-semibold text-sm bg-white/15 text-white hover:bg-white/25 transition-colors backdrop-blur-sm border border-white/20"
-                style={{ borderRadius: "var(--sf-btn-radius)" }}
+                style={{ borderRadius: "var(--sf-btn-radius)", fontFamily: "var(--sf-font-body)" }}
               >
-                Apply for Account
+                Already have an account? Sign in
               </button>
             </motion.div>
           </motion.div>
@@ -494,26 +458,11 @@ export default function DemoPreviewPage() {
 
       {/* ═══════════════════════════════════════════════════
           CATALOGUE — copied from platform: StorefrontWholesaleCatalogue.tsx
+          Using variant layout matching real portal screenshots
       ═══════════════════════════════════════════════════ */}
 
       <section id="catalogue" className="max-w-6xl mx-auto px-6 py-16 md:py-20">
-        {/* Wholesale badge — matches catalogue component */}
-        <div className="flex gap-2 mb-6">
-          <span
-            className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium"
-            style={{ backgroundColor: `${accent}15`, color: accent }}
-          >
-            Wholesale
-          </span>
-          <span
-            className="text-xs"
-            style={{ color: "color-mix(in srgb, var(--sf-text) 55%, transparent)" }}
-          >
-            Net 30 days
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {DEMO_PRODUCTS.map((product) => (
             <div
               key={product.id}
@@ -528,72 +477,62 @@ export default function DemoPreviewPage() {
                 className="aspect-square flex items-center justify-center"
                 style={{ backgroundColor: "color-mix(in srgb, var(--sf-text) 5%, transparent)" }}
               >
-                <svg
-                  className="w-12 h-12 opacity-30"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-                  />
+                <svg className="w-12 h-12 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
               </div>
 
-              {/* Product info — matches catalogue Link > div structure */}
+              {/* Product info */}
               <div className="px-4 pt-4">
-                <h3 className="font-semibold mb-1" style={{ color: "var(--sf-text)" }}>
+                <h3
+                  className="font-semibold mb-1"
+                  style={{ color: "var(--sf-text)", fontFamily: "var(--sf-font)" }}
+                >
                   {product.name}
                 </h3>
-                <p
-                  className="text-sm mb-3 line-clamp-2"
-                  style={{ color: "color-mix(in srgb, var(--sf-text) 55%, transparent)" }}
-                >
-                  {product.description}
-                </p>
+                {product.description && (
+                  <p
+                    className="text-sm mb-3 line-clamp-2"
+                    style={{ color: "color-mix(in srgb, var(--sf-text) 55%, transparent)" }}
+                  >
+                    {product.description}
+                  </p>
+                )}
               </div>
 
-              {/* Price + CTA — matches non-variant layout */}
+              {/* Variant rows — matches real catalogue variant layout */}
               <div className="px-4 pb-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <span className="text-lg font-bold" style={{ color: "var(--sf-text)" }}>
-                      {`\u00a3${product.price.toFixed(2)}`}
-                    </span>
-                    <span
-                      className="text-sm ml-1"
-                      style={{ color: "color-mix(in srgb, var(--sf-text) 55%, transparent)" }}
+                <div className="space-y-0">
+                  {product.variants.map((variant, idx) => (
+                    <div
+                      key={variant.label}
+                      className="flex items-center justify-between gap-2 py-2"
+                      style={{
+                        borderTopWidth: idx > 0 ? "1px" : "0",
+                        borderTopStyle: "solid",
+                        borderTopColor: "color-mix(in srgb, var(--sf-text) 10%, transparent)",
+                      }}
                     >
-                      {`/ ${product.unit}`}
-                    </span>
-                  </div>
-                  {product.minimumWholesaleQuantity > 0 && (
-                    <span
-                      className="text-xs"
-                      style={{ color: "color-mix(in srgb, var(--sf-text) 55%, transparent)" }}
-                    >
-                      {`Min ${product.minimumWholesaleQuantity}kg`}
-                    </span>
-                  )}
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="text-sm font-medium" style={{ color: "var(--sf-text)" }}>
+                          {variant.label}
+                        </span>
+                        <span className="text-sm font-semibold" style={{ color: "var(--sf-text)" }}>
+                          {`\u00a3${variant.price.toFixed(2)}`}
+                        </span>
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-700">
+                          {`${variant.stock} available`}
+                        </span>
+                      </div>
+                      <button
+                        style={{ backgroundColor: accent, color: accentText }}
+                        className="px-3 py-1.5 rounded-lg text-xs font-medium transition-opacity flex-shrink-0 hover:opacity-90"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  ))}
                 </div>
-
-                {/* Stock badge */}
-                <div className="mb-3">
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                    In Stock
-                  </span>
-                </div>
-
-                {/* Add to Order button */}
-                <button
-                  style={{ backgroundColor: accent, color: accentText }}
-                  className="w-full py-2.5 rounded-lg text-sm font-medium transition-opacity hover:opacity-90"
-                >
-                  Add to Order
-                </button>
               </div>
             </div>
           ))}
@@ -601,7 +540,7 @@ export default function DemoPreviewPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════
-          FOOTER — copied from platform: src/app/s/[slug]/_components/Footer.tsx
+          FOOTER — copied from platform: Footer.tsx
       ═══════════════════════════════════════════════════ */}
 
       <footer id="contact" style={{ backgroundColor: "var(--sf-nav-bg)", color: "var(--sf-nav-text)" }}>
@@ -612,65 +551,38 @@ export default function DemoPreviewPage() {
               <div className="flex items-center gap-3 mb-4">
                 {config.logo ? (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={config.logo}
-                    alt={config.businessName}
-                    style={{ height: logoSizePx }}
-                    className="w-auto"
-                  />
+                  <img src={config.logo} alt={config.businessName} style={{ height: logoSizePx }} className="w-auto" />
                 ) : (
-                  <span
-                    className="text-xl font-bold"
-                    style={{ color: "var(--sf-nav-text)" }}
-                  >
+                  <span className="text-xl font-bold" style={{ color: "var(--sf-nav-text)", fontFamily: "var(--sf-font)" }}>
                     {config.businessName}
                   </span>
                 )}
               </div>
               {config.tagline && (
-                <p className="text-sm max-w-xs mb-5" style={{ color: mutedText }}>
+                <p className="text-sm max-w-xs mb-5" style={{ color: mutedText, fontFamily: "var(--sf-font-body)" }}>
                   {config.tagline}
                 </p>
               )}
-              {/* Social icons */}
               <div className="flex items-center gap-3">
                 {(["instagram", "facebook", "tiktok"] as const).map((type) => (
-                  <span
-                    key={type}
-                    className="opacity-50 hover:opacity-100 transition-colors cursor-default"
-                    style={{ color: "var(--sf-nav-text)" }}
-                  >
+                  <span key={type} className="opacity-50 hover:opacity-100 transition-colors cursor-default" style={{ color: "var(--sf-nav-text)" }}>
                     {socialIcons[type]}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* Navigation column */}
+            {/* Wholesale column */}
             <div>
               <h4
                 className="font-semibold text-sm uppercase tracking-wider mb-4"
-                style={{ color: "var(--sf-nav-text)" }}
+                style={{ color: "var(--sf-nav-text)", fontFamily: "var(--sf-font)" }}
               >
                 Wholesale
               </h4>
               <ul className="space-y-2.5">
-                <li>
-                  <span
-                    className="text-sm transition-opacity hover:opacity-100 cursor-default"
-                    style={{ color: mutedText }}
-                  >
-                    Catalogue
-                  </span>
-                </li>
-                <li>
-                  <span
-                    className="text-sm transition-opacity hover:opacity-100 cursor-default"
-                    style={{ color: mutedText }}
-                  >
-                    Apply for Account
-                  </span>
-                </li>
+                <li><span className="text-sm transition-opacity hover:opacity-100 cursor-default" style={{ color: mutedText, fontFamily: "var(--sf-font-body)" }}>Catalogue</span></li>
+                <li><span className="text-sm transition-opacity hover:opacity-100 cursor-default" style={{ color: mutedText, fontFamily: "var(--sf-font-body)" }}>Apply for Account</span></li>
               </ul>
             </div>
 
@@ -678,19 +590,12 @@ export default function DemoPreviewPage() {
             <div>
               <h4
                 className="font-semibold text-sm uppercase tracking-wider mb-4"
-                style={{ color: "var(--sf-nav-text)" }}
+                style={{ color: "var(--sf-nav-text)", fontFamily: "var(--sf-font)" }}
               >
                 Contact
               </h4>
               <ul className="space-y-2.5">
-                <li>
-                  <span
-                    className="text-sm transition-opacity hover:opacity-100 cursor-default"
-                    style={{ color: mutedText }}
-                  >
-                    Get in Touch
-                  </span>
-                </li>
+                <li><span className="text-sm transition-opacity hover:opacity-100 cursor-default" style={{ color: mutedText, fontFamily: "var(--sf-font-body)" }}>Get in Touch</span></li>
               </ul>
             </div>
           </div>
@@ -700,18 +605,12 @@ export default function DemoPreviewPage() {
             className="mt-10 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-4"
             style={{ borderColor: dividerColour }}
           >
-            <p className="text-xs" style={{ color: veryMutedText }}>
+            <p className="text-xs" style={{ color: veryMutedText, fontFamily: "var(--sf-font-body)" }}>
               &copy; {new Date().getFullYear()} {config.businessName}. All rights reserved.
             </p>
-            <p className="text-xs" style={{ color: veryMutedText }}>
+            <p className="text-xs" style={{ color: veryMutedText, fontFamily: "var(--sf-font-body)" }}>
               Powered by{" "}
-              <a
-                href="https://roasteryplatform.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline transition-opacity hover:opacity-100"
-                style={{ color: mutedText }}
-              >
+              <a href="https://roasteryplatform.com" target="_blank" rel="noopener noreferrer" className="underline transition-opacity hover:opacity-100" style={{ color: mutedText }}>
                 Roastery Platform
               </a>
             </p>
