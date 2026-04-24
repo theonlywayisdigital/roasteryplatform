@@ -207,15 +207,15 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
     slug: "calculators",
     suite: "sales",
     heroDescription:
-      "Roast loss, brew ratio, and cost-per-cup calculators built for working roasters. The maths without the spreadsheet.",
+      "Green bean prices fluctuate. Your margins shouldn't be a guessing game. The Margin Calculator works out your suggested retail and wholesale prices based on your actual green cost, roast weight loss, and target margin — then lets you push updated pricing across all your sales channels in one click.",
     includedNote: "From £39/mo",
     benefits: [
-      "Roast loss calculator — weight loss and percentage",
-      "Cost per kg roasted based on green bean cost",
-      "Brew ratio calculator for dialling in recipes",
-      "Cost per cup breakdown for retail pricing",
-      "No spreadsheets needed — results update instantly",
-      "Save calculations alongside roast logs",
+      "Calculates suggested retail and wholesale prices from your green bean cost and roast weight loss",
+      "Accounts for weight loss percentage so your cost per kg roasted is always accurate",
+      "Set your target multiplier and wholesale discount — pricing updates instantly",
+      "Push accepted pricing across your wholesale portal and connected storefronts in one click",
+      "Accept, adjust, or decline suggested prices before anything goes live",
+      "Green bean prices change — recalculate and reprice your whole catalogue in minutes",
     ],
   },
 };
