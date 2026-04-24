@@ -9,7 +9,6 @@ const footerLinks = {
     { href: "/features", label: "Features" },
     { href: "/features/sales", label: "Sales Suite" },
     { href: "/features/marketing", label: "Marketing Suite" },
-    { href: "/features/roaster-tools", label: "Roaster Tools" },
     { href: "/features/more", label: "More" },
     { href: "/pricing", label: "Pricing" },
     { href: "/partner-program", label: "Partner Program" },

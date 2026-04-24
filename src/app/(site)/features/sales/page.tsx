@@ -6,6 +6,12 @@ import {
   ShoppingCart,
   Users,
   Receipt,
+  Leaf,
+  Fire,
+  CalendarBlank,
+  Star,
+  Calculator,
+  Certificate,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -59,6 +65,48 @@ const features = [
     description:
       "Generate and send professional invoices automatically. Track payments, overdue balances, and export for your accountant.",
   },
+  {
+    title: "Green Bean Inventory",
+    href: "/features/green-bean-inventory",
+    icon: Leaf,
+    description:
+      "Track every bag of green coffee from arrival to roast. Log origins, suppliers, lot numbers, and remaining stock. Know exactly what you have and when to reorder.",
+  },
+  {
+    title: "Roast Log",
+    href: "/features/roast-log",
+    icon: Fire,
+    description:
+      "Record roast profiles, charge temperatures, development times, and batch notes. Build a searchable library of every roast your team has ever done.",
+  },
+  {
+    title: "Production Planner",
+    href: "/features/production-planner",
+    icon: CalendarBlank,
+    description:
+      "Schedule roasts against orders and capacity. See what needs roasting this week, allocate batches to orders, and avoid bottlenecks before they happen.",
+  },
+  {
+    title: "Cupping Scorecards",
+    href: "/features/cupping-scorecards",
+    icon: Star,
+    description:
+      "Score every batch with SCA-aligned cupping forms. Compare scores across origins, profiles, and roast dates. Keep quality consistent as you scale.",
+  },
+  {
+    title: "Calculators",
+    href: "/features/calculators",
+    icon: Calculator,
+    description:
+      "Roast loss calculator, brew ratio calculator, and cost-per-cup estimator. The maths your roastery needs, without the spreadsheet.",
+  },
+  {
+    title: "Certifications & Compliance",
+    href: "/features/certifications",
+    icon: Certificate,
+    description:
+      "Store and manage certifications — organic, Fairtrade, Rainforest Alliance. Track expiry dates and attach documents to supplier records.",
+  },
 ];
 
 export default function SalesSuitePage() {
@@ -72,8 +120,8 @@ export default function SalesSuitePage() {
           </h1>
           <p className="text-lg sm:text-xl text-neutral-600 max-w-2xl mx-auto mb-4">
             Everything you need to sell coffee wholesale and direct-to-consumer.
-            Manage orders, send invoices, and run your wholesale portal —
-            all from one platform.
+            Manage orders, send invoices, run your wholesale portal, and track
+            roasting and production — all from one platform.
           </p>
           <p className="text-sm font-medium text-accent">
             From £39/mo
@@ -84,7 +132,7 @@ export default function SalesSuitePage() {
       {/* Feature Cards */}
       <section className="py-16 lg:py-20 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature) => {
               const Icon = feature.icon;
               return (

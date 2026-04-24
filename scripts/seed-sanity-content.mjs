@@ -53,7 +53,7 @@ const roasterPricingPage = {
   _type: "roasterPricingPage",
   heroHeadline: "Simple, transparent",
   heroSubheadline:
-    "Sales Suite from £39/mo. Marketing Suite from £19/mo. Roaster Tools included with every plan.",
+    "Sales Suite from £39/mo. Marketing Suite from £19/mo. Production tools included with every plan.",
   faqTitle: "Frequently asked questions",
   ctaHeadline: "Start your free trial today.",
   ctaDescription:
@@ -157,7 +157,7 @@ const roasterProductsCarousel = {
       label: "Sales Suite",
       tagline: "Sell wholesale and direct — from one dashboard",
       description:
-        "Manage your products, track every order, handle wholesale accounts, send invoices, and get paid automatically. From £39/mo.",
+        "Manage your products, track every order, handle wholesale accounts, send invoices, and get paid automatically. Roasting and production tools included. From £39/mo.",
       features: [
         {
           _key: "sales-f1",
@@ -182,6 +182,38 @@ const roasterProductsCarousel = {
           description:
             "Generate and send professional invoices. Track payments and export for your accountant.",
           href: "/features/invoices",
+        },
+        {
+          _key: "sales-f4",
+          icon: "leaf",
+          title: "Green Bean Inventory",
+          description:
+            "Track every bag of green coffee from arrival to roast. Origins, suppliers, and stock levels.",
+          href: "/features/green-bean-inventory",
+        },
+        {
+          _key: "sales-f5",
+          icon: "fire",
+          title: "Roast Log",
+          description:
+            "Record profiles, temperatures, development times, and batch notes.",
+          href: "/features/roast-log",
+        },
+        {
+          _key: "sales-f6",
+          icon: "star",
+          title: "Cupping Scorecards",
+          description:
+            "SCA-aligned scoring. Compare batches across origins, profiles, and dates.",
+          href: "/features/cupping-scorecards",
+        },
+        {
+          _key: "sales-f7",
+          icon: "calculator",
+          title: "Calculators",
+          description:
+            "Roast loss, brew ratio, and cost-per-cup. The maths without the spreadsheet.",
+          href: "/features/calculators",
         },
       ],
     },
@@ -212,64 +244,30 @@ const roasterProductsCarousel = {
       ],
     },
     {
-      _key: "roaster-tools",
-      key: "roaster-tools",
-      label: "Roaster Tools",
-      tagline: "The tools your roastery actually needs",
-      description:
-        "Green bean inventory, roast logging, cupping scorecards, and calculators — built for working roasters. Included with Sales Suite.",
-      features: [
-        {
-          _key: "rt-f1",
-          icon: "leaf",
-          title: "Green Bean Inventory",
-          description:
-            "Track every bag of green coffee from arrival to roast. Origins, suppliers, and stock levels.",
-          href: "/features/roaster-tools",
-        },
-        {
-          _key: "rt-f2",
-          icon: "fire",
-          title: "Roast Log",
-          description:
-            "Record profiles, temperatures, development times, and batch notes.",
-          href: "/features/roaster-tools",
-        },
-        {
-          _key: "rt-f3",
-          icon: "star",
-          title: "Cupping Scorecards",
-          description:
-            "SCA-aligned scoring. Compare batches across origins, profiles, and dates.",
-          href: "/features/roaster-tools",
-        },
-        {
-          _key: "rt-f4",
-          icon: "calculator",
-          title: "Calculators",
-          description:
-            "Roast loss, brew ratio, and cost-per-cup. The maths without the spreadsheet.",
-          href: "/features/roaster-tools",
-        },
-      ],
-    },
-    {
-      _key: "more",
-      key: "more",
-      label: "More",
-      tagline: "Everything else your roastery needs",
+      _key: "platform",
+      key: "platform",
+      label: "Platform",
+      tagline: "Everything else, built in",
       description:
         "Dashboard, analytics, inbox, integrations, help centre, and AI-powered tools. Included with every plan.",
       features: [
         {
-          _key: "more-f1",
+          _key: "platform-f1",
           icon: "squares-four",
           title: "Dashboard",
           description: "Orders, stock, revenue and activity at a glance.",
           href: "/features/dashboard",
         },
         {
-          _key: "more-f2",
+          _key: "platform-f2",
+          icon: "chart-line",
+          title: "Analytics",
+          description:
+            "Track performance across sales, customers and marketing in one place.",
+          href: "/features/analytics",
+        },
+        {
+          _key: "platform-f3",
           icon: "tray",
           title: "Inbox",
           description:
@@ -277,7 +275,7 @@ const roasterProductsCarousel = {
           href: "/features/inbox",
         },
         {
-          _key: "more-f3",
+          _key: "platform-f4",
           icon: "plugs",
           title: "Integrations",
           description:
@@ -285,7 +283,7 @@ const roasterProductsCarousel = {
           href: "/features/integrations",
         },
         {
-          _key: "more-f4",
+          _key: "platform-f5",
           icon: "robot",
           title: "AI",
           description:
@@ -300,11 +298,11 @@ const roasterProductsCarousel = {
 // ── 5. siteSettings (update existing) ──────────────────────
 const siteSettingsPatch = {
   tagline:
-    "The all-in-one platform for coffee roasters. Sales, marketing, and roaster tools.",
+    "The all-in-one platform for coffee roasters. Sales, marketing, and production tools.",
   defaultSeoTitle:
     "Roastery Platform — The All-in-One Platform for Coffee Roasters",
   defaultSeoDescription:
-    "Everything you need to sell more coffee. Wholesale, marketing, roaster tools — one platform, one login.",
+    "Everything you need to sell more coffee. Wholesale, marketing, production tools — one platform, one login.",
 };
 
 // ── 6. roastersPageSettings (update existing) ──────────────
@@ -312,7 +310,7 @@ const roastersPageSettingsPatch = {
   heroHeadline:
     "The all-in-one platform built for coffee roasters. Market. Sell. Manage.",
   heroSubheadline:
-    "Storefront, wholesale, marketing, roaster tools, and website builder — one platform, one login. Free to start.",
+    "Storefront, wholesale, marketing, production tools, and website builder — one platform, one login. Free to start.",
   heroCta: "Get started free",
   videoSectionTitle: "See the platform in action",
   videoSectionSubtitle: "2 minute overview",
@@ -320,10 +318,10 @@ const roastersPageSettingsPatch = {
     "Stop stitching together Shopify, Mailchimp, and spreadsheets",
   ctaStrip1Subtitle:
     "One platform for sales, marketing, and production. Start your free trial today.",
-  toolsSectionTitle: "Four products.",
+  toolsSectionTitle: "Three products.",
   toolsSectionSubtitle: "One platform.",
   toolsSectionDescription:
-    "Sales, marketing, roaster tools, and more. Each works on its own. Together they replace the stack of apps you're paying for.",
+    "Sales, marketing, and platform tools. Each works on its own. Together they replace the stack of apps you're paying for.",
   ctaStrip2Headline: "Plans that grow with your business.",
   ctaStrip2Subtitle: "No lock-in. Cancel any time. 14-day free trial.",
   caseStudiesSectionTitle: "Roasters using the",
@@ -377,9 +375,9 @@ const pricingFaqs = [
   {
     _id: "faq-pricing-1",
     _type: "faq",
-    question: "What is Roaster Tools?",
+    question: "What production tools are included?",
     answer:
-      "Roaster Tools is a suite of production tools — green bean inventory, roast log, cupping scorecards, production planner, and calculators — included with every Sales Suite plan at no extra cost.",
+      "Every Sales Suite plan includes production tools at no extra cost — green bean inventory, roast log, cupping scorecards, production planner, calculators, and certifications tracking.",
     category: "roaster-pricing",
     order: 1,
   },
@@ -397,7 +395,7 @@ const pricingFaqs = [
     _type: "faq",
     question: "Is the Marketing Suite required?",
     answer:
-      "No. The Marketing Suite is an optional add-on. You can use the Sales Suite and Roaster Tools without it.",
+      "No. The Marketing Suite is an optional add-on. You can use the Sales Suite and its production tools without it.",
     category: "roaster-pricing",
     order: 3,
   },
@@ -428,7 +426,7 @@ const featuresFaqs = [
     _type: "faq",
     question: "Are all features included on every plan?",
     answer:
-      "Every plan includes the full Sales Suite, Roaster Tools, and access to the Marketplace. The Marketing Suite is an optional add-on starting at £19/mo.",
+      "Every plan includes the full Sales Suite with production and roasting tools (included in Sales Suite), and access to the Marketplace. The Marketing Suite is an optional add-on starting at £19/mo.",
     category: "roaster-features",
     order: 1,
   },

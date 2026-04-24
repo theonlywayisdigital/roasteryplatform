@@ -137,7 +137,7 @@ export default async function RoastersHomePage() {
     name: "Roastery Platform",
     url: "https://roasteryplatform.com",
     description:
-      "The all-in-one platform for coffee roasters. Sales, marketing, and roaster tools.",
+      "The all-in-one platform for coffee roasters. Sales, marketing, and production tools.",
     address: {
       "@type": "PostalAddress",
       addressCountry: "GB",
@@ -154,7 +154,7 @@ export default async function RoastersHomePage() {
       "@type": "Offer",
       price: "39",
       priceCurrency: "GBP",
-      description: "Sales Suite from £39/month. Marketing Suite from £19/month. Roaster Tools included.",
+      description: "Sales Suite from £39/month. Marketing Suite from £19/month. Production tools included.",
     },
     description:
       "Sell coffee wholesale and direct-to-consumer, manage marketing, and track roasts — one platform.",
@@ -271,7 +271,7 @@ export default async function RoastersHomePage() {
               <span className="text-accent">{settings?.toolsSectionSubtitle ?? "Built for how roasters actually work."}</span>
             </h2>
             <p className="mt-4 text-lg text-neutral-600 max-w-2xl mx-auto">
-              {settings?.toolsSectionDescription ?? "Sales Suite is the core. Roaster Tools come with it. Marketing is the add-on when you're ready to grow."}
+              {settings?.toolsSectionDescription ?? "Sales Suite is the core. Roasting tools included. Marketing is the add-on when you're ready to grow."}
             </p>
           </div>
           <ProductsCarousel cms={carouselCms} />

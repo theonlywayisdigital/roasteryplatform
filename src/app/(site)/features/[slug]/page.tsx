@@ -13,14 +13,12 @@ const PLATFORM_URL = "https://app.roasteryplatform.com";
 const suiteLabelMap: Record<string, string> = {
   sales: "Sales Suite",
   marketing: "Marketing Suite",
-  "roaster-tools": "Roaster Tools",
   more: "More",
 };
 
 const suitePriceLabel: Record<string, string> = {
   sales: "From £39/mo",
   marketing: "From £19/mo",
-  "roaster-tools": "Included",
   more: "Included",
 };
 
@@ -137,10 +135,10 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
   "green-bean-inventory": {
     featureTitle: "Green Bean Inventory",
     slug: "green-bean-inventory",
-    suite: "roaster-tools",
+    suite: "sales",
     heroDescription:
       "Track every bag of green coffee from arrival to roast. Log origins, suppliers, weights, and costs — your inventory starts here.",
-    includedNote: "Included with Sales Suite",
+    includedNote: "From £39/mo",
     benefits: [
       "Log every delivery with origin, weight, and cost per kg",
       "Track current stock levels in real time",
@@ -153,10 +151,10 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
   "roast-log": {
     featureTitle: "Roast Log",
     slug: "roast-log",
-    suite: "roaster-tools",
+    suite: "sales",
     heroDescription:
       "Record every roast with green and roasted weights, weight loss percentage, and batch notes. Your green stock adjusts automatically.",
-    includedNote: "Included with Sales Suite",
+    includedNote: "From £39/mo",
     benefits: [
       "Log green weight in, roasted weight out",
       "Automatic weight loss percentage calculation",
@@ -169,10 +167,10 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
   "production-planner": {
     featureTitle: "Production Planner",
     slug: "production-planner",
-    suite: "roaster-tools",
+    suite: "sales",
     heroDescription:
       "Plan your roasting schedule for the week ahead. Assign batches to days, track capacity, and fulfil orders on time.",
-    includedNote: "Included with Sales Suite",
+    includedNote: "From £39/mo",
     benefits: [
       "Weekly calendar view of planned roasts",
       "Assign roast batches to specific days",
@@ -185,10 +183,10 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
   "cupping-scorecards": {
     featureTitle: "Cupping Scorecards",
     slug: "cupping-scorecards",
-    suite: "roaster-tools",
+    suite: "sales",
     heroDescription:
       "Score every batch with SCA-aligned cupping scorecards. Compare across origins, profiles, and dates to maintain quality.",
-    includedNote: "Included with Sales Suite",
+    includedNote: "From £39/mo",
     benefits: [
       "SCA-aligned scoring for aroma, flavour, aftertaste, acidity, body, and overall",
       "Automatic total score calculation",
@@ -201,10 +199,10 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
   calculators: {
     featureTitle: "Calculators",
     slug: "calculators",
-    suite: "roaster-tools",
+    suite: "sales",
     heroDescription:
       "Roast loss, brew ratio, and cost-per-cup calculators built for working roasters. The maths without the spreadsheet.",
-    includedNote: "Included with Sales Suite",
+    includedNote: "From £39/mo",
     benefits: [
       "Roast loss calculator — weight loss and percentage",
       "Cost per kg roasted based on green bean cost",
@@ -217,10 +215,10 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
   certifications: {
     featureTitle: "Certifications & Compliance",
     slug: "certifications",
-    suite: "roaster-tools",
+    suite: "sales",
     heroDescription:
       "Track your certifications in one place. See expiry dates at a glance and never miss a renewal deadline.",
-    includedNote: "Included with Sales Suite",
+    includedNote: "From £39/mo",
     benefits: [
       "Store all certifications in one place — Organic, Fairtrade, Rainforest Alliance, and more",
       "Expiry date tracking with clear valid/expired status",

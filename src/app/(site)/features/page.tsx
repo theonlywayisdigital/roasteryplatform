@@ -18,7 +18,6 @@ import {
   Star,
   Calculator,
   Certificate,
-  Wrench,
   SquaresFour,
   ChartLine,
   Tray,
@@ -111,40 +110,6 @@ const salesFeatures: DefaultFeature[] = [
       "Generate and send professional invoices. Track payments and export for your accountant.",
     href: "/features/invoices",
   },
-];
-
-const marketingFeatures: DefaultFeature[] = [
-  {
-    icon: <Calendar size={28} weight="duotone" />,
-    title: "Content Calendar",
-    description:
-      "Plan, create, and schedule all your content from a single calendar view.",
-    href: "/features/content-calendar",
-  },
-  {
-    icon: <Envelope size={28} weight="duotone" />,
-    title: "Email Campaigns",
-    description:
-      "Design and send beautiful email campaigns. Segmentation and analytics built in.",
-    href: "/features/email-campaigns",
-  },
-  {
-    icon: <ShareNetwork size={28} weight="duotone" />,
-    title: "Social Scheduling",
-    description:
-      "Plan, create, and schedule social media posts across Instagram, Facebook, and LinkedIn.",
-    href: "/features/social-scheduling",
-  },
-  {
-    icon: <Code size={28} weight="duotone" />,
-    title: "Embedded Forms",
-    description:
-      "Capture leads and grow your audience with embeddable signup and contact forms.",
-    href: "/features/embedded-forms",
-  },
-];
-
-const roasterToolsFeatures: DefaultFeature[] = [
   {
     icon: <Leaf size={28} weight="duotone" />,
     title: "Green Bean Inventory",
@@ -186,6 +151,37 @@ const roasterToolsFeatures: DefaultFeature[] = [
     description:
       "Manage organic, Fairtrade, and Rainforest Alliance certifications. Track expiry dates and documents.",
     href: "/features/certifications",
+  },
+];
+
+const marketingFeatures: DefaultFeature[] = [
+  {
+    icon: <Calendar size={28} weight="duotone" />,
+    title: "Content Calendar",
+    description:
+      "Plan, create, and schedule all your content from a single calendar view.",
+    href: "/features/content-calendar",
+  },
+  {
+    icon: <Envelope size={28} weight="duotone" />,
+    title: "Email Campaigns",
+    description:
+      "Design and send beautiful email campaigns. Segmentation and analytics built in.",
+    href: "/features/email-campaigns",
+  },
+  {
+    icon: <ShareNetwork size={28} weight="duotone" />,
+    title: "Social Scheduling",
+    description:
+      "Plan, create, and schedule social media posts across Instagram, Facebook, and LinkedIn.",
+    href: "/features/social-scheduling",
+  },
+  {
+    icon: <Code size={28} weight="duotone" />,
+    title: "Embedded Forms",
+    description:
+      "Capture leads and grow your audience with embeddable signup and contact forms.",
+    href: "/features/embedded-forms",
   },
 ];
 
@@ -397,36 +393,6 @@ export default async function FeaturesPage() {
               className="inline-flex items-center text-accent font-semibold hover:underline"
             >
               View all Marketing Suite features
-              <ArrowRight size={20} weight="duotone" className="ml-2" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Roaster Tools ─────────────────────────────────────── */}
-      <section className="py-16 lg:py-24 bg-neutral-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-black text-neutral-900 mb-3">
-              Roaster Tools
-            </h2>
-            <p className="text-neutral-500 text-lg">
-              Included with Sales Suite
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {roasterToolsFeatures.map((feature) => (
-              <FeatureCard key={feature.title} feature={feature} />
-            ))}
-          </div>
-
-          <div className="text-center mt-10">
-            <Link
-              href="/features/roaster-tools"
-              className="inline-flex items-center text-accent font-semibold hover:underline"
-            >
-              View all Roaster Tools
               <ArrowRight size={20} weight="duotone" className="ml-2" />
             </Link>
           </div>

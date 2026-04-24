@@ -15,6 +15,7 @@ import {
   Star,
   Calculator,
   SquaresFour,
+  ChartLine,
   Tray,
   Plugs,
   Robot,
@@ -22,14 +23,12 @@ import {
 import { cn } from "@/lib/utils";
 import { SalesSuiteAnimation } from "@/components/feature-animations/SalesSuiteAnimation";
 import { MarketingSuiteAnimation } from "@/components/feature-animations/MarketingSuiteAnimation";
-import { RoasterToolsAnimation } from "@/components/feature-animations/RoasterToolsAnimation";
 import { MoreAnimation } from "@/components/feature-animations/MoreAnimation";
 
 const ANIMATION_MAP: Record<string, React.ComponentType<{ isActive: boolean }>> = {
   sales: SalesSuiteAnimation,
   marketing: MarketingSuiteAnimation,
-  "roaster-tools": RoasterToolsAnimation,
-  more: MoreAnimation,
+  platform: MoreAnimation,
 };
 
 interface CarouselCmsData {
@@ -46,7 +45,7 @@ const suites = [
     label: "Sales Suite",
     tagline: "Sell wholesale and direct — from one dashboard",
     description:
-      "Manage your products, track every order, handle wholesale accounts, send invoices, and get paid automatically. From £39/mo.",
+      "Manage your products, track every order, handle wholesale accounts, send invoices, and get paid automatically. Roasting and production tools included. From £39/mo.",
     allHref: "/features/sales",
     features: [
       {
@@ -66,6 +65,30 @@ const suites = [
         title: "Invoices",
         desc: "Generate and send professional invoices. Track payments and export for your accountant.",
         href: "/features/invoices",
+      },
+      {
+        icon: Leaf,
+        title: "Green Bean Inventory",
+        desc: "Track every bag of green coffee from arrival to roast. Origins, suppliers, and stock levels.",
+        href: "/features/green-bean-inventory",
+      },
+      {
+        icon: Fire,
+        title: "Roast Log",
+        desc: "Record profiles, temperatures, development times, and batch notes.",
+        href: "/features/roast-log",
+      },
+      {
+        icon: Star,
+        title: "Cupping Scorecards",
+        desc: "SCA-aligned scoring. Compare batches across origins, profiles, and dates.",
+        href: "/features/cupping-scorecards",
+      },
+      {
+        icon: Calculator,
+        title: "Calculators",
+        desc: "Roast loss, brew ratio, and cost-per-cup. The maths without the spreadsheet.",
+        href: "/features/calculators",
       },
     ],
   },
@@ -92,43 +115,9 @@ const suites = [
     ],
   },
   {
-    key: "roaster-tools",
-    label: "Roaster Tools",
-    tagline: "The tools your roastery actually needs",
-    description:
-      "Green bean inventory, roast logging, cupping scorecards, and calculators — built for working roasters. Included with Sales Suite.",
-    allHref: "/features/roaster-tools",
-    features: [
-      {
-        icon: Leaf,
-        title: "Green Bean Inventory",
-        desc: "Track every bag of green coffee from arrival to roast. Origins, suppliers, and stock levels.",
-        href: "/features/roaster-tools",
-      },
-      {
-        icon: Fire,
-        title: "Roast Log",
-        desc: "Record profiles, temperatures, development times, and batch notes.",
-        href: "/features/roaster-tools",
-      },
-      {
-        icon: Star,
-        title: "Cupping Scorecards",
-        desc: "SCA-aligned scoring. Compare batches across origins, profiles, and dates.",
-        href: "/features/roaster-tools",
-      },
-      {
-        icon: Calculator,
-        title: "Calculators",
-        desc: "Roast loss, brew ratio, and cost-per-cup. The maths without the spreadsheet.",
-        href: "/features/roaster-tools",
-      },
-    ],
-  },
-  {
-    key: "more",
-    label: "More",
-    tagline: "Everything else your roastery needs",
+    key: "platform",
+    label: "Platform",
+    tagline: "Everything else, built in",
     description:
       "Dashboard, analytics, inbox, integrations, help centre, and AI-powered tools. Included with every plan.",
     allHref: "/features/more",
@@ -138,6 +127,12 @@ const suites = [
         title: "Dashboard",
         desc: "Orders, stock, revenue and activity at a glance.",
         href: "/features/dashboard",
+      },
+      {
+        icon: ChartLine,
+        title: "Analytics",
+        desc: "Track performance across sales, customers and marketing in one place.",
+        href: "/features/analytics",
       },
       {
         icon: Tray,
@@ -179,7 +174,7 @@ export function ProductsCarousel({ cms }: { cms?: CarouselCmsData }) {
     <div ref={sectionRef}>
       {/* Toggle tabs */}
       <div className="flex justify-center mb-12">
-        <div className="grid grid-cols-4 sm:inline-flex rounded-lg border border-neutral-200 p-1 bg-neutral-50 w-full sm:w-auto">
+        <div className="grid grid-cols-3 sm:inline-flex rounded-lg border border-neutral-200 p-1 bg-neutral-50 w-full sm:w-auto">
           {resolvedSuites.map((suite, i) => (
             <button
               key={suite.key}

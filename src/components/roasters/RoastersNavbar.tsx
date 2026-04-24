@@ -23,10 +23,12 @@ import {
   Newspaper,
   ShoppingBag,
   ClipboardText,
-  Wrench,
   Leaf,
   Fire,
   CalendarBlank,
+  Star,
+  Calculator,
+  Certificate,
   Tray,
   Plugs,
   Robot,
@@ -75,12 +77,28 @@ const productsSections = [
     badge: null,
     priceLabel: "From £39/mo",
     allHref: "/features/sales",
+    hideAllLink: true,
     mobileIcon: ShoppingBag,
-    mobileDesc: "Wholesale portal, order tracking, invoicing and CRM. Everything that runs your sales.",
+    mobileDesc: "Wholesale portal, order tracking, invoicing, roasting tools and production planning.",
     items: [
       { icon: ClipboardText, label: "Order Tracking", desc: "Track every order from roast to doorstep", href: "/features/order-tracking" },
       { icon: ShoppingCart, label: "Wholesale", desc: "Manage wholesale accounts and orders", href: "/features/wholesale" },
       { icon: Receipt, label: "Invoicing", desc: "Automated invoicing and payment tracking", href: "/features/invoices", tierBadge: "Pro" as const },
+    ],
+  },
+  {
+    title: "Roasting & Production",
+    badge: null,
+    allHref: "/features/sales",
+    mobileIcon: Fire,
+    mobileDesc: "Green bean inventory, roast log, production planner & cupping",
+    items: [
+      { icon: Leaf, label: "Green Bean Inventory", desc: "Track every bag from arrival to roast", href: "/features/green-bean-inventory" },
+      { icon: Fire, label: "Roast Log", desc: "Record profiles, curves and notes", href: "/features/roast-log" },
+      { icon: CalendarBlank, label: "Production Planner", desc: "Schedule roasts and manage capacity", href: "/features/production-planner" },
+      { icon: Star, label: "Cupping Scorecards", desc: "SCA-aligned scoring for every batch", href: "/features/cupping-scorecards" },
+      { icon: Calculator, label: "Calculators", desc: "Roast loss, brew ratio & cost-per-cup", href: "/features/calculators" },
+      { icon: Certificate, label: "Certifications", desc: "Track organic, Fairtrade & more", href: "/features/certifications" },
     ],
   },
   {
@@ -94,18 +112,6 @@ const productsSections = [
       { icon: Envelope, label: "Email Campaigns", desc: "Beautiful emails that drive repeat orders", href: "/features/email-campaigns" },
       { icon: ShareNetwork, label: "Social Scheduling", desc: "Plan and publish across all channels", href: "/features/social-scheduling" },
       { icon: CalendarBlank, label: "Content Calendar", desc: "Plan campaigns across every channel", href: "/features/content-calendar" },
-    ],
-  },
-  {
-    title: "Roaster Tools",
-    badge: "Included",
-    allHref: "/features/roaster-tools",
-    mobileIcon: Wrench,
-    mobileDesc: "Green bean inventory, roast log & cupping",
-    items: [
-      { icon: Leaf, label: "Green Bean Inventory", desc: "Track every bag from arrival to roast", href: "/features/green-bean-inventory" },
-      { icon: Fire, label: "Roast Log", desc: "Record profiles, curves and notes", href: "/features/roast-log" },
-      { icon: CalendarBlank, label: "Production Planner", desc: "Schedule roasts and manage capacity", href: "/features/production-planner" },
     ],
   },
   {
@@ -476,7 +482,7 @@ export function RoastersNavbar() {
                             />
                           ))}
                         </div>
-                        {!("comingSoon" in section && section.comingSoon) && (
+                        {!("comingSoon" in section && section.comingSoon) && section.allHref && !("hideAllLink" in section && section.hideAllLink) && (
                           <Link
                             href={section.allHref}
                             onClick={handleNavClick}
