@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
 import {
+  Star,
   SquaresFour,
   ChartLine,
   Tray,
@@ -25,6 +26,13 @@ export const metadata: Metadata = {
 const PLATFORM_URL = "https://app.roasteryplatform.com";
 
 const features = [
+  {
+    title: "Cupping Scorecards",
+    href: "/features/cupping-scorecards",
+    icon: Star,
+    description:
+      "Score every batch with SCA-aligned cupping forms. Compare scores across origins, profiles, and roast dates.",
+  },
   {
     title: "Dashboard",
     href: "/features/dashboard",
@@ -61,7 +69,7 @@ const features = [
       "Embedded help documentation available inside the platform whenever your team needs it.",
   },
   {
-    title: "AI",
+    title: "Beans AI",
     href: "/features/ai",
     icon: Robot,
     description:

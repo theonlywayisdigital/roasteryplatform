@@ -9,11 +9,11 @@ import {
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://roasteryplatform.com";
 
-  // Hardcoded feature detail slugs (roaster-tools + more categories not in Sanity)
+  // Hardcoded feature detail slugs (sales + more categories not in Sanity)
   const hardcodedFeatureSlugs = [
     "dashboard", "analytics", "inbox", "integrations", "help-center", "ai",
-    "green-bean-inventory", "roast-log", "production-planner",
-    "cupping-scorecards", "calculators", "certifications",
+    "inventory-tracking", "roast-log", "production-planner",
+    "cupping-scorecards", "calculators",
   ];
 
   // Static pages

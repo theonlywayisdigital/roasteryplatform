@@ -9,9 +9,7 @@ import {
   Leaf,
   Fire,
   CalendarBlank,
-  Star,
   Calculator,
-  Certificate,
   ArrowRight,
 } from "@phosphor-icons/react/dist/ssr";
 
@@ -66,11 +64,11 @@ const features = [
       "Generate and send professional invoices automatically. Track payments, overdue balances, and export for your accountant.",
   },
   {
-    title: "Green Bean Inventory",
-    href: "/features/green-bean-inventory",
+    title: "Inventory Tracking",
+    href: "/features/inventory-tracking",
     icon: Leaf,
     description:
-      "Track every bag of green coffee from arrival to roast. Log origins, suppliers, lot numbers, and remaining stock. Know exactly what you have and when to reorder.",
+      "Track every gram from green bean intake through roasting to finished product. Green stock, roasted stock and products — all linked, all up to date.",
   },
   {
     title: "Roast Log",
@@ -87,25 +85,11 @@ const features = [
       "Schedule roasts against orders and capacity. See what needs roasting this week, allocate batches to orders, and avoid bottlenecks before they happen.",
   },
   {
-    title: "Cupping Scorecards",
-    href: "/features/cupping-scorecards",
-    icon: Star,
-    description:
-      "Score every batch with SCA-aligned cupping forms. Compare scores across origins, profiles, and roast dates. Keep quality consistent as you scale.",
-  },
-  {
-    title: "Calculators",
+    title: "Margin Calculator",
     href: "/features/calculators",
     icon: Calculator,
     description:
       "Roast loss calculator, brew ratio calculator, and cost-per-cup estimator. The maths your roastery needs, without the spreadsheet.",
-  },
-  {
-    title: "Certifications & Compliance",
-    href: "/features/certifications",
-    icon: Certificate,
-    description:
-      "Store and manage certifications — organic, Fairtrade, Rainforest Alliance. Track expiry dates and attach documents to supplier records.",
   },
 ];
 

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { ArrowRight, CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import { FeatureIllustration, animatedSlugs } from "@/components/feature-animations";
@@ -20,6 +20,12 @@ const suitePriceLabel: Record<string, string> = {
   sales: "From £39/mo",
   marketing: "From £19/mo",
   more: "Included",
+};
+
+/** Slugs that redirect to a different page. */
+const redirectSlugs: Record<string, string> = {
+  "green-bean-inventory": "/features/inventory-tracking",
+  certifications: "/features/sales",
 };
 
 /** Slugs that should no longer be publicly accessible. */
@@ -117,7 +123,7 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
     ],
   },
   ai: {
-    featureTitle: "AI",
+    featureTitle: "Beans AI",
     slug: "ai",
     suite: "more",
     heroDescription:
@@ -132,20 +138,20 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
       "Works across Sales Suite, Marketing Suite, and Inbox",
     ],
   },
-  "green-bean-inventory": {
-    featureTitle: "Green Bean Inventory",
-    slug: "green-bean-inventory",
+  "inventory-tracking": {
+    featureTitle: "Inventory Tracking",
+    slug: "inventory-tracking",
     suite: "sales",
     heroDescription:
-      "Track every bag of green coffee from arrival to roast. Log origins, suppliers, weights, and costs — your inventory starts here.",
+      "Track every gram from green bean intake through roasting to finished product. Green stock, roasted stock and products — all linked, all up to date.",
     includedNote: "From £39/mo",
     benefits: [
-      "Log every delivery with origin, weight, and cost per kg",
-      "Track current stock levels in real time",
-      "See which beans are running low at a glance",
-      "Link green beans directly to roast logs",
-      "Record supplier details and lot numbers",
-      "Export inventory data for accounting",
+      "Log green bean stock by origin, supplier, weight and cost",
+      "Roast batches automatically deduct green stock and create roasted stock",
+      "Products map directly to roasted stock pools",
+      "Always know exactly what you have available to sell",
+      "Weight loss calculated automatically on every roast",
+      "Full stock history from arrival to sale",
     ],
   },
   "roast-log": {
@@ -183,10 +189,10 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
   "cupping-scorecards": {
     featureTitle: "Cupping Scorecards",
     slug: "cupping-scorecards",
-    suite: "sales",
+    suite: "more",
     heroDescription:
       "Score every batch with SCA-aligned cupping scorecards. Compare across origins, profiles, and dates to maintain quality.",
-    includedNote: "From £39/mo",
+    includedNote: "Included",
     benefits: [
       "SCA-aligned scoring for aroma, flavour, aftertaste, acidity, body, and overall",
       "Automatic total score calculation",
@@ -197,7 +203,7 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
     ],
   },
   calculators: {
-    featureTitle: "Calculators",
+    featureTitle: "Margin Calculator",
     slug: "calculators",
     suite: "sales",
     heroDescription:
@@ -210,22 +216,6 @@ const fallbackFeatures: Record<string, FeatureDetail> = {
       "Cost per cup breakdown for retail pricing",
       "No spreadsheets needed — results update instantly",
       "Save calculations alongside roast logs",
-    ],
-  },
-  certifications: {
-    featureTitle: "Certifications & Compliance",
-    slug: "certifications",
-    suite: "sales",
-    heroDescription:
-      "Track your certifications in one place. See expiry dates at a glance and never miss a renewal deadline.",
-    includedNote: "From £39/mo",
-    benefits: [
-      "Store all certifications in one place — Organic, Fairtrade, Rainforest Alliance, and more",
-      "Expiry date tracking with clear valid/expired status",
-      "Visual alerts for expiring or expired certifications",
-      "Upload certificate documents for your records",
-      "Share compliance status with wholesale buyers",
-      "Never miss a renewal deadline again",
     ],
   },
 };
@@ -290,6 +280,7 @@ export default async function FeatureDetailPage({
   const { slug } = await params;
 
   if (hiddenSlugs.has(slug)) notFound();
+  if (redirectSlugs[slug]) redirect(redirectSlugs[slug]);
 
   const detail =
     (await client

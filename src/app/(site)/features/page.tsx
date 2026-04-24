@@ -17,7 +17,6 @@ import {
   CalendarBlank,
   Star,
   Calculator,
-  Certificate,
   SquaresFour,
   ChartLine,
   Tray,
@@ -112,10 +111,10 @@ const salesFeatures: DefaultFeature[] = [
   },
   {
     icon: <Leaf size={28} weight="duotone" />,
-    title: "Green Bean Inventory",
+    title: "Inventory Tracking",
     description:
-      "Track green coffee from arrival to roast. Origins, suppliers, lot numbers, and remaining stock.",
-    href: "/features/green-bean-inventory",
+      "Track every gram from green bean intake through roasting to finished product. Green stock, roasted stock and products — all linked.",
+    href: "/features/inventory-tracking",
   },
   {
     icon: <Fire size={28} weight="duotone" />,
@@ -132,25 +131,11 @@ const salesFeatures: DefaultFeature[] = [
     href: "/features/production-planner",
   },
   {
-    icon: <Star size={28} weight="duotone" />,
-    title: "Cupping Scorecards",
-    description:
-      "SCA-aligned cupping forms. Compare scores across origins, profiles, and roast dates.",
-    href: "/features/cupping-scorecards",
-  },
-  {
     icon: <Calculator size={28} weight="duotone" />,
-    title: "Calculators",
+    title: "Margin Calculator",
     description:
       "Roast loss, brew ratio, and cost-per-cup calculators. The maths without the spreadsheet.",
     href: "/features/calculators",
-  },
-  {
-    icon: <Certificate size={28} weight="duotone" />,
-    title: "Certifications",
-    description:
-      "Manage organic, Fairtrade, and Rainforest Alliance certifications. Track expiry dates and documents.",
-    href: "/features/certifications",
   },
 ];
 
@@ -186,6 +171,13 @@ const marketingFeatures: DefaultFeature[] = [
 ];
 
 const moreFeatures: DefaultFeature[] = [
+  {
+    icon: <Star size={28} weight="duotone" />,
+    title: "Cupping Scorecards",
+    description:
+      "SCA-aligned cupping forms. Compare scores across origins, profiles, and roast dates.",
+    href: "/features/cupping-scorecards",
+  },
   {
     icon: <SquaresFour size={28} weight="duotone" />,
     title: "Dashboard",
@@ -223,7 +215,7 @@ const moreFeatures: DefaultFeature[] = [
   },
   {
     icon: <Robot size={28} weight="duotone" />,
-    title: "AI",
+    title: "Beans AI",
     description:
       "AI-powered tools across the platform. Generate campaigns, write product descriptions, and convert emails into orders automatically.",
     href: "/features/ai",

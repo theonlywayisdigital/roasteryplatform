@@ -33,6 +33,7 @@ const animationMap: Record<string, React.ComponentType> = {
   "content-calendar": ContentCalendarAnimation,
   "embedded-forms": EmbeddedFormsAnimation,
   "green-bean-inventory": GreenBeanInventoryAnimation,
+  "inventory-tracking": GreenBeanInventoryAnimation,
   "roast-log": RoastLogAnimation,
   "production-planner": ProductionPlannerAnimation,
   "cupping-scorecards": CuppingScorecardsAnimation,

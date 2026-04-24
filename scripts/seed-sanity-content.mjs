@@ -186,10 +186,10 @@ const roasterProductsCarousel = {
         {
           _key: "sales-f4",
           icon: "leaf",
-          title: "Green Bean Inventory",
+          title: "Inventory Tracking",
           description:
-            "Track every bag of green coffee from arrival to roast. Origins, suppliers, and stock levels.",
-          href: "/features/green-bean-inventory",
+            "Track every gram from green bean intake through roasting to finished product.",
+          href: "/features/inventory-tracking",
         },
         {
           _key: "sales-f5",
@@ -201,16 +201,8 @@ const roasterProductsCarousel = {
         },
         {
           _key: "sales-f6",
-          icon: "star",
-          title: "Cupping Scorecards",
-          description:
-            "SCA-aligned scoring. Compare batches across origins, profiles, and dates.",
-          href: "/features/cupping-scorecards",
-        },
-        {
-          _key: "sales-f7",
           icon: "calculator",
-          title: "Calculators",
+          title: "Margin Calculator",
           description:
             "Roast loss, brew ratio, and cost-per-cup. The maths without the spreadsheet.",
           href: "/features/calculators",
@@ -285,7 +277,7 @@ const roasterProductsCarousel = {
         {
           _key: "platform-f5",
           icon: "robot",
-          title: "AI",
+          title: "Beans AI",
           description:
             "Generate campaigns, write descriptions, and extract orders automatically.",
           href: "/features/ai",
@@ -377,7 +369,7 @@ const pricingFaqs = [
     _type: "faq",
     question: "What production tools are included?",
     answer:
-      "Every Sales Suite plan includes production tools at no extra cost — green bean inventory, roast log, cupping scorecards, production planner, calculators, and certifications tracking.",
+      "Every Sales Suite plan includes production tools at no extra cost — inventory tracking, roast log, production planner, margin calculator, and cupping scorecards.",
     category: "roaster-pricing",
     order: 1,
   },

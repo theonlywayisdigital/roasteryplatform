@@ -24,11 +24,8 @@ import {
   ShoppingBag,
   ClipboardText,
   Leaf,
-  Fire,
   CalendarBlank,
-  Star,
   Calculator,
-  Certificate,
   Tray,
   Plugs,
   Robot,
@@ -77,9 +74,8 @@ const productsSections = [
     badge: null,
     priceLabel: "From £39/mo",
     allHref: "/features/sales",
-    hideAllLink: true,
     mobileIcon: ShoppingBag,
-    mobileDesc: "Wholesale portal, order tracking, invoicing, roasting tools and production planning.",
+    mobileDesc: "Wholesale portal, order tracking, invoicing, inventory and production planning.",
     items: [
       { icon: ClipboardText, label: "Order Tracking", desc: "Track every order from roast to doorstep", href: "/features/order-tracking" },
       { icon: ShoppingCart, label: "Wholesale", desc: "Manage wholesale accounts and orders", href: "/features/wholesale" },
@@ -87,18 +83,17 @@ const productsSections = [
     ],
   },
   {
-    title: "Roasting & Production",
+    title: "",
     badge: null,
     allHref: "/features/sales",
-    mobileIcon: Fire,
-    mobileDesc: "Green bean inventory, roast log, production planner & cupping",
+    allLinkLabel: "All Sales Suite features",
+    mobileIcon: Leaf,
+    mobileDesc: "Inventory tracking, production planning & margin calculator",
+    mobileTitle: "Production",
     items: [
-      { icon: Leaf, label: "Green Bean Inventory", desc: "Track every bag from arrival to roast", href: "/features/green-bean-inventory" },
-      { icon: Fire, label: "Roast Log", desc: "Record profiles, curves and notes", href: "/features/roast-log" },
+      { icon: Leaf, label: "Inventory Tracking", desc: "Green bean to roasted product, fully linked", href: "/features/inventory-tracking" },
       { icon: CalendarBlank, label: "Production Planner", desc: "Schedule roasts and manage capacity", href: "/features/production-planner" },
-      { icon: Star, label: "Cupping Scorecards", desc: "SCA-aligned scoring for every batch", href: "/features/cupping-scorecards" },
-      { icon: Calculator, label: "Calculators", desc: "Roast loss, brew ratio & cost-per-cup", href: "/features/calculators" },
-      { icon: Certificate, label: "Certifications", desc: "Track organic, Fairtrade & more", href: "/features/certifications" },
+      { icon: Calculator, label: "Margin Calculator", desc: "Roast loss, cost-per-cup & margins", href: "/features/calculators" },
     ],
   },
   {
@@ -107,7 +102,7 @@ const productsSections = [
     priceLabel: "From £19/mo",
     allHref: "/features/marketing",
     mobileIcon: Envelope,
-    mobileDesc: "Email campaigns, social scheduling & forms",
+    mobileDesc: "Email campaigns, social scheduling & content calendar",
     items: [
       { icon: Envelope, label: "Email Campaigns", desc: "Beautiful emails that drive repeat orders", href: "/features/email-campaigns" },
       { icon: ShareNetwork, label: "Social Scheduling", desc: "Plan and publish across all channels", href: "/features/social-scheduling" },
@@ -119,11 +114,11 @@ const productsSections = [
     badge: null,
     allHref: "/features/more",
     mobileIcon: DotsThree,
-    mobileDesc: "Dashboard, analytics, inbox, integrations & AI",
+    mobileDesc: "Inbox, integrations & Beans AI",
     items: [
       { icon: Tray, label: "Inbox", desc: "Convert order emails into orders", href: "/features/inbox", tierBadge: "Included" as const },
       { icon: Plugs, label: "Integrations", desc: "Shopify, WooCommerce, Wix & more", href: "/features/integrations", tierBadge: "Pro" as const },
-      { icon: Robot, label: "AI", desc: "AI-powered tools across the platform", href: "/features/ai", tierBadge: "Growth" as const },
+      { icon: Robot, label: "Beans AI", desc: "AI-powered tools across the platform", href: "/features/ai", tierBadge: "Beta" as const },
     ],
   },
 ];
@@ -279,6 +274,7 @@ const tierBadgeStyles: Record<string, string> = {
   Included: "bg-emerald-50 text-emerald-600 border-emerald-200",
   Pro: "bg-blue-50 text-blue-600 border-blue-200",
   Growth: "bg-amber-50 text-amber-600 border-amber-200",
+  Beta: "bg-purple-50 text-purple-600 border-purple-200",
 };
 
 function TierBadge({ label }: { label: string }) {
@@ -450,12 +446,14 @@ export function RoastersNavbar() {
                 <div className="flex gap-8">
                   {/* Product sections */}
                   <div className="flex-1 grid grid-cols-4 gap-8">
-                    {productsSections.map((section) => (
-                      <div key={section.title}>
-                        <div className="flex items-center mb-4">
+                    {productsSections.map((section, idx) => (
+                      <div key={section.title || `col-${idx}`}>
+                        <div className={cn("flex items-center", section.title ? "mb-4" : "mb-4 h-4")}>
+                          {section.title && (
                           <h3 className="text-xs font-semibold text-neutral-900 uppercase tracking-wider">
                             {section.title}
                           </h3>
+                          )}
                           {section.badge && <SuiteBadge label={section.badge} />}
                           {"priceLabel" in section && (section as { priceLabel?: string }).priceLabel && (
                             <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider bg-accent/10 text-accent border border-accent/20">
@@ -482,13 +480,13 @@ export function RoastersNavbar() {
                             />
                           ))}
                         </div>
-                        {!("comingSoon" in section && section.comingSoon) && section.allHref && !("hideAllLink" in section && section.hideAllLink) && (
+                        {!("comingSoon" in section && section.comingSoon) && section.allHref && (
                           <Link
                             href={section.allHref}
                             onClick={handleNavClick}
                             className="flex items-center gap-1 px-3 mt-3 text-xs font-semibold text-accent hover:underline"
                           >
-                            All {section.title} features
+                            {"allLinkLabel" in section ? (section as { allLinkLabel?: string }).allLinkLabel : `All ${section.title} features`}
                             <ArrowRight weight="duotone" size={16} />
                           </Link>
                         )}
@@ -624,7 +622,7 @@ export function RoastersNavbar() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <p className="text-sm font-semibold text-neutral-900 group-hover:text-accent transition-colors">
-                            {section.title}
+                            {"mobileTitle" in section ? (section as { mobileTitle?: string }).mobileTitle : section.title}
                           </p>
                           {section.badge && <SuiteBadge label={section.badge} />}
                           {"priceLabel" in section && (section as { priceLabel?: string }).priceLabel && (

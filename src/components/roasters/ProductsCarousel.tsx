@@ -12,7 +12,6 @@ import {
   ClipboardText,
   Leaf,
   Fire,
-  Star,
   Calculator,
   SquaresFour,
   ChartLine,
@@ -68,9 +67,9 @@ const suites = [
       },
       {
         icon: Leaf,
-        title: "Green Bean Inventory",
-        desc: "Track every bag of green coffee from arrival to roast. Origins, suppliers, and stock levels.",
-        href: "/features/green-bean-inventory",
+        title: "Inventory Tracking",
+        desc: "Track every gram from green bean intake through roasting to finished product.",
+        href: "/features/inventory-tracking",
       },
       {
         icon: Fire,
@@ -79,14 +78,8 @@ const suites = [
         href: "/features/roast-log",
       },
       {
-        icon: Star,
-        title: "Cupping Scorecards",
-        desc: "SCA-aligned scoring. Compare batches across origins, profiles, and dates.",
-        href: "/features/cupping-scorecards",
-      },
-      {
         icon: Calculator,
-        title: "Calculators",
+        title: "Margin Calculator",
         desc: "Roast loss, brew ratio, and cost-per-cup. The maths without the spreadsheet.",
         href: "/features/calculators",
       },
@@ -148,7 +141,7 @@ const suites = [
       },
       {
         icon: Robot,
-        title: "AI",
+        title: "Beans AI",
         desc: "Generate campaigns, write descriptions, and extract orders automatically.",
         href: "/features/ai",
       },
