@@ -43,7 +43,7 @@ const features = [
       "Track every order from placement to delivery with real-time status updates and customer notifications.",
   },
   {
-    title: "Wholesale",
+    title: "Wholesale Portal",
     href: "/features/wholesale",
     icon: ShoppingCart,
     description:

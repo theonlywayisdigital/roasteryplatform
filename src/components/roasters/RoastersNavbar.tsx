@@ -78,7 +78,7 @@ const productsSections = [
     mobileDesc: "Wholesale portal, order tracking, invoicing, inventory and production planning.",
     items: [
       { icon: ClipboardText, label: "Order Tracking", desc: "Track every order from roast to doorstep", href: "/features/order-tracking" },
-      { icon: ShoppingCart, label: "Wholesale", desc: "Manage wholesale accounts and orders", href: "/features/wholesale" },
+      { icon: ShoppingCart, label: "Wholesale Portal", desc: "Manage wholesale accounts and orders", href: "/features/wholesale" },
       { icon: Receipt, label: "Invoicing", desc: "Automated invoicing and payment tracking", href: "/features/invoices", tierBadge: "Pro" as const },
     ],
   },

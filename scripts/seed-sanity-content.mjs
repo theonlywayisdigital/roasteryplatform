@@ -170,7 +170,7 @@ const roasterProductsCarousel = {
         {
           _key: "sales-f2",
           icon: "shopping-cart",
-          title: "Wholesale",
+          title: "Wholesale Portal",
           description:
             "Manage wholesale accounts, custom pricing tiers, and repeat orders.",
           href: "/features/wholesale",

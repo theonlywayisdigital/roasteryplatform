@@ -55,7 +55,7 @@ const suites = [
       },
       {
         icon: ShoppingCart,
-        title: "Wholesale",
+        title: "Wholesale Portal",
         desc: "Manage wholesale accounts, custom pricing tiers, and repeat orders.",
         href: "/features/wholesale",
       },

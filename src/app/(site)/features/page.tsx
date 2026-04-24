@@ -90,7 +90,7 @@ const salesFeatures: DefaultFeature[] = [
   },
   {
     icon: <ShoppingCart size={28} weight="duotone" />,
-    title: "Wholesale",
+    title: "Wholesale Portal",
     description:
       "Manage wholesale accounts, custom pricing tiers, minimum order quantities, and repeat orders.",
     href: "/features/wholesale",
